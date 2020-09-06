@@ -17,7 +17,7 @@
 |    :---:            |     :---:               |     :---:       |
 | Ufkun Erdin         | uerdin@mail.sfsu.edu    |                 |
 | Erik Loza           | Eloza@mail.sfsu.edu     |                 |
-| Siddhi Rote         | srote@mail.sfsu.edu     |                 |
+| Siddhi Rote         | srote@mail.sfsu.edu     |     siddir20    |
 | Nicholas Handy      | nhandy@mail.sfsu.edu    |                 |
 | Mohammad Razavi     | razavi@mail.sfsu.edu    |                 |
 | Alexandre de Charry | adecharry@mail.sfsu.edu |                 |
