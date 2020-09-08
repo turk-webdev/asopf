@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 
-app.use('/assets', express.static(__dirname + '/assets')); // Serves public assets folder
 
 
 router.get('/', (req, res) => res.render('welcome'));
