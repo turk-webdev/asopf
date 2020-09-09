@@ -18,6 +18,7 @@
 
   `ssh -i "[ssh pub key]" [username]@3.134.206.193`
 
+- Username can be found in the zip folder with public and private key. Unzip the keys and specify their location on your machine when using ssh to get into the AWS server.
 - Your user has admin and sudo privileges without need for a password.
 
 #### Database Information
