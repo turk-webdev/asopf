@@ -30,3 +30,4 @@
 - MySQL Port: 3306
 - MySQL SSH Port: 22 
 - Database Name: dev
+- You can connect to the database in one line after logging into the server by `mysql -u CTO -p dev`
