@@ -25,7 +25,7 @@
 - MySQL 5.7
 - Logging into the DB
   - The database has specific user for the CTO that has full privileges
-  - Database Username: cto
+  - Database Username: CTO
   - Database Password: csc648-cto-g5!
 - MySQL Port: 3306
 - MySQL SSH Port: 22 
