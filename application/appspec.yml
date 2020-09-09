@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /application/
-    destination: /var/www/public-safety-app
+    destination: /var/www/public-safety-app/
 # hooks:
 #   BeforeInstall:
 #     - location: scripts/install_dependencies.sh
