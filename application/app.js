@@ -5,6 +5,7 @@ const app = express();
 
 app.use(express.static(__dirname + '/views'));
 app.use('/assets', express.static(__dirname + '/assets')); // Serves public assets folder
+app.set('views', [__dirname + '/views', __dirname + '/views/personal']);
 
 //EJS
 app.use(expressLayouts);
