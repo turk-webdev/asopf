@@ -5,17 +5,17 @@ services:
         build:
             context: .
         image: asopf    # the image created from the dockerfile 
-        container_name: asopf-app
+        container_name: asopf-app-dev
         restart: unless-stopped
         command: npm run dev    # replacing prod config with dev
         volumes:
             - ./:/app
-            networks:
-                - asopf
+        networks:
+            - asopf
     
     db:
         image: mysql:8.0.21
-        container_name: asopf-db
+        container_name: asopf-db-dev
         restart: unless-stopped
         environment:    # environment variables are defined in .env, look at .env.example for reference
             MYSQL_DATABASE: ${DB_DATABASE}
@@ -33,7 +33,7 @@ services:
 
     nginx:
         image: nginx:1.19.2
-        container_name: asopf-nginx
+        container_name: asopf-nginx-dev
         restart: unless-stopped
         ports:
             - "8080:80"     # map localhost:8080 to port 80 of the internal network
