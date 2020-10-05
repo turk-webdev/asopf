@@ -1,9 +1,10 @@
 version: "3.8"
+
 services:
     nodejs:
         build:
             context: .
-        image: asopf
+        image: asopf    # the image created from the dockerfile 
         container_name: asopf-app
         restart: unless-stopped
         volumes:
@@ -15,7 +16,7 @@ services:
         image: mysql:8.0.21
         container_name: asopf-db
         restart: unless-stopped
-        environment:
+        environment:    # environment variables are defined in .env, look at .env.example for reference
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             MYSQL_PASSWORD: ${DB_PASSWORD}
@@ -23,7 +24,7 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         ports:
-            - 3306:3306
+            - 3306:3306     # expose mysql port to host machine so mysql workbench can connect
         volumes:
             - mysql:/var/lib/mysql
         networks:
@@ -34,7 +35,7 @@ services:
         container_name: asopf-nginx
         restart: unless-stopped
         ports:
-            - "8080:80"
+            - "8080:80"     # map localhost:8080 to port 80 of the internal network
         volumes:
             - ./:/app
             - ./nginx-conf:/etc/nginx/conf.d
@@ -42,7 +43,7 @@ services:
             - nodejs
         networks:
             - asopf
-volumes: 
+volumes:    # define that there are configurations with custom namings
     mysql:
 networks:
     asopf:

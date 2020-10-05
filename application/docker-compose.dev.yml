@@ -1,38 +1,50 @@
 version: "3.8"
 
 services:
-    asopf:
+    nodejs:
         build:
             context: .
-        command: nodemon app.js
-        expose:
-            - "80"
-        ports:
-            - 8080:8080
-        environment:
-            # SERVER_PORT=8080
-            # DATABASE_CONECTIONSTRING=mongodb://mongo:27017/notes
+        image: asopf    # the image created from the dockerfile 
+        container_name: asopf-app
+        restart: unless-stopped
+        command: npm run dev    # replacing prod config with dev
         volumes:
             - ./:/app
-        command: npm run dev
-
-    mysql:
+            networks:
+                - asopf
+    
+    db:
         image: mysql:8.0.21
+        container_name: asopf-db
+        restart: unless-stopped
+        environment:    # environment variables are defined in .env, look at .env.example for reference
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
         ports:
-            - 3306
+            - 3306:3306     # expose mysql port to host machine so mysql workbench can connect
         volumes:
             - mysql:/var/lib/mysql
+        networks:
+            - asopf
 
     nginx:
-        build: ./nginx
-        container_name: nginx
-        restart: always
-        links:
-            - asopf
+        image: nginx:1.19.2
+        container_name: asopf-nginx
+        restart: unless-stopped
         ports:
-            - "80:80"
+            - "8080:80"     # map localhost:8080 to port 80 of the internal network
         volumes:
-            - ./etc/nginx/conf.d/server.conf:/etc/nginx/conf.d/server.conf
-        
-volumes:
+            - ./:/app
+            - ./nginx-conf:/etc/nginx/conf.d
+        depends_on:
+            - nodejs
+        networks:
+            - asopf
+volumes:    # define that there are configurations with custom namings
     mysql:
+networks:
+    asopf:
