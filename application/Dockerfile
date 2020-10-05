@@ -19,6 +19,9 @@ RUN npm install
 # Copy code from our repo directory to the container
 COPY . .
 
+# Make port 8080 available outside of container
+# EXPOSE 8080
+
 # Run our node commands
 # Theses commands run the application with nodemon & livereload enabled
 CMD ["node", "app.js"]
