@@ -3,7 +3,12 @@ const router = express.Router();
 
 
 
-router.get('/', (req, res) => res.render('welcome'));
+router.get('/', (req, res) => {
+    res.render('welcome', {
+        pageTitle: 'Welcome',
+        path: '/'
+    })
+});
 
 router.get('/add-data', (req, res, next) => {
     res.render('add-data', {
@@ -16,7 +21,12 @@ router.post('/view-data', (req, res, next) => {
     res.redirect('/view-data');
 });
 
-router.get('/about-us/', (req, res) => res.render('about'));
+router.get('/about-us/', (req, res) => {
+    res.render('about', {
+        pageTitle: 'About',
+        path: '/about'
+    });
+});
 
 
 router.get('/about-us/:name', function(req, res) {

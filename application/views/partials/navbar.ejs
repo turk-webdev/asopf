@@ -3,10 +3,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" href="/add-data">Data</a>
+                <a class="nav-link <%= path === '/add-data' ? 'active' : '' %>" href="/add-data">Data</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="/about-us/">About Us</a>
+                <a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about-us/">About Us</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
