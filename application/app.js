@@ -11,14 +11,11 @@ app.set('views', [__dirname + '/views', __dirname + '/views/personal']);
 app.use(expressLayouts);
 app.set('view engine', 'ejs')
 
-
 //Bodyparser
 app.use(express.urlencoded({ extended: false }))
 
-
 //Routes
 app.use('/', require('./routes/index'));
-
 
 const PORT = process.env.PORT || 8080;
 
