@@ -28,103 +28,29 @@
 
 <div class="row" style="height:15px;"></div> <!-- buffer -->
 <div class="container">
-    <div class="row text-center">
+    <!-- Iterate through rows of the database -->
+    <% if (devs.length > 0) { %>
 
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/alex"><img src="https://i.imgur.com/vpmPibh.png" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/alex">Alexandre de Charry</a></h5><span class="small text-uppercase text-muted">GitHub Manager</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
+        <div class="row text-center">
+            <!-- Team item -->
+            <% for (var i = 0; i < devs.length; i++) { %>
+                <div class="col-xl-4 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/<%= devs[i].firstName %>"><img src="<%= devs[i].imageUrl %>" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
+                        <h5 class="mb-0"><a href="/about-us/<%= devs[i].firstName %>"><%= devs[i].firstName %> <%= devs[i].lastName %></a></h5><span class="small text-uppercase text-muted"><%= devs[i].jobTitle %></span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            <!-- End -->
+            <% } %>
+        </div>
 
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/ufkun"><img src="https://i.imgur.com/NaTA0s6.png" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/ufkun">Ufkun Erdin</a></h5><span class="small text-uppercase text-muted">Team Lead</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
-
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/nicholas"><img src="https://i.imgur.com/ttAJlMh.jpg" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/nicholas">Nicholas Handy</a></h5><span class="small text-uppercase text-muted">Database Manager</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
-    </div>    
-    
-    <div class="row text-center">
-
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/erik"><img src="https://i.imgur.com/mNMZPiL.jpeg" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/erik">Erik Loza</a></h5><span class="small text-uppercase text-muted">Back End Developer</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
-
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/siddhi"><img src="https://i.imgur.com/7h08P7g.png" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/siddhi">Siddhi Rote</a></h5><span class="small text-uppercase text-muted">Front End Developer</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
-
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/mohammad"><img src="https://i.imgur.com/vH9GUoj.jpeg" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/mohammad">Mohammad Razavi</a></h5><span class="small text-uppercase text-muted">Full Stack Developer</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
-    </div>
-
-    <div class="row text-center">
-
-        <!-- Team item -->
-        <div class="col-xl-4 col-sm-6 mb-5">
-            <div class="bg-white rounded shadow-sm py-5 px-4"><a href="/about-us/huan"><img src="https://i.imgur.com/q8mUEcu.jpg" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm"></a>
-                <h5 class="mb-0"><a href="/about-us/huan">Huan NguyenKim</a></h5><span class="small text-uppercase text-muted">Full Stack Developer</span>
-                <ul class="social mb-0 list-inline mt-3">
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </div><!-- End -->
-    </div>
+    <!-- Database did not fill properly -->    
+    <% } else { %>
+        <h1>Developers not found.</h1>
+    <% } %>
 </div>

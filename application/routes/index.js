@@ -1,17 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-// get the client
-const mysql = require('mysql2');
-
-// create the connection to database
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'azertyuiop',
-    database: 'asopf'
-});
-
+const Developer = require('../models/developer');
 
 router.get('/', (req, res) => {
     res.render('welcome', {
@@ -32,23 +21,24 @@ router.post('/view-data', (req, res, next) => {
 });
 
 router.get('/about-us/', (req, res) => {
-    res.render('about', {
-        pageTitle: 'About',
-        path: '/about'
-    });
+    Developer.fetchAll().then(([rows, fields]) => {
+        res.render('about', {
+            devs: rows,
+            pageTitle: 'About',
+            path: '/about'
+        });
+    }).catch(err => console.log(err));
 });
 
-
 router.get('/about-us/:name', function (req, res) {
-    connection.query(
-        'SELECT * FROM `users`',
-        function (err, results, fields) {
-            console.log(results); // results contains rows returned by server
-            console.log(fields); // fields contains extra meta data about results, if available
-        }
-    );
     var name = req.params.name;
-    res.render(name);
+    Developer.findByName(name).then(([rows, fields]) => {
+        res.render('about-dev', {
+            devs: rows[0],
+            pageTitle: 'About Us',
+            path: '/about-us/:name'
+        });
+    }).catch(err => console.log(err));
 });
 
 module.exports = router;
