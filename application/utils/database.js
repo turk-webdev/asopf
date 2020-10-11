@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
-const mysqlHost = process.env.MYSQL_HOST;
+const mysqlHost = process.env.MYSQL_HOSTNAME;
 const mysqlPort = process.env.MYSQL_PORT;
-const mysqlUser = process.env.MYSQL_USER;
-const mysqlPass = process.env.MYSQL_PASS;
-const mysqlDB   = process.env.MYSQL_DB;
+const mysqlUser = process.env.MYSQL_USERNAME;
+const mysqlPass = process.env.MYSQL_PASSWORD;
+const mysqlDB   = process.env.MYSQL_DATABASE;
 
 
 // Creates a single pool with multiple available connections
