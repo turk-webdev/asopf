@@ -20,8 +20,8 @@ router.post('/view-data', (req, res, next) => {
     res.redirect('/view-data');
 });
 
+// About pages pulling data from db, see controllers/developer.js
 router.get('/about-us/', devController.getDevelopers);
-
 router.get('/about-us/:name', devController.getDeveloperByName);
 
 module.exports = router;
