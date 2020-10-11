@@ -14,10 +14,6 @@ module.exports = class Developer {
         this.description = description;
     }
 
-    static deleteById(id) {
-
-    }
-
     static fetchAll() {
         var sql = 'SELECT * FROM developers ORDER BY firstName';
         return db.execute(sql);

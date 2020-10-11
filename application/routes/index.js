@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Developer = require('../models/developer');
+const devController = require('../controllers/developer');
 
 router.get('/', (req, res) => {
     res.render('welcome', {
@@ -20,25 +20,8 @@ router.post('/view-data', (req, res, next) => {
     res.redirect('/view-data');
 });
 
-router.get('/about-us/', (req, res) => {
-    Developer.fetchAll().then(([rows, fields]) => {
-        res.render('about', {
-            devs: rows,
-            pageTitle: 'About',
-            path: '/about'
-        });
-    }).catch(err => console.log(err));
-});
+router.get('/about-us/', devController.getDevelopers);
 
-router.get('/about-us/:name', function (req, res) {
-    var name = req.params.name;
-    Developer.findByName(name).then(([rows, fields]) => {
-        res.render('about-dev', {
-            devs: rows[0],
-            pageTitle: 'About Us',
-            path: '/about-us/:name'
-        });
-    }).catch(err => console.log(err));
-});
+router.get('/about-us/:name', devController.getDeveloperByName);
 
 module.exports = router;
