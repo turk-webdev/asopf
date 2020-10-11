@@ -5,17 +5,18 @@ services:
         build:
             context: .
         image: asopf    # the image created from the dockerfile 
-        container_name: asopf-app-dev
+        container_name: app-dev
         restart: unless-stopped
         command: npm run dev    # replacing prod config with dev
         volumes:
             - ./:/app
         networks:
-            - asopf
+            - frontend
+            - backend
     
     db:
         image: mysql:8.0.21
-        container_name: asopf-db-dev
+        container_name: db-dev
         restart: unless-stopped
         environment:    # environment variables are defined in .env, look at .env.example for reference
             MYSQL_DATABASE: ${DB_DATABASE}
@@ -25,15 +26,15 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         ports:
-            - 3306:3306     # expose mysql port to host machine so mysql workbench can connect
+            - 3307:3306     # expose mysql port to host machine so mysql workbench can connect
         volumes:
-            - mysql:/var/lib/mysql
+            - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
         networks:
-            - asopf
+            - backend
 
     nginx:
         image: nginx:1.19.2
-        container_name: asopf-nginx-dev
+        container_name: nginx-dev
         restart: unless-stopped
         ports:
             - "8080:80"     # map localhost:8080 to port 80 of the internal network
@@ -43,8 +44,9 @@ services:
         depends_on:
             - nodejs
         networks:
-            - asopf
+            - frontend
 volumes:    # define that there are configurations with custom namings
     mysql:
 networks:
-    asopf:
+    frontend:
+    backend:
