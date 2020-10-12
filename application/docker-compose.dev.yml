@@ -20,7 +20,8 @@ services:
         networks:
             - frontend
             - backend
-        command: ./wait-for.sh mysql-db:3306 -- /home/node/app/node_modules/.bin/nodemon app.js
+        command: npm run dev
+        # command: ./wait-for.sh mysql-db:3306 -- /home/node/app/node_modules/.bin/nodemon app.js
     
     mysql-db:
         image: mysql:8.0.21
@@ -31,11 +32,13 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_USER: ${MYSQL_USERNAME}
+        expose:
+            - 3306
         ports:
-            - 3307:3306     # expose mysql port to host machine so mysql workbench can connect
+            - "3307:3306"     # expose mysql port to host machine so mysql workbench can connect
         volumes:
             - mysql:/var/lib/mysql
-            - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+            - ./database/db-dump:/docker-entrypoint-initdb.d
         networks:
             - backend
 
@@ -49,6 +52,8 @@ services:
             - .:/home/node/app
             - ./nginx-conf:/etc/nginx/conf.d
         depends_on:
+            - asopf-app
+        links:
             - asopf-app
         networks:
             - frontend
