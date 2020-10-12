@@ -15,7 +15,7 @@ module.exports = class Developer {
     }
 
     static fetchAll() {
-        var sql = 'SELECT * FROM developers ORDER BY firstName';
+        var sql = 'SELECT * FROM developers ORDER BY lastName';
         return db.execute(sql);
     }
 

@@ -21,7 +21,7 @@ services:
             - frontend
             - backend
         # can also use command: npm run dev
-        entrypoint: /application/wait-for-it.sh mysql-db:3306 -- node_modules/.bin/nodemon app.js
+        command: /application/wait-for-it.sh mysql-db:3306 -- node_modules/.bin/nodemon app.js
     
     mysql-db:
         image: mysql:8.0.21
@@ -30,6 +30,7 @@ services:
         env_file: .env
         environment:    # environment variables are defined in .env, look at .env.example for reference
             MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_HOSTNAME: ${MYSQL_HOSTNAME}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_USER: ${MYSQL_USERNAME}
         expose:

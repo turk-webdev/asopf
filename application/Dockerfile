@@ -6,7 +6,7 @@
 FROM node:12.18.4
 
 # Specify our working directory for this container
-WORKDIR /app
+WORKDIR /application
 
 # Copy dependencies list from our application to container
 COPY package.json package.json
