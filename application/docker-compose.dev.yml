@@ -20,8 +20,8 @@ services:
         networks:
             - frontend
             - backend
-        command: npm run dev
-        # command: ./wait-for.sh mysql-db:3306 -- /home/node/app/node_modules/.bin/nodemon app.js
+        # can also use command: npm run dev
+        entrypoint: /home/node/app/wait-for-it.sh mysql-db:3306 -- npm run dev
     
     mysql-db:
         image: mysql:8.0.21
@@ -33,12 +33,12 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_USER: ${MYSQL_USERNAME}
         expose:
-            - 3306
+            - 3306  # port that other containers will use to talk to mysql
         ports:
             - "3307:3306"     # expose mysql port to host machine so mysql workbench can connect
         volumes:
-            - mysql:/var/lib/mysql
-            - ./database/db-dump:/docker-entrypoint-initdb.d
+            - mysql:/var/lib/mysql  # shared volume using a directory on the local machine
+            - ./database/db-dump:/docker-entrypoint-initdb.d    # folder for sql imports
         networks:
             - backend
 
