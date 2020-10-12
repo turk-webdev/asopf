@@ -50,7 +50,7 @@ services:
         ports:
             - "8080:80"     # map localhost:8080 to port 80 of the internal network
         volumes:
-            - .:/application/app
+            - .:/application
             - ./nginx-conf:/etc/nginx/conf.d
         depends_on:
             - asopf-app

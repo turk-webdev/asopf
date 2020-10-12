@@ -9,9 +9,9 @@ FROM node:12.18.4
 WORKDIR /application
 
 # Copy dependencies list from our application to container
-COPY package.json package.json
+COPY ./package.json /application/package.json
 # Copy the locked versions of dependencies so that dependencies are consistent
-COPY package-lock.json package-lock.json
+COPY ./package-lock.json /application/package-lock.json
 
 # Install dependancies specified in the package.json
 RUN npm install
