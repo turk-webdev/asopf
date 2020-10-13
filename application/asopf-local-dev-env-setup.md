@@ -61,6 +61,8 @@ To setup our local dev environment we are using three docker containers NodeJS, 
 1. Clone Repository to local machine
     - (*Windows Users Only*) If you are using WSL2 clone the repo into a directory within your linux subsystem (PM if you have trouble)
 2. Navigate to the directory you just cloned
+3. Verify that you are in the correct branch: `mysql-docker-connect`
+    - Docker-compose is only setup for certain branches as of Milestone 2
 ## Configure dotenv File
 3. Create `.env` file in the root of the application folder (i.e. `csc648-02-FA20-TEAM05/application/.env`)
 4. Copy the template data from the `.env.example` -> `.env` and fill out the missing content
@@ -88,6 +90,12 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     # Port you will use in mysql workbench to connect to database
     HOST_PORT=
     ```
+5. To verify that your config is working correctly run
+    ```
+    docker-compose -f docker-compose.dev.yml config
+    ```
+    This will output the `docker-compose.dev.yml` file with the variables filled. If this is working correctly move on to the next step. If not, make sure that you have created the `.env` in the `application` folder.
+    ***Note: Don't delete the .env.example since it is being tracked by github for others to reference***
 ## Building the Docker-Compose Environment
 5. Verify that `docker-compose` is installed by executing `docker-compose --version` on your commandline
     ```
