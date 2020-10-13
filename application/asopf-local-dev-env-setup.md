@@ -14,6 +14,8 @@ To setup our local dev environment we are using three docker containers NodeJS, 
   * [Configure dotenv File](#configure-dotenv-file)
   * [Building the Docker-Compose Environment](#building-the-docker-compose-environment)
   * [Working with the Dev Environment](#working-with-the-dev-environment)
+- [Appendix](#appendix)
+  * [Example Network Layout](#example-network-layout)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -67,27 +69,35 @@ To setup our local dev environment we are using three docker containers NodeJS, 
 3. Create `.env` file in the root of the application folder (i.e. `csc648-02-FA20-TEAM05/application/.env`)
 4. Copy the template data from the `.env.example` -> `.env` and fill out the missing content
     ```bash 
-    # [Your Computer]-- 8080 -- { 80 -- [Nginx Contianer]-- 8080 --[NodeJS Container]-- 3306 --[MySQL Container] } 
-    # {} = {Docker Network}
+    # ----------------------------------------------------------------------------------------------
+    # Docker Configuration File
+    # ----------------------------------------------------------------------------------------------
+    # Instructions
+    #   - Make a copy of this file with the name ".env" in the same directory
+    #   - Fill out the missing variable information
+    #   - Run "docker-compose -f docker-compose.dev.yml config" to verify that changes in this file
+    #     will show up in the docker-compose.dev.yml at startup
+    #   - DO NOT DELETE ".env.example" it is used as reference for the rest of the team members
 
     # Name service name of the database in the docker-compose file
     MYSQL_HOSTNAME=
 
     # MySQL standard port can be used here since it is on the docker internal network not your localhost network
     # To access the database from your local machine edit the docker-compose to "expose" the port you want
-    MYSQL_PORT=
+    MYSQL_PORT=3306
 
-    # Name of the database the MYSQL image will create on startup and that our .sql (our data) is imported 
+    # Name of the database you want to access
     MYSQL_DATABASE=
 
-    # Username and password for the database created 
+    # Username and password for that database
     MYSQL_USERNAME=
     MYSQL_PASSWORD=
 
-    # Root password used during initialization script 
+    # Root password used during initialization script so that mysql empty root password error doesn't occur
     MYSQL_ROOT_PASSWORD=
 
     # Port you will use in mysql workbench to connect to database
+    # If MySQL is already running on your local machine then you must choose a PORT # other than 3306
     HOST_PORT=
     ```
 5. To verify that your config is working correctly run
@@ -97,16 +107,16 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     This will output the `docker-compose.dev.yml` file with the variables filled. If this is working correctly move on to the next step. If not, make sure that you have created the `.env` in the `application` folder.
     ***Note: Don't delete the .env.example since it is being tracked by github for others to reference***
 ## Building the Docker-Compose Environment
-5. Verify that `docker-compose` is installed by executing `docker-compose --version` on your commandline
+6. Verify that `docker-compose` is installed by executing `docker-compose --version` on your commandline
     ```
     C:\Users\Nick>docker-compose --version
     docker-compose version 1.27.4, build 40524192
     ```
-6. Build the images so that all of the configurations are setup properly
+7. Build the images so that all of the configurations are setup properly
     `docker-compose build --no-cache`
     ***Note:*** `--no-cache` is a precaution to make sure that the application image is built from the most recent dockerfile.  
 ## Working with the Dev Environment  
-7. Start the docker containers for each service specified in the `docker-compose.dev.yml` file
+8. Start the docker containers for each service specified in the `docker-compose.dev.yml` file
     ```
     docker-compose -f docker-compose.dev.yml up
     ```
@@ -141,9 +151,9 @@ To setup our local dev environment we are using three docker containers NodeJS, 
                 - Run `git config core.autocrlf`in your commandline and if true run `git config --global core.autocrlf input`
             - Save your `.env` file outside of repo and then delete your cloned repository 
             - Clone repository again and copy your `.env` file back into the `application` folder
-8. Start Programming
+9. Start Programming
     - Now you can make changes as normal and see those changes when `nodemon` restarts the server on the container
-9. Shutting Down the Containers
+10. Shutting Down the Containers
 
     `docker-compose stop`
 
@@ -160,8 +170,17 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     
     - If you want to remove shared volumes
     - Shared volumes will be recreated when the environment is created again using `docker-compose` 
-10. Using Git with the Dev Environment Active
+11. Using Git with the Dev Environment Active
 - Git works same as normal
     - Since we are sharing the `/application` folder between the local machine and app contianer
 - You can use the commandline `git` commands or the git features baked into your IDE (ex. VS Code's GitHub Integration Feature)
 
+# Appendix
+## Example Network Layout
+    ```bash
+    # Example Network Layout For Reference
+    # -----------------------------------------------------------------------------------------------------------
+    # [Your Computer]-- 8080 -- { 80 -- [Nginx Contianer]-- 8080 --[NodeJS Container]-- 3306 --[MySQL Container] } 
+    # {} = {Docker Network}
+    # -----------------------------------------------------------------------------------------------------------
+    ```
