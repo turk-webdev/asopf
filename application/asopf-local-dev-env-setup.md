@@ -106,6 +106,13 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     ```
     This will output the `docker-compose.dev.yml` file with the variables filled. If this is working correctly move on to the next step. If not, make sure that you have created the `.env` in the `application` folder.
     ***Note: Don't delete the .env.example since it is being tracked by github for others to reference***
+## Change Permissions on Database Initialization Script
+6. Navigate to `application/database/db-dump/` and give execute permissions to the script `init_db.sh`
+    ```bash
+    chmod +x init_db.sh
+    ```
+   You may be asked for your password in order to execute this.
+   ***Note:*** I'm working on automating this step
 ## Building the Docker-Compose Environment
 6. Verify that `docker-compose` is installed by executing `docker-compose --version` on your commandline
     ```
