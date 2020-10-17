@@ -3,6 +3,8 @@ const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 const db = require('./utils/database');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/views'));
 app.use('/assets', express.static(__dirname + '/assets')); // Serves public assets folder
