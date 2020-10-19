@@ -99,6 +99,9 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     # Port you will use in mysql workbench to connect to database
     # If MySQL is already running on your local machine then you must choose a PORT # other than 3306
     HOST_PORT=
+
+    # Port we use in the browser to connect to our app. The app always runs at 8080 internally in docker. Use 8080 here if you want it to be the same as what nodemon says. (Note: Don't change the internal nodejs port in the docker-compose.dev.yml since it will break the nginx connection)
+    APP_PORT=
     ```
 5. To verify that your config is working correctly run
     ```
@@ -160,23 +163,26 @@ To setup our local dev environment we are using three docker containers NodeJS, 
             - Clone repository again and copy your `.env` file back into the `application` folder
 9. Start Programming
     - Now you can make changes as normal and see those changes when `nodemon` restarts the server on the container
-10. Shutting Down the Containers
+10. Suspend the Containers
 
-    `docker-compose stop`
+    `Ctrl+C` or `docker-compose stop`
 
     - If you want to pause what you are working on to come back to it later
     - Stops the containers without removing the containers and the networks that were created
+    - Use the `stop` command if nodejs is running in detached mode
 
     `docker-compose down`
 
     - If you need to edit a docker file or .env file and see those changes happen in the contianer
     - Stops and removes running containers and networks
     - When the containers are started again then docker-compose will recreate the containers without rebuilding the images
+    - This will not remove shared volumes
 
     `docker-compose down -v`
     
     - If you want to remove shared volumes
     - Shared volumes will be recreated when the environment is created again using `docker-compose` 
+    - This is mainly for restarting the entire docker setup from a clean slate
 11. Using Git with the Dev Environment Active
 - Git works same as normal
     - Since we are sharing the `/application` folder between the local machine and app contianer
@@ -184,10 +190,15 @@ To setup our local dev environment we are using three docker containers NodeJS, 
 
 # Appendix
 ## Example Network Layout
-    ```bash
-    # Example Network Layout For Reference
-    # -----------------------------------------------------------------------------------------------------------
-    # [Your Computer]-- 8080 -- { 80 -- [Nginx Contianer]-- 8080 --[NodeJS Container]-- 3306 --[MySQL Container] } 
-    # {} = {Docker Network}
-    # -----------------------------------------------------------------------------------------------------------
-    ```
+- In this example you can see that the only externally accessible port is nginx port 80
+- We can define any port to bind to this nginx port
+    - For instance `Your Computer` can use port `3000` in place of port `8080` which can be then typed into the browser as `localhost:3000`
+- When `nodemon` runs it will always output as using `8080` internally.
+
+``` bash
+# Example Network Layout For Reference
+# -----------------------------------------------------------------------------------------------------------
+# [Your Computer]-- 8080 -- { 80 -- [Nginx Contianer]-- 8080 --[NodeJS Container]-- 3306 --[MySQL Container] } 
+# {} = {Docker Network}
+# -----------------------------------------------------------------------------------------------------------
+```
