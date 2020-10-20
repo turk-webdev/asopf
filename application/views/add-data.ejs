@@ -20,18 +20,18 @@
                 <div class="form-group row">
                     <label for="inputNewCases" class="col-sm-2 col-form-label">New Cases</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputNewCases">
+                        <input type="number" class="form-control" id="inputCases">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputNewDeaths" class="col-sm-2 col-form-label">New Deaths</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputNewDeaths">
+                        <input type="number" class="form-control" id="inputDeaths">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10 offset-sm-1">
-                        <button type="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" class="btn btn-info" id="searchDb">Submit</button>
                     </div>
                 </div>
             </form>
@@ -57,30 +57,6 @@
                       </tr>
                     </thead>
                     <tbody id="myTable">
-                      <tr>
-                        <td>county</td>
-                        <td>date</td>
-                        <td>#cases</td>
-                        <td>#deaths</td>
-                      </tr>
-                      <tr>
-                        <td>county</td>
-                        <td>date</td>
-                        <td>#cases</td>
-                        <td>#deaths</td>
-                      </tr>
-                      <tr>
-                        <td>county</td>
-                        <td>date</td>
-                        <td>#cases</td>
-                        <td>#deaths</td>
-                      </tr>
-                      <tr>
-                        <td>county</td>
-                        <td>date</td>
-                        <td>#cases</td>
-                        <td>#deaths</td>
-                      </tr>
                     </tbody>
                   </table>
 
@@ -121,3 +97,4 @@
         </div>
     </div>
 </div>
+<script src="/js/data.js"></script>
