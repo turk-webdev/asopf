@@ -26,7 +26,7 @@ exports.postDataByCol = (req, res, next) => {
     const data = req.body;
     console.log(data);
 
-    Search.exact('statewide_cases', 'county', data.county).then(([rows, fields]) => {
+    Search.exact('covid-ca-counties', 'county', data.county).then(([rows, fields]) => {
         res.status(200).json(rows);
     }).catch(err => console.log(err));
 };
