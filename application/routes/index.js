@@ -9,15 +9,11 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/add-data', (req, res, next) => {
-    res.render('add-data', {
-        pageTitle: 'Add Covid Data',
-        path: '/add-data'
+router.get('/search', (req, res, next) => {
+    res.render('search', {
+        pageTitle: 'Search Database',
+        path: '/search'
     });
-});
-
-router.post('/view-data', (req, res, next) => {
-    res.redirect('/view-data');
 });
 
 // About pages pulling data from db, see controllers/developer.js
