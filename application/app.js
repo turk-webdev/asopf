@@ -1,12 +1,10 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const path = require('path');
 
 const app = express();
 
 app.use(express.static(__dirname + '/views'));
-//app.use(express.static(__dirname + '/public/assets')); // Serves public assets folder
-app.use(express.static(path.join(__dirname, 'public'))); // Serves public assets folder
+app.use(express.static(__dirname + '/public')); // Serves public assets folder
 app.set('views', [__dirname + '/views', __dirname + '/views/personal']);
 
 // API Data Streams

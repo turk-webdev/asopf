@@ -26,7 +26,23 @@ exports.postDataByCol = (req, res, next) => {
     const data = req.body;
     console.log(data);
 
-    Search.exact('statewide_cases', 'county', data.county).then(([rows, fields]) => {
-        res.status(200).json(rows);
-    }).catch(err => console.log(err));
+    if (data.county != '' || data.county != 'undefined') {
+        Search.exact('statewide_cases', 'county', data.county).then(([rows, fields]) => {
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else if (data.date != '' || data.date != 'undefined') {
+        Search.exact('statewide_cases', 'date', data.date).then(([rows, fields]) => {
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else if (data.deaths != '' || data.deaths != 'undefined') {
+        Search.exact('statewide_cases', 'deaths', data.deaths).then(([rows, fields]) => {
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else if (data.cases != '' || data.cases != 'undefined') {
+        Search.exact('statewide_cases', 'cases', data.cases).then(([rows, fields]) => {
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else {
+        res.status(200).json({ status: "No input given."});
+    }
 };
