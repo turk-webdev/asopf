@@ -28,7 +28,7 @@ async function postSearch(e) {
     const response = await fetch('/api', options);
     // Wait until the response is received and then store it into data
     const data = await response.json();
-
+    console.log(data);
     // If data has been received then insert the html into page
     if (data) {
         console.log("Server Response Received");

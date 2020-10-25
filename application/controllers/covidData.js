@@ -26,7 +26,27 @@ exports.postDataByCol = (req, res, next) => {
     const data = req.body;
     console.log(data);
 
-    Search.exact('covid-ca-counties', 'county', data.county).then(([rows, fields]) => {
-        res.status(200).json(rows);
-    }).catch(err => console.log(err));
+    if (data.county != '' && data.county != 'undefined') {
+        Search.exact('statewide_cases', 'county', data.county, 'date').then(([rows, fields]) => {
+            console.log("Query for County");
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else if (data.date != '' && data.date != 'undefined') {
+        Search.exact('statewide_cases', 'date', data.date, 'date').then(([rows, fields]) => {
+            console.log("Query for Date");
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else if (data.deaths != '' && data.deaths != 'undefined') {
+        Search.exact('statewide_cases', 'newcountdeaths', parseInt(data.deaths), 'date').then(([rows, fields]) => {
+            console.log("Query for New Count Deaths");
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else if (data.cases != '' && data.cases != 'undefined') {
+        Search.exact('statewide_cases', 'newcountconfirmed', parseInt(data.cases), 'date').then(([rows, fields]) => {
+            console.log("Query for New Count Confirmed");
+            res.status(200).json(rows);
+        }).catch(err => console.log(err));
+    } else {
+        res.status(200).json({ status: "No input given."});
+    }
 };

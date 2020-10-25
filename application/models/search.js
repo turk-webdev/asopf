@@ -6,9 +6,9 @@ module.exports = class Search {
         var sql = "SELECT * FROM ?? ORDER BY ??";
         return db.query(sql, [table, order]);
     }
-    static exact(table, col, query) {
-        var sql = "SELECT * FROM ?? WHERE ?? = ?";
-        return db.query(sql, [table, col, query]);
+    static exact(table, col, query, order) {
+        var sql = "SELECT * FROM ?? WHERE ?? = ? ORDER BY ?? DESC";
+        return db.query(sql, [table, col, query, order]);
     }
 
     static contains(table, col, query, order) {
