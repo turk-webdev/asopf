@@ -1,4 +1,4 @@
 #!/bin/bash
-echo -e "Running Database Import..."
-mysql -u root -p $MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < asopf-test.sql
-echo -e "Done..."
+printf "Running Database Import...\n"
+ls -1 *.sql | awk '{ print "source",$0 }' | mysql --batch -u $MYSQL_USERNAME -p $MYSQL_PASSWORD $MYSQL_DATABASE
+printf "Done...\n"
