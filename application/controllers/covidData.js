@@ -37,12 +37,12 @@ exports.postDataByCol = (req, res, next) => {
             res.status(200).json(rows);
         }).catch(err => console.log(err));
     } else if (data.deaths != '' && data.deaths != 'undefined') {
-        Search.exact('statewide_cases', 'newcountdeaths', parseInt(data.deaths), 'date').then(([rows, fields]) => {
+        Search.exact('statewide_cases', 'newcountdeaths', data.deaths, 'date').then(([rows, fields]) => {
             console.log("Query for New Count Deaths");
             res.status(200).json(rows);
         }).catch(err => console.log(err));
     } else if (data.cases != '' && data.cases != 'undefined') {
-        Search.exact('statewide_cases', 'newcountconfirmed', parseInt(data.cases), 'date').then(([rows, fields]) => {
+        Search.exact('statewide_cases', 'newcountconfirmed', data.cases, 'date').then(([rows, fields]) => {
             console.log("Query for New Count Confirmed");
             res.status(200).json(rows);
         }).catch(err => console.log(err));
