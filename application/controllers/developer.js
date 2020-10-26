@@ -1,10 +1,9 @@
-const Developer = require('../models/developer');
-
+const Search = require('../models/search');
 
 // The rows are passed to the ejs view as a js object as defined
 // in models/developer.js 
 exports.getDevelopers = (req, res, next) => {
-    Developer.fetchAll().then(([rows, fields]) => {
+    Search.fetchAll('developers', 'lastName').then(([rows, fields]) => {
         // Rows - Returns all of the rows of the table selected
         res.render('about', {
             devs: rows,
@@ -17,7 +16,7 @@ exports.getDevelopers = (req, res, next) => {
 // A single row of the table is passed to the devs object
 exports.getDeveloperByName = (req, res, next) => {
     var name = req.params.name;
-    Developer.findByName(name).then(([rows, fields]) => {
+    Search.exact('developers', 'firstName', name).then(([rows, fields]) => {
         res.render('about-dev', {
             devs: rows[0],
             pageTitle: 'About Us',
@@ -26,6 +25,3 @@ exports.getDeveloperByName = (req, res, next) => {
     }).catch(err => console.log(err));
 };
 
-exports.getIndex = (req, res, next) => {
-    // Use developer info to get index
-};
