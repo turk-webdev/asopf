@@ -9,9 +9,10 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/search', (req, res, next) => {
+router.get('/search/:type', (req, res, next) => {
+    let type = req.params.type === 'covid' ? 'COVID' : 'Wildfire';
     res.render('search', {
-        pageTitle: 'Search Database',
+        pageTitle: `${type} Data`,
         path: '/search'
     });
 });

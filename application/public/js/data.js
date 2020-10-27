@@ -1,5 +1,18 @@
+let advSearchHidden = false;
 const searchBtn = document.getElementById('searchDb');
 searchBtn.addEventListener('click', postSearch);
+
+function toggleAdvSearch() {
+    if (advSearchHidden) {
+        advSearchHidden = false;
+        document.getElementById('adv-search-toggle').textContent = "Hide Advanced Search";
+    } else {
+        advSearchHidden = true;
+        document.getElementById('adv-search-toggle').textContent = "Show Advanced Search";
+    }
+
+    document.getElementById('adv-search').hidden = advSearchHidden;
+}
 
 async function postSearch(e) {
     e.preventDefault();
@@ -45,7 +58,7 @@ async function postSearch(e) {
     }
     // Insert html into table rows
     document.getElementById('myTable').innerHTML = output;
-
+    toggleAdvSearch();
     // fetch('/api', {
     //     method: 'POST',
     //     body: JSON.stringify({

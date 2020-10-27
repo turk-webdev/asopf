@@ -2,3 +2,16 @@
     border: 1px solid #4dd0e1;
     box-shadow: 0 0 0 1px #4dd0e1;
 }
+
+body {
+    background-color:#ccc;
+}
+
+.container {
+    background-color: #fff;
+
+}
+
+html,body {
+    height: 100%;
+}
