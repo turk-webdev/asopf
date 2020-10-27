@@ -36,8 +36,8 @@ async function postSearch(e) {
             output += 
             `<tr>
                 <th>${data[i].county}</th>
-                <th>${data[i].cases}</th>
-                <th>${data[i].deaths}</th>
+                <th>${data[i].newcountconfirmed}</th>
+                <th>${data[i].newcountdeaths}</th>
                 <th>${data[i].date}</th>
             </tr>`
             ;

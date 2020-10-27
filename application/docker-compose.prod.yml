@@ -39,8 +39,6 @@ services:
             MYSQL_USER: "${MYSQL_USERNAME}"
         expose:
             - 3306  # port that other containers will use to talk to mysql
-        ports:
-            - "${HOST_PORT}:3306"     # expose mysql port to host machine so mysql workbench can connect
         volumes:
             - mysql:/var/lib/mysql  # shared volume using a directory on the local machine
             - ./database/db-dump:/docker-entrypoint-initdb.d    # folder for sql imports
