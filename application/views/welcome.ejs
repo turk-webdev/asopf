@@ -47,7 +47,12 @@
         text-decoration: none;
         transform: translateX(-50%);
     }
-
+@media (min-width: 768px) {
+        nav.navbar { 
+            max-height: 60px;
+            overflow: hidden;
+        }
+    }
     .split.left .button:hover {
         background-color: var(--left-button-hover-color);
         border-color: var(--left-button-hover-color);
