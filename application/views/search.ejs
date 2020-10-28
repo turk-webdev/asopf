@@ -11,7 +11,7 @@
                 <form>
                     <div class="form-group row">
                         <label for="inputCounty" class="col-sm-2 col-form-label">County</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 autocomplete">
                             <input type="text" class="form-control" id="inputCounty" placeholder="County">
                         </div>
                     </div>
@@ -47,7 +47,7 @@
     </div>
 
     <!-- Second card -->
-    <div class="text-center pt-5">
+    <div class="text-center pt-5" id="second-card" hidden>
         <div class="card mx-auto" style="width: 48rem;">
             <div class="card-header">
                 Data Results
@@ -83,4 +83,11 @@
         </div>
     </div>
     <script type="application/javascript" src="/js/data.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/autocomplete.css">
+    <!-- <script>
+        (function() {
+            var table = document.getElementById('covid-data-table');
+            table.DataTable();
+        })();
+    </script> -->
 </div>
