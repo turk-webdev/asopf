@@ -7,6 +7,12 @@ const mysqlPass = process.env.MYSQL_PASSWORD;
 const mysqlDB   = process.env.MYSQL_DATABASE;
 
 
+console.log("mysqlHost="+mysqlHost);
+console.log("mysqlPort="+mysqlPort);
+console.log("mysqlUser="+mysqlUser);
+console.log("mysqlPass="+mysqlPass);
+console.log("mysqlDB="+mysqlDB);
+
 // Creates a single pool with multiple available connections
 // Many connections can be open/closed simultaneously to improve efficiency
 const pool = mysql.createPool({
