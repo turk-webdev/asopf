@@ -103,25 +103,18 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     # Port we use in the browser to connect to our app. The app always runs at 8080 internally in docker. Use 8080 here if you want it to be the same as what nodemon says. (Note: Don't change the internal nodejs port in the docker-compose.dev.yml since it will break the nginx connection)
     APP_PORT=
     ```
-5. To verify that your config is working correctly run
-    ```
-    docker-compose -f docker-compose.dev.yml config
-    ```
-    This will output the `docker-compose.dev.yml` file with the variables filled. If this is working correctly move on to the next step. If not, make sure that you have created the `.env` in the `application` folder.
     ***Note: Don't delete the .env.example since it is being tracked by github for others to reference***
-## Change Permissions on Database Initialization Script
-6. Navigate to `application/database/db-dump/` and give execute permissions to the script `init_db.sh`
-    ```bash
-    chmod +x init_db.sh
-    ```
-   You may be asked for your password in order to execute this.
-   ***Note:*** I'm working on automating this step
 ## Building the Docker-Compose Environment
-6. Verify that `docker-compose` is installed by executing `docker-compose --version` on your commandline
+5. Verify that `docker-compose` is installed by executing `docker-compose --version` on your commandline
     ```
     C:\Users\Nick>docker-compose --version
     docker-compose version 1.27.4, build 40524192
     ```
+6. To verify that your config is working correctly run
+    ```
+    docker-compose -f docker-compose.dev.yml config
+    ```
+    This will output the `docker-compose.dev.yml` file with the variables filled. If this is working correctly move on to the next step. If not, make sure that you have created the `.env` in the `application` folder.
 7. Build the images so that all of the configurations are setup properly
     `docker-compose build --no-cache`
     ***Note:*** `--no-cache` is a precaution to make sure that the application image is built from the most recent dockerfile.  
@@ -161,6 +154,8 @@ To setup our local dev environment we are using three docker containers NodeJS, 
                 - Run `git config core.autocrlf`in your commandline and if true run `git config --global core.autocrlf input`
             - Save your `.env` file outside of repo and then delete your cloned repository 
             - Clone repository again and copy your `.env` file back into the `application` folder
+        - `asopf not found in database`
+            - Make sure that `MYSQL_DATABASE=mysql-db` is assigned properly in your `.env`
 9. Start Programming
     - Now you can make changes as normal and see those changes when `nodemon` restarts the server on the container
 10. Suspend the Containers
@@ -176,19 +171,73 @@ To setup our local dev environment we are using three docker containers NodeJS, 
     - If you need to edit a docker file or .env file and see those changes happen in the contianer
     - Stops and removes running containers and networks
     - When the containers are started again then docker-compose will recreate the containers without rebuilding the images
-    - This will not remove shared volumes
+    - This will not remove shared volumes and will not re-run startup scripts
 
     `docker-compose down -v`
     
     - If you want to remove shared volumes
     - Shared volumes will be recreated when the environment is created again using `docker-compose` 
     - This is mainly for restarting the entire docker setup from a clean slate
+    - **Startup scripts like db import will be re-run on next `up` command**
 11. Using Git with the Dev Environment Active
 - Git works same as normal
     - Since we are sharing the `/application` folder between the local machine and app contianer
 - You can use the commandline `git` commands or the git features baked into your IDE (ex. VS Code's GitHub Integration Feature)
 
 # Appendix
+## Command Glossary
+`docker-compose -f docker-compose.dev.yml config`
+- Output `yml` file with filled out environment variables from the `.env`
+`docker-compose -f docker-compose.dev.yml build`
+- Build the containers specified in the `.yml` file from their respective images
+- Append `--no-cache` to ensure containers are rebuilt from scratch
+`docker-compose -f docker-compose.dev.yml up`
+- Start up the compose environment
+- Append `--force-receate` to avoid starting from previouse container builds
+`docker-compose -f docker-compose.dev.yml down`
+- Stop compose environment and remove containers
+- Append `-v` to remove shared volume so that startup scripts can be re-run
+## Alias Setup
+- Aliases are way to setup command shortcuts on your command line so you don't have to type as much
+### Mac/Linux/WSL
+- We can setup aliases for `docker-compose` commands by navigating to your `~/.bashrc` or equivalent and setting them
+```bash
+# docker compose aliases
+alias dev-build='docker-compose -f docker-compose.dev.yml build'
+alias dev-up='docker-compose -f docker-compose.dev.yml up'
+alias dev-stop='docker-compose -f docker-compose.dev.yml stop'
+alias dev-down='docker-compose -f docker-compose.dev.yml down'
+alias dev-config='docker-compose -f docker-compose.dev.yml config'
+alias dev-show='docker-compose -f docker-compose.dev.yml ps'  
+```
+- Any additional options can be set after the alias like normal: `dev-stop -v`
+- You can change the alias names to whatever you want
+### Windows
+- Make sure that you can run scripts with powershell. If not, run powershell as administrator and `set-executionpolicy remotesigned`. This will allow you to run your own scripts in powershell.
+``` c++
+function dev-start() {
+    docker-compose -f docker-compose.dev.yml build --no-cache; // build from scratch
+    docker-compose -f docker-compose.dev.yml up; // start-up containers
+}
+
+function dev-stop() {
+    docker-compose -f docker-compose.dev.yml stop; // used to stop containers while saving state
+}
+
+function dev-down() {
+    docker-compose -f docker-compose.dev.yml down -v; // used to remove shared volumes and state is not saved
+}
+
+function dev-show() {
+    docker-compose -f docker-compose.dev.yml ps; // show running containers
+}
+
+function dev-config() {
+    docker-compose -f docker-compose.dev.yml config; // show environment configuration
+}
+```
+- To run the commands just type the function name into the powershell terminal: `dev-show`
+- You can change the function names to whatever you want, these are just examples
 ## Example Network Layout
 - In this example you can see that the only externally accessible port is nginx port 80
 - We can define any port to bind to this nginx port
