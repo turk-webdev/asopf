@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { ensureAuthenticated } = require('../config/auth');
 const devController = require('../controllers/developer');
 
 router.get('/', (req, res) => {
@@ -16,12 +17,12 @@ router.get('/search', (req, res, next) => {
     });
 });
 
-router.get('/login', (req, res, next) => {
-    res.render('login', {
-        pageTitle: 'Login here',
-        path: '/login'
-    });
-});
+// router.get('/login', (req, res, next) => {
+//     res.render('login', {
+//         pageTitle: 'Login here',
+//         path: '/login'
+//     });
+// });
 
 // About pages pulling data from db, see controllers/developer.js
 router.get('/about-us/', devController.getDevelopers);
