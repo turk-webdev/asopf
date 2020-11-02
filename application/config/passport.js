@@ -9,7 +9,7 @@ module.exports = function (passport) {
             console.log(email, password);
             Search.selectUser('users', 'email', email).then(([rows, fields]) => {
                 if (rows[0].pw == password) {
-                    return done(null, { id: rows[0].id, username: rows[0].username })
+                    return done(null, { id: rows[0].id, email: rows[0].email, permissions: rows[0].permissions })
                 } else {
                     return done(null, false, { message: "Incorrect Password" })
                 }

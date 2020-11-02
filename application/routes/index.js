@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
+const { isAdmin } = require('../config/isAdmin');
 const devController = require('../controllers/developer');
 
 router.get('/', (req, res) => {
@@ -9,6 +10,21 @@ router.get('/', (req, res) => {
         path: '/'
     })
 });
+
+router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
+    res.render('search', {
+        pageTitle: `COVID Data`,
+        path: '/search'
+    });
+});
+
+router.get('/auth', ensureAuthenticated,(req, res, next) => {
+    res.render('search', {
+        pageTitle: `COVID Data`,
+        path: '/search'
+    });
+});
+
 
 router.get('/search/:type', (req, res, next) => {
     let type = req.params.type === 'covid' ? 'COVID' : 'Wildfire';
