@@ -19,6 +19,7 @@ router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
 });
 
 router.get('/auth', ensureAuthenticated,(req, res, next) => {
+    console.log(req.user);
     res.render('search', {
         pageTitle: `COVID Data`,
         path: '/search'
