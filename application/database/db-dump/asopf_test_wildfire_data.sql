@@ -16,35 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `wildfire_data`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `wildfire_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `wildfire_data` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `fname` varchar(45) DEFAULT NULL,
-  `lname` varchar(45) DEFAULT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `notify` varchar(45) DEFAULT NULL,
-  `role` varchar(45) NOT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  `phone_provider` varchar(45) DEFAULT NULL,
+  `evac_level` varchar(45) DEFAULT NULL,
+  `warning_level` varchar(45) DEFAULT NULL,
+  `num_fires` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
   `county_code` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `wildfire_data`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `wildfire_data` WRITE;
+/*!40000 ALTER TABLE `wildfire_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wildfire_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-03 18:42:39
+-- Dump completed on 2020-11-03 18:42:40

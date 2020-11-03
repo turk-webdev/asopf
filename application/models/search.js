@@ -30,9 +30,9 @@ module.exports = class Search {
         var sql = "SELECT EXISTS(SELECT 1 FROM ?? WHERE ?? = ?) as 'exists'";
         return db.query(sql, [table, col, query]);
     }
-    static insertUser(table, email, pw, perm) {
-        var sql = "INSERT INTO ?? (email, pw, permissions) values(?, ?, ?)";
-        return db.query(sql, [table, email, pw, perm]);
+    static insertUser(table, email, password, role) {
+        var sql = "INSERT INTO ?? (email, password, role) values(?, ?, ?)";
+        return db.query(sql, [table, email, password, role]);
     }
     static selectUser(table, col, query) {
         var sql = "SELECT * FROM ?? WHERE ?? = ?";

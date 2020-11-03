@@ -16,35 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `covid_data`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `covid_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `covid_data` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `fname` varchar(45) DEFAULT NULL,
-  `lname` varchar(45) DEFAULT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `notify` varchar(45) DEFAULT NULL,
-  `role` varchar(45) NOT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  `phone_provider` varchar(45) DEFAULT NULL,
+  `cases` int DEFAULT NULL,
+  `death` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
   `county_code` varchar(45) DEFAULT NULL,
+  `total_cases` int DEFAULT NULL,
+  `total_deaths` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `covid_data`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `covid_data` WRITE;
+/*!40000 ALTER TABLE `covid_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `covid_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
