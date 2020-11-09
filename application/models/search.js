@@ -38,4 +38,10 @@ module.exports = class Search {
         var sql = "SELECT * FROM ?? WHERE ?? = ?";
         return db.query(sql, [table, col, query]);
     }
+
+    
+    static getNewCovidData(table) {
+        var sql = "SELECT * FROM asopf_test.?? where date=(SELECT MAX(date) AS 'date' FROM asopf_test.??) ORDER BY county_code;";
+        return db.query(sql, [table, table]);
+    }
 };

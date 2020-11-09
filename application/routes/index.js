@@ -3,6 +3,7 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const { isAdmin } = require('../config/isAdmin');
 const devController = require('../controllers/developer');
+const searchController = require('../controllers/search');
 
 router.get('/', (req, res) => {
     res.render('welcome', {
@@ -45,5 +46,7 @@ router.get('/search/:type', (req, res, next) => {
 // About pages pulling data from db, see controllers/developer.js
 router.get('/about-us/', devController.getDevelopers);
 router.get('/about-us/:name', devController.getDeveloperByName);
+
+router.get('/covid/', searchController.covid);
 
 module.exports = router;
