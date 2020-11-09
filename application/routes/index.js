@@ -5,11 +5,17 @@ const { isAdmin } = require('../config/isAdmin');
 const devController = require('../controllers/developer');
 
 router.get('/', (req, res) => {
-    res.render('welcome', {
-        pageTitle: 'Welcome',
+    res.render('home', {
+        pageTitle: 'A Song Of Plague & Fire',
         path: '/'
     })
 });
+// router.get('/', (req, res) => {
+//     res.render('welcome', {
+//         pageTitle: 'Welcome',
+//         path: '/'
+//     })
+// });
 
 router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
     res.render('search', {
