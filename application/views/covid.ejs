@@ -5,19 +5,14 @@
         list-style-type: none;
     }
 
-    html,
-    body {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
     #viewDiv {
-        height: 94%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
+        height: 50%;
+        width: 50%;
+        margin: 150px;
+        border-radius: 5px;
+        padding: 1px;
+        border: 2px solid blue;
+        
     }
 
     #infoDiv {
@@ -30,219 +25,8 @@
         width: 280px;
     }
 
-    #favDivToggle {
-        padding: 10px;
-        width: 320px;
-    }
-
-    #sliderValue {
-        font-weight: bolder;
-    }
-
     #legendDiv {
         width: 260px;
-    }
-
-    #description {
-        padding: 10px 0 10px 0;
-    }
-
-    .box {
-        width: 500px;
-        padding: 40px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        background: #191919;
-        ;
-        text-align: center;
-        transition: 0.25s;
-        margin-top: 100px
-    }
-
-    .box input[type="text"],
-    .box input[type="password"] {
-        border: 0;
-        background: none;
-        display: block;
-        margin: 20px auto;
-        text-align: center;
-        border: 2px solid #3498db;
-        padding: 10px 10px;
-        width: 250px;
-        outline: none;
-        color: white;
-        border-radius: 24px;
-        transition: 0.25s
-    }
-
-    .box h1 {
-        color: white;
-        text-transform: uppercase;
-        font-weight: 500
-    }
-
-    .box input[type="text"]:focus,
-    .box input[type="password"]:focus {
-        width: 300px;
-        border-color: #2ecc71
-    }
-
-    .box input[type="submit"] {
-        border: 0;
-        background: none;
-        display: block;
-        margin: 20px auto;
-        text-align: center;
-        border: 2px solid #2ecc71;
-        padding: 14px 40px;
-        outline: none;
-        color: white;
-        border-radius: 24px;
-        transition: 0.25s;
-        cursor: pointer
-    }
-
-    .box input[type="submit"]:hover {
-        background: #2ecc71
-    }
-
-    .forgot {
-        text-decoration: underline
-    }
-
-    /* form controller*/
-    .form-control {
-        width: 100%;
-        margin-left: 1rem;
-    }
-
-    /* dropdown menu*/
-    .dropdown-menu {
-        min-width: 25rem;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    /* Popup container - can be anything you want */
-
-    .popup {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    /* The actual popup */
-
-    .popup .popuptext {
-        visibility: hidden;
-        width: 160px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 8px 0;
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -80px;
-    }
-
-    /* Popup arrow */
-
-    .popup .popuptext::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-    }
-
-    /* Toggle this class - hide and show the popup */
-
-    .popup .show {
-        visibility: visible;
-        -webkit-animation: fadeIn 1s;
-        animation: fadeIn 1s;
-    }
-
-    /* Icons */
-
-    .row:hover .esri-icon-trash {
-        color: red;
-        opacity: 1
-    }
-
-    .material-icons {
-        color: grey;
-    }
-
-    .row:hover .material-icons {
-        color: #4aa5f0;
-        opacity: 1
-    }
-
-    .row:hover {
-        color: #4aa5f0;
-    }
-
-    .esri-icon-trash {
-        color: white;
-        opacity: 0;
-        transition: 0.5s;
-    }
-
-    .esri-icon-settings {
-        color: white;
-        opacity: 0;
-        transition: 0.5s;
-    }
-
-    .btn-setting {
-        border: hidden;
-        background-color: transparent;
-        outline: none;
-    }
-
-    .btn-setting:focus {
-        outline: none;
-    }
-
-    .row:hover .esri-icon-settings {
-        color: #4aa5f0;
-        opacity: 1
-    }
-
-
-    /*  Snackbar  */
-    #snackbar {
-        visibility: hidden;
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        padding: 16px;
-        position: fixed;
-        z-index: 10000;
-        left: 50%;
-        bottom: 30px;
-        font-size: 17px;
-    }
-
-    #snackbar.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
 
     @-webkit-keyframes fadein {
@@ -319,22 +103,6 @@
         display: block !important;
     }
 
-    .loader {
-        display: none;
-        position: absolute;
-        bottom: 30px;
-        right: 20px;
-        z-index: 10000;
-        border: 6px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 6px solid #3498db;
-        width: 30px;
-        height: 30px;
-        -webkit-animation: spin 1s linear infinite;
-        /* Safari */
-        animation: spin 1s linear infinite;
-    }
-
     /* Safari */
     @-webkit-keyframes spin {
         0% {
@@ -389,23 +157,23 @@
             }
         });
 
-        var parcelles = {
-            outFields: ["*"],
-            title: "{id}",
-            content: function (feature) {
-                var div = document.createElement("div");
-                div.className = "myClass";
-                div.innerHTML =
-                    `<b>County name:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.name}</span><br>
-                <b>Daily cases:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.cases}</span><br>
-                <b>Daily deaths:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.death}</span><br><br>
-                <b>Total cases:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.total_cases}</span><br>
-                <b>Total deaths:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.total_deaths}</span><br><br>
-                <button type="button" class="btn btn-info" onclick="location.href = '/covid/${feature.graphic.attributes.name}';">See More</button><br><br>
-                `
-                return div;
-            }
-        }
+        // var parcelles = {
+        //     outFields: ["*"],
+        //     title: "{id}",
+        //     content: function (feature) {
+        //         var div = document.createElement("div");
+        //         div.className = "myClass";
+        //         div.innerHTML =
+        //             `<b>County name:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.name}</span><br>
+        //         <b>Daily cases:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.cases}</span><br>
+        //         <b>Daily deaths:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.death}</span><br><br>
+        //         <b>Total cases:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.total_cases}</span><br>
+        //         <b>Total deaths:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.total_deaths}</span><br><br>
+        //         <button type="button" class="btn btn-info" onclick="location.href = '/covid/${feature.graphic.attributes.name}';">See More</button><br><br>
+        //         `
+        //         return div;
+        //     }
+        // }
 
         const labelClass = {  // autocasts as new LabelClass()
             symbol: {
@@ -427,8 +195,8 @@
 
         var parcels = new FeatureLayer({
             source: data_json.features,
-            popupEnabled: true,
-            popupTemplate: parcelles,
+            popupEnabled: false,
+            // popupTemplate: parcelles,
             objectIdField: "countyfp",
             fields: [{
                 name: "countyfp",
@@ -484,36 +252,72 @@
             container: "legendDiv"
         });
 
-        const toolbarDiv = document.getElementById("toolbarDiv");
-        view.ui.add(
-            new Expand({
-                view: view,
-                content: toolbarDiv,
-                expandIconClass: "esri-icon-measure",
-                expanded: false
-            }),
-            "top-right"
-        );
-        const infoDiv = document.getElementById("infoDiv");
-        view.ui.add(
-            new Expand({
-                view: view,
-                content: infoDiv,
-                expandIconClass: "esri-icon-layer-list",
-                expanded: false
-            }),
-            "top-right"
-        );
-        const infoDivToggle = document.getElementById("infoDivToggle");
-        view.ui.add(
-            new Expand({
-                view: view,
-                content: infoDivToggle,
-                expandIconClass: "esri-icon-collection",
-                expanded: false
-            }),
-            "top-right"
-        );
+        view.popup.dockOptions = {
+            buttonEnabled: false,
+            breakpoint: {
+                width: 600,
+                height: 1000
+            },
+            position : "bottom-left"
+        };
+
+
+        function changeCursor(response) {
+            if (response.results.length > 0) {
+                document.getElementById("viewDiv").style.cursor = "pointer";
+            } else {
+                document.getElementById("viewDiv").style.cursor = "default";
+            }
+        }
+
+        function getGraphics(response) {
+            view.graphics.removeAll();
+            if (response.results.length > 0) {
+                var graphic = response.results[0].graphic;
+                graphic.symbol = {
+                    type: "simple-fill",
+                    style: "none",
+                    outline: { // autocasts as new SimpleLineSymbol()
+                        color: "blue",
+                        width: 1
+                    }
+                }
+                view.graphics.add(graphic);
+            }
+        }
+
+        function showPopup(response) {
+            view.popup.close();
+            if (response.results.length > 0) {
+                view.popup.open({
+                    title: 'State: ' + response.results[0].graphic.attributes.name,
+                    content: 'Total Cases: ' + response.results[0].graphic.attributes.total_cases + '<br>' +
+                        'Total Deaths: ' + response.results[0].graphic.attributes.total_deaths + '<br>' +
+                        'Daily Cases: ' + response.results[0].graphic.attributes.cases + '<br>' +
+                        'Daily Deaths: ' + response.results[0].graphic.attributes.total_deaths + '<br>',
+                    // location: response.results[0].graphic.geometry.centroid
+                });
+            }
+        }
+
+        view.when(function () {
+            view.whenLayerView(parcels).then(function (lview) {
+                view.on("pointer-move", function (evt) {
+                    var screenPoint = {
+                        x: evt.x,
+                        y: evt.y
+                    };
+                    view.hitTest(screenPoint)
+                        .then(function (response) {
+                            changeCursor(response);
+                            getGraphics(response);
+                            showPopup(response);
+                        });
+                });
+            });
+        });
+
+
         const basemapDivToggle = document.getElementById("basemapDivToggle");
         view.ui.add(
             new Expand({
@@ -540,9 +344,6 @@
 </script>
 
 <div id="viewDiv"></div>
-<div id="infoDiv" class="esri-widget">
-    <div id="legendDiv"></div>
-    <div id="basemapDivToggle" class="esri-widget">
-        <div id="basemapDiv"></div>
-    </div>
+<div id="basemapDivToggle" class="esri-widget">
+    <div id="basemapDiv"></div>
 </div>
