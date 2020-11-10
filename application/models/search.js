@@ -41,7 +41,7 @@ module.exports = class Search {
 
     
     static getNewCovidData(table) {
-        var sql = "SELECT * FROM asopf_test.?? where date=(SELECT MAX(date) AS 'date' FROM asopf_test.??) ORDER BY county_code;";
+        var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
     }
 };
