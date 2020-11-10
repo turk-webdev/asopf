@@ -11,12 +11,13 @@ router.get('/', (req, res) => {
         path: '/'
     })
 });
-// router.get('/', (req, res) => {
-//     res.render('welcome', {
-//         pageTitle: 'Welcome',
-//         path: '/'
-//     })
-// });
+
+router.get('/welcome', (req, res) => {
+    res.render('welcome', {
+        pageTitle: 'A Song Of Plague & Fire',
+        path: '/'
+    })
+});
 
 router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
     res.render('search', {
