@@ -99,12 +99,12 @@
         background: var(--right-bg-color);
     }
 
-    .split.left,
+    /* .split.left,
     .split.right,
     .split.right:before,
     .split.left:before {
         transition: var(--speed) all ease-in-out;
-    }
+    } */
 
     .hover-left .left {
         width: var(--hover-width);
@@ -129,6 +129,27 @@
 
     .hover-right .left:before {
         z-index: 2;
+    }
+
+    @media(max-width: 1000px) {
+        .split {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            overflow: hidden;
+        }
+        .split.left {
+            top: 0;
+            left: default;
+            background: url('https://static01.nyt.com/images/2020/05/15/opinion/13Field1/merlin_167605491_f32ec626-cb5e-4ab1-b3e4-af86a38fe739-mobileMasterAt3x.jpg') center center no-repeat;
+            background-size: cover;
+        }
+        .split.right {
+            right: default;
+            bottom: 0;
+            background: url('https://img.freepik.com/vecteurs-libre/coronavirus-background-bacteries-germes-cellule-virus-micro-organisme_139523-215.jpg?size=664&ext=jpg') center center no-repeat;
+            background-size: cover;
+        }
     }
 
     @media(max-width: 800px) {
@@ -160,28 +181,28 @@
     </div>
 </div>
 <script>
-    function test() {
-        console.log("test")
-    }
+    // function test() {
+    //     console.log("test")
+    // }
     
-    const left = document.querySelector(".left");
-    const right = document.querySelector(".right");
-    const main = document.querySelector(".main");
+    // const left = document.querySelector(".left");
+    // const right = document.querySelector(".right");
+    // const main = document.querySelector(".main");
 
-    left.addEventListener("mouseenter", () => {
-        main.classList.add("hover-left");
-    });
+    // left.addEventListener("mouseenter", () => {
+    //     main.classList.add("hover-left");
+    // });
 
-    left.addEventListener("mouseleave", () => {
-        main.classList.remove("hover-left");
-    });
+    // left.addEventListener("mouseleave", () => {
+    //     main.classList.remove("hover-left");
+    // });
 
-    right.addEventListener("mouseenter", () => {
-        main.classList.add("hover-right");
-    });
+    // right.addEventListener("mouseenter", () => {
+    //     main.classList.add("hover-right");
+    // });
 
-    right.addEventListener("mouseleave", () => {
-        main.classList.remove("hover-right");
-    });
+    // right.addEventListener("mouseleave", () => {
+    //     main.classList.remove("hover-right");
+    // });
 
 </script>
