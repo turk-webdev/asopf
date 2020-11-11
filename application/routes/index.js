@@ -5,14 +5,14 @@ const { isAdmin } = require('../config/isAdmin');
 const devController = require('../controllers/developer');
 const searchController = require('../controllers/search');
 
-router.get('/', (req, res) => {
-    res.render('home', {
-        pageTitle: 'A Song Of Plague & Fire',
-        path: '/'
-    })
-});
+// router.get('/', (req, res) => {
+//     res.render('home', {
+//         pageTitle: 'A Song Of Plague & Fire',
+//         path: '/'
+//     })
+// });
 
-router.get('/welcome', (req, res) => {
+router.get('/', (req, res) => {
     res.render('welcome', {
         pageTitle: 'A Song Of Plague & Fire',
         path: '/'
@@ -21,7 +21,7 @@ router.get('/welcome', (req, res) => {
 
 router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
     res.render('search', {
-        pageTitle: `COVID Data`,
+        pageTitle: `ASOPF`,
         path: '/search'
     });
 });
