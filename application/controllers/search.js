@@ -7,7 +7,7 @@ exports.covid = (req, res, next) => {
     Search.getNewCovidData('covid_data').then(([rows, fields]) => {
         var rawdata = fs.readFileSync(__dirname + "/counties.json");
         let data = JSON.parse(rawdata);
-        data.features.forEach(function(table) {
+        data.features.forEach(function (table) {
             var picked = lodash.filter(rows, x => x.county_code === table.attributes.name);
             let tmp = JSON.parse(JSON.stringify(picked[0]));
             table.attributes["total_cases"] = tmp.total_cases;
@@ -16,10 +16,11 @@ exports.covid = (req, res, next) => {
             table.attributes["death"] = tmp.death;
         });
         res.render('covid', {
+            logged: req.user ? "yes" : "no",
             pageTitle: 'ASOPF | COVID Data',
             path: '/covid',
-            countyInit: false,
-            counties: data
+            counties: data,
+            countyInit: false
         });
     }).catch(err => console.log(err));
 };
