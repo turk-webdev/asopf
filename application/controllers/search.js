@@ -24,7 +24,22 @@ exports.covid = (req, res, next) => {
     }).catch(err => console.log(err));
 };
 
-exports.countyInit = (req, res, next) => {
+exports.wildfireCountyInit = (req, res, next) => {
+    let countyString = req.params.county;
+    Search.getCountyWildfire(countyString)
+    .then(([rows,fields]) => {
+        console.log(rows);
+
+        res.render('wildfire', {
+            pageTitle: `ASOPF | ${countyString} | Wildfire Data`,
+            path: '/wildfire',
+            county: countyString,
+            data: rows
+        });
+    });
+};
+
+exports.covidCountyInit = (req, res, next) => {
     let countyString = req.params.county;
     var data;
     // Build the map as per usual

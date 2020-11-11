@@ -45,6 +45,11 @@ module.exports = class Search {
         return db.query(sql, [county]);
     }
 
+    static getCountyWildfire(county) {
+        var sql = "SELECT * FROM ca_wildfire_data WHERE UPPER(incident_county) = UPPER(?) ORDER BY incident_date_last_update DESC LIMIT 14;";
+        return db.query(sql, [county]);
+    }
+
     static getNewCovidData(table) {
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);

@@ -55,6 +55,7 @@ router.get('/about-us/', devController.getDevelopers);
 router.get('/about-us/:name', devController.getDeveloperByName);
 
 router.get('/covid/', searchController.covid);
-router.get('/covid/:county', searchController.countyInit);
+router.get('/covid/:county', searchController.covidCountyInit);
+router.get('/wildfire/:county', searchController.wildfireCountyInit);
 
 module.exports = router;
