@@ -32,6 +32,7 @@ exports.wildfireCountyInit = (req, res, next) => {
         console.log(rows);
 
         res.render('wildfire', {
+            logged: req.user ? "yes" : "no",
             pageTitle: `ASOPF | ${countyString} | Wildfire Data`,
             path: '/wildfire',
             county: countyString,
@@ -60,6 +61,7 @@ exports.covidCountyInit = (req, res, next) => {
         Search.getCountyCovid(countyString)
         .then(([rows, fields]) => { 
             res.render('covid', {
+                logged: req.user ? "yes" : "no",
                 pageTitle: `ASOPF | ${countyString} | COVID Data`,
                 path: '/covid',
                 countyInit: true,
