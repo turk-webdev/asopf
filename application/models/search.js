@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const db = require('../utils/database');
 
 module.exports = class Search {
@@ -5,6 +6,10 @@ module.exports = class Search {
     static fetchAll(table, order) {
         var sql = "SELECT * FROM ?? ORDER BY ??";
         return db.query(sql, [table, order]);
+    }
+    static fetchSome(table, order, order2, limit) {
+        var sql = "SELECT * FROM ?? ORDER BY ?? DESC, ?? LIMIT ?";
+        return db.query(sql, [table, order,order2, limit]);
     }
     static exact(table, col, query, order) {
         var sql = "SELECT * FROM ?? WHERE ?? = ? ORDER BY ?? DESC";
@@ -43,5 +48,16 @@ module.exports = class Search {
     static getNewCovidData(table) {
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
+    }
+
+    
+    static updateUser(table, fname, lname, email, phone, adress, county, user_email) {
+        var sql = "UPDATE ?? SET fname = ?, lname = ?, email = ?, phone = ?, adress = ?, county_code = ? WHERE email = ?"
+        return db.query(sql, [table, fname, lname, email, phone, adress, county, user_email]);
+    }
+
+    
+    static whatever(sql) {
+        return db.query(sql);
     }
 };

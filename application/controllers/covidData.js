@@ -2,6 +2,7 @@ const Search = require('../models/search');
 
 exports.getPage = (req, res, next) => {
     res.render('add-data', {
+        logged: req.user ? "yes" : "no",
         pageTitle: 'Covid Data',
         path: '/covid-data'
     });
@@ -13,6 +14,7 @@ exports.getAllData = (req, res, next) => {
     Search.fetchAll('covid-ca-counties', 'lastName').then(([rows, fields]) => {
         // Rows - Returns all of the rows of the table selected
         res.render('add-data', {
+            logged: req.user ? "yes" : "no",
             pageTitle: 'Covid Data',
             path: '/covid-data'
         });

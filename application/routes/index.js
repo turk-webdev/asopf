@@ -4,9 +4,11 @@ const { ensureAuthenticated } = require('../config/auth');
 const { isAdmin } = require('../config/isAdmin');
 const devController = require('../controllers/developer');
 const searchController = require('../controllers/search');
+const indexController = require('../controllers/index');
 
 router.get('/', (req, res) => {
     res.render('home', {
+        logged: req.user ? "yes" : "no",
         pageTitle: 'A Song Of Plague & Fire',
         path: '/'
     })
@@ -18,25 +20,17 @@ router.get('/', (req, res) => {
 //     })
 // });
 
-router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
-    res.render('search', {
-        pageTitle: `COVID Data`,
-        path: '/search'
-    });
-});
 
-router.get('/auth', ensureAuthenticated,(req, res, next) => {
-    console.log(req.user);
-    res.render('search', {
-        pageTitle: `COVID Data`,
-        path: '/search'
-    });
-});
-
+router.get('/profile/',ensureAuthenticated, indexController.profile);
+router.get('/profile/getCovid/', indexController.getCovid);
+router.get('/profile/getWildfire/', indexController.getWildfire);
+router.post('/profile/addCovidData/', indexController.addCovidData);
+router.post('/profile/addWildfireData/', indexController.addWildfireData);
 
 router.get('/search/:type', (req, res, next) => {
     let type = req.params.type === 'covid' ? 'COVID' : 'Wildfire';
     res.render('search', {
+        logged: req.user ? "yes" : "no",
         pageTitle: `${type} Data`,
         path: '/search'
     });

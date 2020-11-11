@@ -1,0 +1,58 @@
+const Search = require('../models/search');
+
+exports.profile = (req, res, next) => {
+    console.log(req.user);
+    res.render('profile_' + req.user.role, {
+        logged: req.user ? "yes" : "no",
+        user: req.user,
+        pageTitle: req.user.role,
+        path: 'profile_' + req.user.role
+    });
+};
+
+exports.getCovid = (req, res, next) => {
+    Search.fetchSome('covid_data', 'date', 'county_code', 7).then(([rows, fields]) => {
+        // Rows - Returns all of the rows of the table selected
+        res.send(rows);
+    }).catch(err => console.log(err));
+};
+
+exports.getWildfire = (req, res, next) => {
+    Search.fetchSome('ca_wildfire_data', 'incident_date_created', 'incident_name', 7).then(([rows, fields]) => {
+        // Rows - Returns all of the rows of the table selected
+        res.send(rows);
+    }).catch(err => console.log(err));
+};
+
+exports.addCovidData = (req, res, next) => {
+    var s = JSON.stringify(req.body);
+    var json = JSON.parse(s);
+    let sql = "";
+    sql += "INSERT INTO covid_data(cases, death, date, county_code, total_cases, total_deaths) VALUES ";
+    json.forEach(function (table) {
+        sql += " ('" + table.cases + "', '" + table.death + "', '" + table.date + "', '" + table.county_code + "', '" + table.total_cases + "', '" + table.total_deaths + "'),";
+    });
+    sql = sql.slice(0, -1);
+    sql += ";"
+    console.log(sql);
+    Search.whatever(sql).then(([rows, fields]) => {
+        res.send('done');
+    }).catch(err => console.log(err));
+};
+
+
+exports.addWildfireData = (req, res, next) => {
+    var s = JSON.stringify(req.body);
+    var json = JSON.parse(s);
+    let sql = "";
+    sql += "INSERT INTO ca_wildfire_data(incident_name, incident_is_final, incident_date_last_update, incident_date_created, incident_administrative_unit, incident_administrative_unit_url, incident_county, incident_location, incident_acres_burned, incident_containment, incident_control, incident_cooperating_agencies, incident_longitude, incident_latitude, incident_type, incident_id, incident_url, incident_date_extinguished, incident_dateonly_extinguished, incident_dateonly_created, is_active, calfire_incident, notification_desired) VALUES ";
+    json.forEach(function (table) {
+        sql += " ('" + table.incident_name + "', '" + table.incident_is_final + "', '" + table.incident_date_last_update + "', '" + table.incident_date_created + "', '" + table.incident_administrative_unit + "', '" + table.incident_administrative_unit_url + "', '" + table.incident_county + "', '" + table.incident_location + "', '" + table.incident_acres_burned + "', '" + table.incident_containment + "', '" + table.incident_control + "', '" + table.incident_cooperating_agencies + "', '" + table.incident_longitude + "', '" + table.incident_latitude + "', '" + table.incident_type + "', '" + table.incident_id + "', '" + table.incident_url + "', '" + table.incident_date_extinguished + "', '" + table.incident_dateonly_extinguished + "', '" + table.incident_dateonly_created + "', '" + table.is_active + "', '" + table.calfire_incident + "', '" + table.notification_desired + "'),";
+    });
+    sql = sql.slice(0, -1);
+    sql += ";"
+    console.log(sql);
+    Search.whatever(sql).then(([rows, fields]) => {
+        res.send('done');
+    }).catch(err => console.log(err));
+};
