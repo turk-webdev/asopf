@@ -11,6 +11,8 @@ router.get('/register', authController.getSignup);
 router.post('/login', authController.postLogin);
 router.post('/register', authController.postSignup);
 
+router.post('/update', authController.postUpdate);
+
 //Logout Handle
 router.get('/logout', (req, res) => {
     req.logout();

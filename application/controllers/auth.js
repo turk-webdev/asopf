@@ -5,6 +5,7 @@ const Search = require('../models/search');
 // A single row of the table is passed to the devs object
 exports.getLogin = (req, res, next) => {
     res.render('login', {
+        logged: req.user ? "yes" : "no",
         pageTitle: 'Login',
         path: '/login'
     });
@@ -13,6 +14,7 @@ exports.getLogin = (req, res, next) => {
 exports.getSignup = (req, res, next) => {
     res.render('register',
         {
+            logged: req.user ? "yes" : "no",
             pageTitle: 'Register',
             path: '/login'
         });
@@ -45,6 +47,7 @@ exports.postSignup = (req, res, next) => {
 
     if (errors.length > 0) {
         res.render('register', {
+            logged: req.user ? "yes" : "no",
             errors,
             name,
             email,
@@ -58,6 +61,7 @@ exports.postSignup = (req, res, next) => {
             if (rows[0].exists == 1) {
                 errors.push({ msg: "Email already exists" })
                 res.render('register', {
+                    logged: req.user ? "yes" : "no",
                     errors,
                     name,
                     email,
@@ -69,10 +73,34 @@ exports.postSignup = (req, res, next) => {
         }).catch(err => console.log(err));
         Search.insertUser('users', email, password, 'basic').then(([rows, fields]) => {
             res.render('login', {
+                logged: req.user ? "yes" : "no",
                 pageTitle: 'Login',
                 path: '/login'
             });
         }).catch(err => console.log(err));
     }
+};
+
+
+exports.postUpdate = (req, res, next) => {
+    var { fname, lname, email, phone, adress, county } = req.body;
+    var user_email = req.user.email;
+    if (!fname) {
+        fname = req.user.fname;
+    } if (!lname) {
+        lname = req.user.lname;
+    } if (!email) {
+        email = req.user.email;
+    } if (!phone) {
+        phone = req.user.phone;
+    } if (!adress) {
+        adress = req.user.adress;
+    } if (!county) {
+        county = req.user.county;
+    }
+    Search.updateUser('users', fname, lname, email, phone, adress, county, user_email).then(([rows, fields]) => {
+        req.flash('info', 'Your profile has been updated');
+        res.redirect('/profile');
+    }).catch(err => console.log(err));
 };
 

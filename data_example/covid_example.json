@@ -1,0 +1,26 @@
+[
+    {
+        "cases": 15,
+        "death": 0,
+        "date": "2020-11-11",
+        "county_code": "Monterey",
+        "total_cases": 11602,
+        "total_deaths": 96
+    },
+    {
+        "cases": 132,
+        "death": 0,
+        "date": "2020-11-11",
+        "county_code": "Santa Clara",
+        "total_cases": 25222,
+        "total_deaths": 406
+    },
+    {
+        "cases": 0,
+        "death": 0,
+        "date": "2020-11-11",
+        "county_code": "Trinity",
+        "total_cases": 30,
+        "total_deaths": 0
+    }
+]
