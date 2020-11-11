@@ -11,12 +11,13 @@ router.get('/', (req, res) => {
         path: '/'
     })
 });
-// router.get('/', (req, res) => {
-//     res.render('welcome', {
-//         pageTitle: 'Welcome',
-//         path: '/'
-//     })
-// });
+
+router.get('/welcome', (req, res) => {
+    res.render('welcome', {
+        pageTitle: 'A Song Of Plague & Fire',
+        path: '/'
+    })
+});
 
 router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
     res.render('search', {
@@ -28,7 +29,7 @@ router.get('/auth-admin', ensureAuthenticated, isAdmin,(req, res, next) => {
 router.get('/auth', ensureAuthenticated,(req, res, next) => {
     console.log(req.user);
     res.render('search', {
-        pageTitle: `COVID Data`,
+        pageTitle: `ASOPF | COVID Data`,
         path: '/search'
     });
 });
@@ -37,7 +38,7 @@ router.get('/auth', ensureAuthenticated,(req, res, next) => {
 router.get('/search/:type', (req, res, next) => {
     let type = req.params.type === 'covid' ? 'COVID' : 'Wildfire';
     res.render('search', {
-        pageTitle: `${type} Data`,
+        pageTitle: `ASOPF | ${type} Data`,
         path: '/search'
     });
 });
@@ -54,5 +55,7 @@ router.get('/about-us/', devController.getDevelopers);
 router.get('/about-us/:name', devController.getDeveloperByName);
 
 router.get('/covid/', searchController.covid);
+router.get('/covid/:county', searchController.covidCountyInit);
+router.get('/wildfire/:county', searchController.wildfireCountyInit);
 
 module.exports = router;

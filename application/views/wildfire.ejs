@@ -1,0 +1,43 @@
+<style>
+    #map {
+        height:100%;
+        width: 100%;
+        background-color: red;
+    }
+</style>
+
+<div class="row" style="height:100%; padding:0 10px;">
+    <div class="col-md-6">
+        <i>PLACEHOLDER! MAP WILL GO HERE</i>
+        <div id="map">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h1>14-day Data for <%= county %> County</h1>
+        <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Incident Name</th>
+                <th scope="col">Acres Burned</th>
+                <th scope="col">Incident Location</th>
+                <th scope="col">Active Incident</th>
+                <th scope="col">Date of Last Update</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <% if (data.length > 0) { %>
+                <% for (let i=0; i<data.length; i++) { %>
+                        <tr>
+                            <td><%= data[i].incident_name %></td>
+                            <td><%= data[i].incident_acres_burned %></td>
+                            <td><%= data[i].incident_location %></td>
+                            <td><%= data[i].is_active %></td>
+                            <td><%= data[i].incident_date_last_update %></td>
+                        </tr>
+                <% } %>
+            <%  } else { %>
+                    <td colspan="5"><b>No current data for this county</b></td>
+            <%  } %>
+        </table>
+    </div>
+</div>
