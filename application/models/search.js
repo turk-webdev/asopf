@@ -12,6 +12,7 @@ module.exports = class Search {
     }
 
     static contains(table, col, query, order) {
+        console.log(`SELECT * FROM ${table} WHERE ${col} LIKE ${query} ORDER BY ${order}`);
         var sql = "SELECT * FROM ?? WHERE ?? LIKE %?% ORDER BY ??";
         return db.query(sql, [table, col, query, order]);
     }
@@ -39,7 +40,11 @@ module.exports = class Search {
         return db.query(sql, [table, col, query]);
     }
 
-    
+    static getCountyCovid(county) {
+        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) ORDER BY id LIMIT 14;";
+        return db.query(sql, [county]);
+    }
+
     static getNewCovidData(table) {
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
