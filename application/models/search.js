@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const db = require('../utils/database');
 
 module.exports = class Search {
@@ -6,12 +7,17 @@ module.exports = class Search {
         var sql = "SELECT * FROM ?? ORDER BY ??";
         return db.query(sql, [table, order]);
     }
+    static fetchSome(table, order, order2, limit) {
+        var sql = "SELECT * FROM ?? ORDER BY ?? DESC, ?? LIMIT ?";
+        return db.query(sql, [table, order,order2, limit]);
+    }
     static exact(table, col, query, order) {
         var sql = "SELECT * FROM ?? WHERE ?? = ? ORDER BY ?? DESC";
         return db.query(sql, [table, col, query, order]);
     }
 
     static contains(table, col, query, order) {
+        console.log(`SELECT * FROM ${table} WHERE ${col} LIKE ${query} ORDER BY ${order}`);
         var sql = "SELECT * FROM ?? WHERE ?? LIKE %?% ORDER BY ??";
         return db.query(sql, [table, col, query, order]);
     }
@@ -39,9 +45,29 @@ module.exports = class Search {
         return db.query(sql, [table, col, query]);
     }
 
-    
+    static getCountyCovid(county) {
+        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) ORDER BY id LIMIT 14;";
+        return db.query(sql, [county]);
+    }
+
+    static getCountyWildfire(county) {
+        var sql = "SELECT * FROM ca_wildfire_data WHERE UPPER(incident_county) = UPPER(?) ORDER BY incident_date_last_update DESC LIMIT 14;";
+        return db.query(sql, [county]);
+    }
+
     static getNewCovidData(table) {
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
+    }
+
+    
+    static updateUser(table, fname, lname, email, phone, adress, county, user_email) {
+        var sql = "UPDATE ?? SET fname = ?, lname = ?, email = ?, phone = ?, adress = ?, county_code = ? WHERE email = ?"
+        return db.query(sql, [table, fname, lname, email, phone, adress, county, user_email]);
+    }
+
+    
+    static whatever(sql) {
+        return db.query(sql);
     }
 };

@@ -302,6 +302,7 @@ CREATE TABLE `users` (
   `phone` varchar(45) DEFAULT NULL,
   `phone_provider` varchar(45) DEFAULT NULL,
   `county_code` varchar(45) DEFAULT NULL,
+  `adress` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -313,7 +314,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,NULL,NULL,'uerdin@mail.sfsu.edu','testing',NULL,'basic',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,NULL,NULL,'uerdin@mail.sfsu.edu','testing',NULL,'basic',NULL,NULL,NULL, NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

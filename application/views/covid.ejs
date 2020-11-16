@@ -6,8 +6,8 @@
     }
 
     #viewDiv {
-        height: 50%;
-        width: 50%;
+        min-width: 600px;
+        min-height: 400px;
         margin: 150px;
         border-radius: 5px;
         padding: 1px;
@@ -342,8 +342,48 @@
         });
     });
 </script>
-
-<div id="viewDiv"></div>
-<div id="basemapDivToggle" class="esri-widget">
-    <div id="basemapDiv"></div>
+<!-- <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <h1>COVID Data Map</h1>
+    </div>
+</div> -->
+<div class="row" style="height:100%;">
+    <div class="col-md-6">
+        <div id="viewDiv"></div>
+        <div id="basemapDivToggle" class="esri-widget">
+            <div id="basemapDiv"></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <% if (countyInit) { %>
+        <h1>14-day Data for <%= county %> County</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">New Cases</th>
+                    <th scope="col">New Deaths</th>
+                    <th scope="col">Total Cases</th>
+                    <th scope="col">Total Deaths</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody id="data-table">
+                <% if (dataTable.length > 0 && dataTable != undefined) { %>
+                    <% for (let i=0; i<dataTable.length; i++) { %>
+                        <tr>
+                            <td><%= dataTable[i].cases %></td>
+                            <td><%= dataTable[i].death %></td>
+                            <td><%= dataTable[i].total_cases %></td>
+                            <td><%= dataTable[i].total_deaths %></td>
+                            <td><%= dataTable[i].date %></td>
+                        </tr>   
+                    <% } %>
+                <% } else { %>
+                    <td colspan="5"><b>No county selected.</b></td>
+                <% } %>
+            </tbody>
+        </table>
+        <% } %>
+    </div>
 </div>
