@@ -47,14 +47,16 @@ services:
             - backend
 
     nginx:
-        image: nginx:1.19.2
+        image: nginx:mainline
         container_name: nginx
-        restart: unless-stopped
+        build:
+            dockerfile: Dockerfile
+            context: ./nginx
+        restart: always
         ports:
             - "${APP_PORT}:80"     # map localhost port to nginx port 80 of the internal network
         volumes:
-            - .:/application
-            - ./nginx-conf:/etc/nginx/conf.d
+            - ./nginx/configs:/etc/nginx/conf.d
         depends_on:
             - asopf-app
         links:
