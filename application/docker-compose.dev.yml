@@ -24,13 +24,14 @@ services:
         command: /application/wait-for-it.sh mysql-db:3306 -- node_modules/.bin/nodemon --legacy-watch app.js
     
     mysql-db:
-        image: mysql:8.0.21
+        image: mysql:8
         build:
-            context: .
-            dockerfile: Dockerfile.mysql
+            context: ./db
+            dockerfile: Dockerfile
         container_name: mysql-db
-        restart: unless-stopped
-        env_file: .env
+        restart: on-failure
+        env_file: 
+            - ./.env
         environment:    # environment variables are defined in .env, look at .env.example for reference
             MYSQL_DATABASE: "${MYSQL_DATABASE}"
             MYSQL_HOSTNAME: "${MYSQL_HOSTNAME}"
@@ -42,7 +43,7 @@ services:
             - "${HOST_PORT}:3306"     # expose mysql port to host machine so mysql workbench can connect
         volumes:
             - mysql:/var/lib/mysql  # shared volume using a directory on the local machine
-            - ./database/db-dump:/docker-entrypoint-initdb.d    # folder for sql imports
+            - ./db/db-dump:/docker-entrypoint-initdb.d    # folder for sql imports
         networks:
             - backend
 

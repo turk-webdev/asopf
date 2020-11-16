@@ -3,7 +3,7 @@ FROM nginx:mainline
 EXPOSE 80
 
 # Delete the default welcome to nginx page
-RUN rm /usr/share/nginx/html/*
+# RUN rm /usr/share/nginx/html/*
 
 # Copy over the custom default config
 COPY configs/nginx.conf /etc/nginx/conf.d/nginx.conf
