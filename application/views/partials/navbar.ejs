@@ -1,50 +1,5 @@
-<style>
-    #search-bar {
-        max-width: 50%;
-        min-width: 10%;
-        padding: 10px;
-        font-size: 17px;
-        border: 1px solid grey;
-        float: left;
-        width: 80%;
-        background: #f1f1f1;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-
-    #search-button1 {
-        float: left;
-        min-width: 5%;
-        padding: 10px;
-        background: #9d4973;
-        color: white;
-        font-size: 17px;
-        border: 1px solid #222;
-        border-left: none;
-        cursor: pointer;
-    }
-
-    #search-button2 {
-        float: left;
-        min-width: 5%;
-        padding: 10px;
-        background: #b71811;
-        color: white;
-        font-size: 17px;
-        border: 1px solid #222;
-        border-left: none;
-        cursor: pointer;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-    @media (min-width: 768px) {
-        nav.navbar {
-            max-height: 60px;
-            overflow: hidden;
-        }
-    }
-</style>
-
+<link rel="stylesheet" type="text/css" href="/css/navsearch.css">
+<link rel="stylesheet" type="text/css" href="/css/autocomplete.css">
 <script src="/js/navSearch.js" type="text/javascript"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #5B7F95;">
@@ -53,9 +8,11 @@
             <a class="navbar-brand pb-2" href="/"><img id="logo" src="/img/asopf_name_logo.png"></a>
         </div>
         <div class="col-md-6 col-xs-4">
-            <input id="search-bar" placeholder="County name" value="San Francisco">
-            <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
-            <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
+            <div class="autocomplete">
+                <input id="search-bar" placeholder="County name" value="San Francisco">
+                <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
+                <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
+            </div>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,6 +43,7 @@
     </div>
 </nav>
 <script>
+    autocomplete(document.getElementById("search-bar"));
     var data = '<%- JSON.stringify(logged) %>';
     console.log(data);
     var autocollapse = function (menu, maxHeight) {
