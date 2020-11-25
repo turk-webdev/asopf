@@ -6,13 +6,6 @@ const devController = require('../controllers/developer');
 const searchController = require('../controllers/search');
 const indexController = require('../controllers/index');
 
-// router.get('/', (req, res) => {
-//     res.render('home', {
-//         pageTitle: 'A Song Of Plague & Fire',
-//         path: '/'
-//     })
-// });
-
 router.get('/', (req, res) => {
     res.render('welcome', {
         logged: req.user ? "yes" : "no",
@@ -21,19 +14,11 @@ router.get('/', (req, res) => {
     })
 });
 
-
 router.get('/profile/',ensureAuthenticated, indexController.profile);
 router.get('/profile/getCovid/', indexController.getCovid);
 router.get('/profile/getWildfire/', indexController.getWildfire);
 router.post('/profile/addCovidData/', indexController.addCovidData);
 router.post('/profile/addWildfireData/', indexController.addWildfireData);
-
-// router.get('/login', (req, res, next) => {
-//     res.render('login', {
-//         pageTitle: 'Login here',
-//         path: '/login'
-//     });
-// });
 
 // About pages pulling data from db, see controllers/developer.js
 router.get('/about-us/', devController.getDevelopers);
