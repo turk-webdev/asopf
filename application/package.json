@@ -11,7 +11,7 @@
     "css:minify": "cleancss --level 1 --source-map --source-map-inline-sources --output public/css/main.min.css public/css/main.css",
     "css:watch": "watch 'npm run css:build' scss",
     "css:build": "npm run css:lint && npm run css:compile && npm run css:prefix && npm run css:minify",
-    "app:watch": "nodemon app.js",
+    "app:watch": "nodemon --legacy-watch app.js",
     "dev": "npm run css:watch & npm run app:watch"
   },
   "author": "",
