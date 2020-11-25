@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('express-flash');
@@ -36,6 +37,11 @@ app.set('view engine', 'ejs')
 //Bodyparser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Bootstrap
+//app.use("/css", express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+app.use("/js", express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
+app.use('/js', express.static(path.join(__dirname + '/node_modules/jquery/dist')));
 
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');

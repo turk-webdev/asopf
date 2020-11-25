@@ -1,0 +1,12 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+$grocery-pink: #49bcff;
+$grocery-gray: rgb(68, 68, 68);
+$grocery-black: rgb(0, 0, 0);
+
+$primary: $grocery-pink;
+$secondary: $grocery-gray;
+$tertiary: $grocery-black;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
