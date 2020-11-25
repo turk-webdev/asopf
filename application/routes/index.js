@@ -14,7 +14,7 @@ const indexController = require('../controllers/index');
 // });
 
 router.get('/', (req, res) => {
-    res.render('home', {
+    res.render('welcome', {
         logged: req.user ? "yes" : "no",
         pageTitle: 'A Song Of Plague & Fire',
         path: '/'
@@ -27,16 +27,6 @@ router.get('/profile/getCovid/', indexController.getCovid);
 router.get('/profile/getWildfire/', indexController.getWildfire);
 router.post('/profile/addCovidData/', indexController.addCovidData);
 router.post('/profile/addWildfireData/', indexController.addWildfireData);
-
-router.get('/search/:type', (req, res, next) => {
-    let type = req.params.type === 'covid' ? 'COVID' : 'Wildfire';
-    res.render('search', {
-        pageTitle: `ASOPF | ${type} Data`,
-        logged: req.user ? "yes" : "no",
-        pageTitle: `${type} Data`,
-        path: '/search'
-    });
-});
 
 // router.get('/login', (req, res, next) => {
 //     res.render('login', {
