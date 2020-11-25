@@ -1,5 +1,8 @@
 const Search = require('../models/search');
 
+// TODO - We shouldn't be using the Search.whatever() method -- this is a big security risk
+//        We can create a separate model - that is fine, but this is ripe to be SQL injected
+
 exports.profile = (req, res, next) => {
     console.log(req.user);
     res.render('profile_' + req.user.role, {
