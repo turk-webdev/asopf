@@ -8,7 +8,6 @@ function submit(type) {
 // The below code came from w3schools
 // Source: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 function autocomplete(inp) {
-    console.log(`autocomplete(${inp})`);
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -102,5 +101,5 @@ function autocomplete(inp) {
   /*execute a function when someone clicks in the document:*/
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
-  });
+    });
   }
