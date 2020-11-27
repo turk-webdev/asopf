@@ -14,7 +14,15 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/profile/',ensureAuthenticated, indexController.profile);
+router.get('/dash', (req, res) => {
+    res.render('dash',{ 
+        logged: req.user ? "yes" : "no", 
+        pageTitle: 'A Song Of Plague & Fire', 
+        path: '/dash' 
+    })
+});
+
+router.get('/profile/', ensureAuthenticated, indexController.profile);
 router.get('/profile/getCovid/', indexController.getCovid);
 router.get('/profile/getWildfire/', indexController.getWildfire);
 router.post('/profile/addCovidData/', indexController.addCovidData);
