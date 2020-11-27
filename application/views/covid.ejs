@@ -346,11 +346,15 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 text-center" id="view-buttons">
-            <button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i class="fa fa-columns"></i></button>
-            <button id="table" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-table"></i></button>
-            <button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-map"></i></button>
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="view-buttons">
+            <div class="row">
+                <div class="col-md-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i class="fa fa-columns"></i></button></div>
+                <div class="col-md-4"><button id="table" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
+                <div class="col-md-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-map"></i></button></div>
+            </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
     <div class="row">
         <div id="map-container" class="col-md-6">
