@@ -3,7 +3,7 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const { isAdmin } = require('../config/isAdmin');
 const devController = require('../controllers/developer');
-const searchController = require('../controllers/search');
+const covidController = require('../controllers/covid.controller');
 const indexController = require('../controllers/index');
 
 router.get('/', (req, res) => {
@@ -24,8 +24,8 @@ router.post('/profile/addWildfireData/', indexController.addWildfireData);
 router.get('/about-us/', devController.getDevelopers);
 router.get('/about-us/:name', devController.getDeveloperByName);
 
-router.get('/covid/', searchController.covid);
-router.get('/covid/:county', searchController.covidCountyInit);
-router.get('/wildfire/:county', searchController.wildfireCountyInit);
+router.get('/covid/', covidController.covid);
+router.get('/covid/:county', covidController.covidCountyInit);
+router.get('/wildfire/:county', covidController.wildfireCountyInit);
 
 module.exports = router;
