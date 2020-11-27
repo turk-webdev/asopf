@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { ensureAuthenticated } = require('../config/auth');
-const { isAdmin } = require('../config/isAdmin');
+
 const devController = require('../controllers/developer.controller');
 const covidController = require('../controllers/covid.controller');
-const indexController = require('../controllers/index');
+
+
+const apiRouter = require('./api');
+const profileRouter = require('./profile');
+
+router.use('/api', apiRouter);
+router.use('/profile', profileRouter);
 
 router.get('/', (req, res) => {
     res.render('welcome', {
@@ -13,12 +18,6 @@ router.get('/', (req, res) => {
         path: '/'
     })
 });
-
-router.get('/profile/',ensureAuthenticated, indexController.profile);
-router.get('/profile/getCovid/', indexController.getCovid);
-router.get('/profile/getWildfire/', indexController.getWildfire);
-router.post('/profile/addCovidData/', indexController.addCovidData);
-router.post('/profile/addWildfireData/', indexController.addWildfireData);
 
 // About pages pulling data from db, see controllers/developer.js
 router.get('/about-us/', devController.getDevelopers);
