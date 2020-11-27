@@ -15,7 +15,6 @@ exports.covid = (req, res, next) => {
                 table.attributes["total_deaths"] = tmp.total_deaths;
                 table.attributes["cases"] = tmp.cases;
                 table.attributes["death"] = tmp.death;
-                table.attributes["date"] = tmp.date.substring(0,15);
             }
         });
         res.render('covid', {
@@ -45,6 +44,7 @@ exports.wildfireCountyInit = (req, res, next) => {
     });
 };
 
+// TODO: Fix this .then chaining
 exports.covidCountyInit = (req, res, next) => {
     let countyString = req.params.county;
     var data;
