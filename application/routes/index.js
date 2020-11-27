@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const { isAdmin } = require('../config/isAdmin');
-const devController = require('../controllers/developer');
+const devController = require('../controllers/developer.controller');
 const covidController = require('../controllers/covid.controller');
 const indexController = require('../controllers/index');
 
