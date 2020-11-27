@@ -1,58 +1,58 @@
 // THIS ISN'T WORKING PROPERLY - THE DOM'S ARE COMING BACK NULL
-window.addEventListener("DOMContentLoaded",defaultView());
+// window.addEventListener("DOMContentLoaded",defaultView());
 
-function defaultView() {
-    console.log("test");
-    if (detectMobile()) {
-        console.log("mobile");
-        showTable();
-    } else {
-        console.log("not mobile")
-        if (innerWidth < 1500) {
-            console.log("map only");
-            showMap();
-        } else {
-            console.log("both");
-            showBoth();
-        }
-    }
-}
+// function defaultView() {
+//     console.log("test");
+//     if (detectMobile()) {
+//         console.log("mobile");
+//         showTable();
+//     } else {
+//         console.log("not mobile")
+//         if (innerWidth < 1500) {
+//             console.log("map only");
+//             showMap();
+//         } else {
+//             console.log("both");
+//             showBoth();
+//         }
+//     }
+// }
 
-function detectMobile() {
-    const toMatch = [
-        /Android/i,
-        /webOS/i,
-        /iPhone/i,
-        /iPad/i,
-        /iPod/i,
-        /BlackBerry/i,
-        /Windows Phone/i
-    ];
+// function detectMobile() {
+//     const toMatch = [
+//         /Android/i,
+//         /webOS/i,
+//         /iPhone/i,
+//         /iPad/i,
+//         /iPod/i,
+//         /BlackBerry/i,
+//         /Windows Phone/i
+//     ];
 
-    return toMatch.some((toMatchItem) => {
-        return navigator.userAgent.match(toMatchItem);
-    });
-};
+//     return toMatch.some((toMatchItem) => {
+//         return navigator.userAgent.match(toMatchItem);
+//     });
+// };
 
-function showMap() {
+function showMap(elem) {
     let self = document.getElementById('map-container');
     let other = document.getElementById('table-container');
     self.style.display = 'block';
     other.style.display = 'none';
     self.className = 'col-md-12';
-    updateButtons();
+    updateButtons(elem);
 }
 
-function showTable() {
+function showTable(elem) {
     let self = document.getElementById('table-container');
     let other = document.getElementById('map-container');
     self.style.display = 'block';
     other.style.display = 'none';
     self.className = 'col-md-12';
-    updateButtons();
+    updateButtons(elem);
 }
 
-function showBoth() {
+function showBoth(elem) {
     let myTable = document.getElementById('table-container');
     let myMap = document.getElementById('map-container');
     console.log(myTable);
@@ -61,10 +61,10 @@ function showBoth() {
     myMap.style.display = 'block';
     myTable.className = 'col-md-6';
     myMap.className = 'col-md-6';
-    updateButtons();
+    updateButtons(elem);
 }
 
-function updateButtons() {
+function updateButtons(elem) {
     let buttons = document.getElementById('view-buttons').getElementsByTagName('button');
     for (let i=0; i<buttons.length; i++) {
         if (buttons[i].id.toString().toLowerCase() == elem.id.toString().toLowerCase()) {
@@ -79,13 +79,13 @@ function updateButtons() {
 function viewToggle(elem) {
     switch(elem.id.toString().toLowerCase()) {
         case 'map':
-            showMap();
+            showMap(elem);
             break;
         case 'table':
-            showTable();
+            showTable(elem);
             break;
         default:
-            showBoth();
+            showBoth(elem);
     }
 
     updateButtons();
