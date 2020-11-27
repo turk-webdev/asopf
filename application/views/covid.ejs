@@ -380,7 +380,7 @@
                                 <td><%= dataTable[i].death %></td>
                                 <td><%= dataTable[i].total_cases %></td>
                                 <td><%= dataTable[i].total_deaths %></td>
-                                <td><%= dataTable[i].date %></td>
+                                <td><%= dataTable[i].date.toString().substring(0,15) %></td>
                             </tr>   
                         <% } %>
                     <% } else { %>
