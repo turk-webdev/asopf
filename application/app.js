@@ -40,11 +40,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const indexRoutes = require('./routes');
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 
 //Routes
 app.use('/', indexRoutes);
 app.use(apiRoutes);
 app.use(authRoutes);
+app.use(profileRoutes);
 
 const PORT = process.env.PORT || 8080;
 
