@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { ensureAuthenticated } = require('../config/auth');
+const { isAdmin } = require('../config/isAdmin');
 
 const devController = require('../controllers/developer.controller');
 const covidController = require('../controllers/covid.controller');
 const covidDemoController = require('../controllers/covidDemo.controller');
-
-
-const apiRouter = require('./api');
-const profileRouter = require('./profile');
 
 
 router.get('/', (req, res) => {
@@ -15,6 +13,14 @@ router.get('/', (req, res) => {
         logged: req.user ? "yes" : "no",
         pageTitle: 'A Song Of Plague & Fire',
         path: '/'
+    })
+});
+
+router.get('/dash', (req, res) => {
+    res.render('dash',{ 
+        logged: req.user ? "yes" : "no", 
+        pageTitle: 'A Song Of Plague & Fire', 
+        path: '/dash' 
     })
 });
 
