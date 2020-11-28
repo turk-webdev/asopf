@@ -37,11 +37,12 @@ app.set('view engine', 'ejs')
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const indexRoutes = require('./routes');
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
 
 //Routes
-app.use('/', require('./routes/index'));
+app.use('/', indexRoutes);
 app.use(apiRoutes);
 app.use(authRoutes);
 
