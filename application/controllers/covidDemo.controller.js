@@ -31,7 +31,56 @@ exports.getTableData = (req, res, next) => {
 };
 
 exports.advancedFilter = (req, res, next) => {
+    const { demo } = req.body;
+    const { date_range } = req.body;
+    const { start_date } = req.body;
+    const { end_date } = req.body;
 
+    if (date_range == 0) {
+        CovidDemo.getDataByTable(`covid_${demo}_data`)
+        .then(([rows, fields]) => {
+            res.render('covid-demo', {
+                logged: req.user ? "yes" : "no",
+                pageTitle: 'Demographic Data',
+                path: '/covid/demographic',
+                type: demo,
+                data: rows
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    } else if (date_range == 1) {
+        CovidDemo.getLatestDataByTable(`covid_${demo}_data`)
+        .then(([rows, fields]) => {
+            
+            res.render('covid-demo', {
+                logged: req.user ? "yes" : "no",
+                pageTitle: 'Demographic Data',
+                path: '/covid/demographic',
+                type: demo,
+                data: rows
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    } else if (date_range == 2) {
+        CovidDemo.getDataInRange(`covid_${demo}_data`, start_date, end_date)
+        .then(([rows, fields]) => {
+            
+            res.render('covid-demo', {
+                logged: req.user ? "yes" : "no",
+                pageTitle: 'Demographic Data',
+                path: '/covid/demographic',
+                type: demo,
+                data: rows
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 };
 
 exports.getBasicPage = (req, res, next) => {

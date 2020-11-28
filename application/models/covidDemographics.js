@@ -7,5 +7,13 @@ module.exports = class CovidDemographics {
         return db.query(sql, [table]);
     }
 
-    
+    static getLatestDataByTable(table) {
+        var sql = "SELECT * FROM ?? ORDER BY date DESC TOP 1";
+        return db.query(sql, [table]);
+    }
+
+    static getDataInRange(table, start, end) {
+        var sql = "SELECT * FROM ?? WHERE (date >= ? AND date <= ?)";
+        return db.query(sql, [table,start,end]);
+    }
 };
