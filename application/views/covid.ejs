@@ -342,48 +342,57 @@
         });
     });
 </script>
-<!-- <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-6">
-        <h1>COVID Data Map</h1>
-    </div>
-</div> -->
-<div class="row" style="height:100%;">
-    <div class="col-md-6">
-        <div id="viewDiv"></div>
-        <div id="basemapDivToggle" class="esri-widget">
-            <div id="basemapDiv"></div>
+<script type="text/javascript" src="/js/viewToggle.js"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="view-buttons">
+            <div class="row">
+                <div class="col-md-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i class="fa fa-columns"></i></button></div>
+                <div class="col-md-4"><button id="table" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
+                <div class="col-md-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-map"></i></button></div>
+            </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
-    <div class="col-md-6">
-        <% if (countyInit) { %>
-        <h1>14-day Data for <%= county %> County</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">New Cases</th>
-                    <th scope="col">New Deaths</th>
-                    <th scope="col">Total Cases</th>
-                    <th scope="col">Total Deaths</th>
-                    <th scope="col">Date</th>
-                </tr>
-            </thead>
-            <tbody id="data-table">
-                <% if (dataTable.length > 0 && dataTable != undefined) { %>
-                    <% for (let i=0; i<dataTable.length; i++) { %>
-                        <tr>
-                            <td><%= dataTable[i].cases %></td>
-                            <td><%= dataTable[i].death %></td>
-                            <td><%= dataTable[i].total_cases %></td>
-                            <td><%= dataTable[i].total_deaths %></td>
-                            <td><%= dataTable[i].date %></td>
-                        </tr>   
+    <div class="row">
+        <div id="map-container" class="col-md-6">
+            <div id="viewDiv"></div>
+            <div id="basemapDivToggle" class="esri-widget">
+                <div id="basemapDiv"></div>
+            </div>
+        </div>
+        <div id="table-container" class="col-md-6">
+            <% if (countyInit) { %>
+            <h1>14-day Data for <%= county %> County</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">New Cases</th>
+                        <th scope="col">New Deaths</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">Total Deaths</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    <% if (dataTable.length > 0 && dataTable != undefined) { %>
+                        <% for (let i=0; i<dataTable.length; i++) { %>
+                            <tr>
+                                <td><%= dataTable[i].cases %></td>
+                                <td><%= dataTable[i].death %></td>
+                                <td><%= dataTable[i].total_cases %></td>
+                                <td><%= dataTable[i].total_deaths %></td>
+                                <td><%= dataTable[i].date.toString().substring(0,15) %></td>
+                            </tr>   
+                        <% } %>
+                    <% } else { %>
+                        <td colspan="5"><b>No county selected.</b></td>
                     <% } %>
-                <% } else { %>
-                    <td colspan="5"><b>No county selected.</b></td>
-                <% } %>
-            </tbody>
-        </table>
-        <% } %>
+                </tbody>
+            </table>
+            <% } %>
+        </div>
     </div>
 </div>
