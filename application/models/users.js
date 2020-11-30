@@ -1,6 +1,9 @@
-const updateUser = (table, fname, lname, email, phone, adress, county, user_email) => {
-    var sql = "UPDATE ?? SET fname = ?, lname = ?, email = ?, phone = ?, adress = ?, county_code = ? WHERE email = ?"
-    return db.query(sql, [table, fname, lname, email, phone, adress, county, user_email]);
+const { get } = require('lodash');
+const db = require('../utils/database');
+
+const updateUser = (table, fname, lname, email, phone, county, user_email) => {
+    var sql = "UPDATE ?? SET fname = ?, lname = ?, email = ?, phone = ?, county_code = ? WHERE email = ?"
+    return db.query(sql, [table, fname, lname, email, phone, county, user_email]);
 };
 
 const existsUser = (table, col, query) => {
