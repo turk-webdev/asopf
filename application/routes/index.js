@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/dash', (req, res) => {
-    res.render('dash',{ 
+    res.render('dash', { 
         logged: req.user ? "yes" : "no", 
-        pageTitle: 'A Song Of Plague & Fire', 
+        pageTitle: req.user ? 'ASOPF | Dashboard | ' + req.user.fname + ' ' + req.user.lname : 'ASOPF | Dashboard', 
         path: '/dash',
         userCounty: req.user ? req.user.county_code : null
     })
