@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-6 col-xs-4">
             <div class="autocomplete">
-                <input id="search-bar" placeholder="County name" value="San Francisco">
+                <input id="search-bar" placeholder="County name" value="<%= userCounty !== null ? userCounty : 'San Francisco' %>">
                 <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
                 <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
             </div>

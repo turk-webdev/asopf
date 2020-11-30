@@ -23,7 +23,8 @@ exports.covid = (req, res, next) => {
             pageTitle: 'covid data',
             path: '/covid',
             counties: data,
-            countyInit: false
+            countyInit: false,
+            userCounty: req.user ? req.user.county_code : null
         });
     }).catch(err => console.log(err));
 };
@@ -37,7 +38,8 @@ exports.wildfireCountyInit = (req, res, next) => {
             pageTitle: `ASOPF | ${countyString} | Wildfire Data`,
             path: '/wildfire',
             county: countyString,
-            data: rows
+            data: rows,
+            userCounty: req.user ? req.user.county_code : null
         });
     });
 };
@@ -69,7 +71,8 @@ exports.covidCountyInit = (req, res, next) => {
                 countyInit: true,
                 counties: data,
                 dataTable: rows,
-                county: countyString
+                county: countyString,
+                userCounty: req.user ? req.user.county_code : null
             });
         });
     }).catch(err => console.log(err));

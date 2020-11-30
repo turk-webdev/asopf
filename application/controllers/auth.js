@@ -7,7 +7,8 @@ exports.getLogin = (req, res, next) => {
     res.render('login', {
         logged: req.user ? "yes" : "no",
         pageTitle: 'Login',
-        path: '/login'
+        path: '/login',
+        userCounty: req.user ? req.user.county_code : null
     });
 };
 
@@ -16,7 +17,8 @@ exports.getSignup = (req, res, next) => {
         {
             logged: req.user ? "yes" : "no",
             pageTitle: 'Register',
-            path: '/login'
+            path: '/login',
+            userCounty: req.user ? req.user.county_code : null
         });
 };
 
@@ -53,7 +55,8 @@ exports.postSignup = (req, res, next) => {
             email,
             password,
             password2,
-            path: '/login'
+            path: '/login',
+            userCounty: req.user ? req.user.county_code : null
         });
     } else {
         //Check if email exists
@@ -67,7 +70,8 @@ exports.postSignup = (req, res, next) => {
                     email,
                     password,
                     password2,
-                    path: '/login'
+                    path: '/login',
+                    userCounty: req.user ? req.user.county_code : null
                 });
             }
         }).catch(err => console.log(err));
@@ -75,7 +79,8 @@ exports.postSignup = (req, res, next) => {
             res.render('login', {
                 logged: req.user ? "yes" : "no",
                 pageTitle: 'Login',
-                path: '/login'
+                path: '/login',
+                userCounty: req.user ? req.user.county_code : null
             });
         }).catch(err => console.log(err));
     }
