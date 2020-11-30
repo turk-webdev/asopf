@@ -1,6 +1,6 @@
 const { createPool } = require('mysql2/promise');
 const passport = require('passport');
-const Search = require('../models/search');
+const Users = require('../models/users');
 
 // A single row of the table is passed to the devs object
 exports.getLogin = (req, res, next) => {
@@ -60,7 +60,8 @@ exports.postSignup = (req, res, next) => {
         });
     } else {
         //Check if email exists
-        Search.existsUser('users', 'email', email).then(([rows, fields]) => {
+        Users.existsUser('users', 'email', email)
+        .then(([rows, fields]) => {
             if (rows[0].exists == 1) {
                 errors.push({ msg: "Email already exists" })
                 res.render('register', {
@@ -74,15 +75,18 @@ exports.postSignup = (req, res, next) => {
                     userCounty: req.user ? req.user.county_code : null
                 });
             }
-        }).catch(err => console.log(err));
-        Search.insertUser('users', email, password, 'basic').then(([rows, fields]) => {
+        })
+        .catch(err => console.log(err));
+        Users.insertUser('users', email, password, 'basic')
+        .then(([rows, fields]) => {
             res.render('login', {
                 logged: req.user ? "yes" : "no",
                 pageTitle: 'Login',
                 path: '/login',
                 userCounty: req.user ? req.user.county_code : null
             });
-        }).catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
 };
 
@@ -103,9 +107,11 @@ exports.postUpdate = (req, res, next) => {
     } if (!county) {
         county = req.user.county;
     }
-    Search.updateUser('users', fname, lname, email, phone, adress, county, user_email).then(([rows, fields]) => {
+    Users.updateUser('users', fname, lname, email, phone, adress, county, user_email)
+    .then(([rows, fields]) => {
         req.flash('info', 'Your profile has been updated');
         res.redirect('/profile');
-    }).catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 };
 
