@@ -23,4 +23,5 @@ html,body {
 
 #view-buttons button { 
     width: 100%;
+    color: bg;
 }
