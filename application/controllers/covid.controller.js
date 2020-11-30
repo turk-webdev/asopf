@@ -32,8 +32,6 @@ exports.wildfireCountyInit = (req, res, next) => {
     let countyString = req.params.county;
     Search.getCountyWildfire(countyString)
     .then(([rows,fields]) => {
-        console.log(rows);
-
         res.render('wildfire', {
             logged: req.user ? "yes" : "no",
             pageTitle: `ASOPF | ${countyString} | Wildfire Data`,
