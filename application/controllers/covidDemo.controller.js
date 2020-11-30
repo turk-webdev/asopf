@@ -22,7 +22,8 @@ exports.getTableData = (req, res, next) => {
             pageTitle: 'Demographic Data',
             path: '/covid/demographic',
             type: type,
-            data: rows
+            data: rows,
+            userCounty: req.user ? req.user.county_code : null
         });
     });
 
@@ -44,7 +45,8 @@ exports.advancedFilter = (req, res, next) => {
                 pageTitle: 'Demographic Data',
                 path: '/covid/demographic',
                 type: demo,
-                data: rows
+                data: rows,
+                userCounty: req.user ? req.user.county_code : null
             });
         })
         .catch((err) => {
@@ -59,7 +61,8 @@ exports.advancedFilter = (req, res, next) => {
                 pageTitle: 'Demographic Data',
                 path: '/covid/demographic',
                 type: demo,
-                data: rows
+                data: rows,
+                userCounty: req.user ? req.user.county_code : null
             });
         })
         .catch((err) => {
@@ -74,7 +77,8 @@ exports.advancedFilter = (req, res, next) => {
                 pageTitle: 'Demographic Data',
                 path: '/covid/demographic',
                 type: demo,
-                data: rows
+                data: rows,
+                userCounty: req.user ? req.user.county_code : null
             });
         })
         .catch((err) => {

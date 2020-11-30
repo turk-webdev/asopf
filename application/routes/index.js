@@ -12,7 +12,8 @@ router.get('/', (req, res) => {
     res.render('welcome', {
         logged: req.user ? "yes" : "no",
         pageTitle: 'A Song Of Plague & Fire',
-        path: '/'
+        path: '/',
+        userCounty: req.user ? req.user.county_code : null
     })
 });
 
@@ -20,7 +21,8 @@ router.get('/dash', (req, res) => {
     res.render('dash',{ 
         logged: req.user ? "yes" : "no", 
         pageTitle: 'A Song Of Plague & Fire', 
-        path: '/dash' 
+        path: '/dash',
+        userCounty: req.user ? req.user.county_code : null
     })
 });
 

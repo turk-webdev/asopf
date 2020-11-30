@@ -9,7 +9,8 @@ exports.profile = (req, res, next) => {
         logged: req.user ? "yes" : "no",
         user: req.user,
         pageTitle: req.user.role,
-        path: 'profile_' + req.user.role
+        path: 'profile_' + req.user.role,
+        userCounty: req.user ? req.user.county_code : null
     });
 };
 
