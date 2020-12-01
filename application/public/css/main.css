@@ -33,4 +33,18 @@ html,body {
 #user-navatar {
     max-height: 45px;
     width: auto;
+    border-style: hidden;
+}
+
+@keyframes showBorder {
+    from {border-style: hidden;}
+    to {border-style: solid;}
+}
+
+#user-navatar:hover {
+    border-color: #fff;
+    border-width: thin;
+    border-style: solid;
+    /* animation-name: showBorder; */
+    /* animation-duration: 1.5s; */
 }
