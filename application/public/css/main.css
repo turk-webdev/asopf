@@ -24,3 +24,8 @@ html,body {
 #view-buttons button { 
     width: 100%;
 }
+
+#display-avatar img {
+    max-height: 100px;
+    width: auto;
+}
