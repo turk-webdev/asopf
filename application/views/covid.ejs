@@ -8,7 +8,8 @@
     #viewDiv {
         min-width: 600px;
         min-height: 400px;
-        margin: 150px;
+        height: 95%;
+        margin: 20px;
         border-radius: 5px;
         padding: 1px;
         border: 2px solid blue;
@@ -344,6 +345,18 @@
 </script>
 <script type="text/javascript" src="/js/viewToggle.js"></script>
 
+<% if (!countyInit) { %>
+<div class="container-fluid">
+    <div class="row">
+        <div id="map-container" class="col-md-12">
+            <div id="viewDiv"></div>
+            <div id="basemapDivToggle" class="esri-widget">
+                <div id="basemapDiv"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } else { %>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3"></div>
@@ -396,3 +409,4 @@
         </div>
     </div>
 </div>
+<% } %>
