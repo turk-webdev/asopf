@@ -8,7 +8,7 @@ module.exports = class CovidDemographics {
     }
 
     static getLatestDataByTable(table) {
-        var sql = "SELECT * FROM ?? ORDER BY date DESC TOP 1";
+        var sql = "SELECT * FROM ?? ORDER BY date DESC LIMIT 5";
         return db.query(sql, [table]);
     }
 
