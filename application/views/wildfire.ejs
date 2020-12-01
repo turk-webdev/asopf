@@ -32,7 +32,7 @@
                             <td><%= data[i].incident_acres_burned %></td>
                             <td><%= data[i].incident_location %></td>
                             <td><%= data[i].is_active %></td>
-                            <td><%= data[i].incident_date_last_update %></td>
+                            <td><%= data[i].incident_date_last_update.toString().substring(0,15) %></td>
                         </tr>
                 <% } %>
             <%  } else { %>
