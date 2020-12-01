@@ -71,9 +71,9 @@
                         <% for (let i=0; i<data.length; i++) { %>
                         <tr>
                             <td><%= data[i].age_group %></td>
-                            <td><%= data[i].case_percent %></td>
-                            <td><%= data[i].death_percent %></td>
-                            <td><%= data[i].ca_percent %></td>
+                            <td><%= data[i].case_percent %>%</td>
+                            <td><%= data[i].death_percent %>%</td>
+                            <td><%= data[i].ca_percent %>%</td>
                             <td><%= data[i].deaths %></td>
                             <td><%= data[i].totalpositive %></td>
                             <td><%= data[i].date.toString().substring(0,15) %></td>
@@ -102,9 +102,9 @@
                         <% for (let i=0; i<data.length; i++) { %>
                         <tr>
                             <td><%= data[i].sex %></td>
-                            <td><%= data[i].case_percent %></td>
-                            <td><%= data[i].death_percent %></td>
-                            <td><%= data[i].ca_percent %></td>
+                            <td><%= data[i].case_percent %>%</td>
+                            <td><%= data[i].deaths_percent %>%</td>
+                            <td><%= data[i].ca_percent %>%</td>
                             <td><%= data[i].deaths %></td>
                             <td><%= data[i].totalpositive %></td>
                             <td><%= data[i].date.toString().substring(0,15) %></td>
@@ -113,7 +113,7 @@
                     <% } %>
                 </tbody>
             </table>
-        <% } else if (type === 'ethnic') { %>
+        <% } else if (type === 'ethnicity') { %>
         <table class="table" id="ethnic-data">
             <thead>
                 <th>Ethnicity</th>
@@ -132,9 +132,9 @@
                     <% for (let i=0; i<data.length; i++) { %>
                     <tr>
                         <td><%= data[i].ethnicity %></td>
-                        <td><%= data[i].case_percent %></td>
-                        <td><%= data[i].death_percent %></td>
-                        <td><%= data[i].ca_percent %></td>
+                        <td><%= data[i].case_percent %>%</td>
+                        <td><%= data[i].death_percent %>%</td>
+                        <td><%= data[i].ca_percent %>%</td>
                         <td><%= data[i].deaths %></td>
                         <td><%= data[i].date.toString().substring(0,15) %></td>
                     </tr>
