@@ -6,7 +6,7 @@ const Users = require('../models/users');
 exports.getLogin = (req, res, next) => {
     res.render('login', {
         logged: req.user ? "yes" : "no",
-        pageTitle: 'Login',
+        pageTitle: 'ASOPF | Login',
         path: '/login',
         userCounty: req.user ? req.user.county_code : null
     });
@@ -16,7 +16,7 @@ exports.getSignup = (req, res, next) => {
     res.render('register',
         {
             logged: req.user ? "yes" : "no",
-            pageTitle: 'Register',
+            pageTitle: 'ASOPF | Register',
             path: '/login',
             userCounty: req.user ? req.user.county_code : null
         });
@@ -56,6 +56,7 @@ exports.postSignup = (req, res, next) => {
             password,
             password2,
             path: '/login',
+            pageTitle: 'ASOPF | Register',
             userCounty: req.user ? req.user.county_code : null
         });
     } else {
@@ -67,6 +68,7 @@ exports.postSignup = (req, res, next) => {
                 res.render('register', {
                     logged: req.user ? "yes" : "no",
                     errors,
+                    pageTitle: 'ASOPF | Login',
                     name,
                     email,
                     password,
@@ -81,7 +83,7 @@ exports.postSignup = (req, res, next) => {
         .then(([rows, fields]) => {
             res.render('login', {
                 logged: req.user ? "yes" : "no",
-                pageTitle: 'Login',
+                pageTitle: 'ASOPF | Login',
                 path: '/login',
                 userCounty: req.user ? req.user.county_code : null
             });
@@ -92,26 +94,47 @@ exports.postSignup = (req, res, next) => {
 
 
 exports.postUpdate = (req, res, next) => {
-    var { fname, lname, email, phone, adress, county } = req.body;
-    var user_email = req.user.email;
-    if (!fname) {
-        fname = req.user.fname;
-    } if (!lname) {
-        lname = req.user.lname;
-    } if (!email) {
-        email = req.user.email;
-    } if (!phone) {
-        phone = req.user.phone;
-    } if (!adress) {
-        adress = req.user.adress;
-    } if (!county) {
-        county = req.user.county;
+    let { fname, lname, email, phone, county } = req.body;
+    let userEmail = req.user.email;
+
+    // Safety - if any of these fields are missing from the body, we use the user's existing record 
+    if (!fname) { fname = req.user.fname; } 
+    if (!lname) { lname = req.user.lname; }
+    if (!email) { email = req.user.email; }
+    if (!phone) { phone = req.user.phone; } 
+    if (!county) { county = req.user.county; }
+
+    if (req.files) {
+        let avatar = req.files.avatar;
+        let filename = avatar.name;
+
+        if (avatar.mimetype == "image/jpeg" ||
+            avatar.mimetype == "image/png"||
+            avatar.mimetype == "image/gif") {
+                avatar.mv('./public/img/upload/'+filename, (err) => {
+                    if (err) {
+                        req.flash('ERROR', err);
+                    }
+                });
+        } else {
+            req.flash('ERROR', 'You must upload an image file (jpg, gif, png) for your avatar.');
+        }
+
+        Users.updateUserWithImage('users', fname, lname, email, phone, county, filename, userEmail)
+        .then(([rows, fields]) => {
+            req.flash('info', 'Your profile has been updated');
+            res.redirect('/profile');
+        })
+        .catch(err => console.log(err));
+    } else {
+        Users.updateUser('users', fname, lname, email, phone, county, userEmail)
+        .then(([rows, fields]) => {
+            req.flash('info', 'Your profile has been updated');
+            res.redirect('/profile');
+        })
+        .catch(err => console.log(err));
     }
-    Users.updateUser('users', fname, lname, email, phone, adress, county, user_email)
-    .then(([rows, fields]) => {
-        req.flash('info', 'Your profile has been updated');
-        res.redirect('/profile');
-    })
-    .catch(err => console.log(err));
+
+    
 };
 
