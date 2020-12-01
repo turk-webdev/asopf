@@ -6,6 +6,11 @@ const updateUser = (table, fname, lname, email, phone, county, user_email) => {
     return db.query(sql, [table, fname, lname, email, phone, county, user_email]);
 };
 
+const updateUserWithImage = (table, fname, lname, email, phone, county, avatar, user_email) => {
+    var sql = "UPDATE ?? SET fname = ?, lname = ?, email = ?, phone = ?, county_code = ?, avatar = ? WHERE email = ?"
+    return db.query(sql, [table, fname, lname, email, phone, county, avatar, user_email]);
+};
+
 const existsUser = (table, col, query) => {
     var sql = "SELECT EXISTS(SELECT 1 FROM ?? WHERE ?? = ?) as 'exists'";
     return db.query(sql, [table, col, query]);
@@ -18,6 +23,7 @@ const insertUser = (table, email, password, role) => {
 
 module.exports = {
     updateUser,
+    updateUserWithImage,
     existsUser,
     insertUser,
 };
