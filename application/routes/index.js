@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
         logged: req.user ? "yes" : "no",
         pageTitle: 'A Song Of Plague & Fire',
         path: '/',
-        userCounty: req.user ? req.user.county_code : null
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
     })
 });
 
@@ -22,7 +23,8 @@ router.get('/dash', (req, res) => {
         logged: req.user ? "yes" : "no", 
         pageTitle: req.user ? 'ASOPF | Dashboard | ' + req.user.fname + ' ' + req.user.lname : 'ASOPF | Dashboard', 
         path: '/dash',
-        userCounty: req.user ? req.user.county_code : null
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
     })
 });
 

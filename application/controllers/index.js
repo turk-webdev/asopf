@@ -10,7 +10,8 @@ exports.profile = (req, res, next) => {
         user: req.user,
         pageTitle: 'ASOPF | Settings | ' + req.user.fname + ' ' + req.user.lname,
         path: 'profile_' + req.user.role,
-        userCounty: req.user ? req.user.county_code : null
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
     });
 };
 

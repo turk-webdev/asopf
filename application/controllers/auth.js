@@ -8,7 +8,8 @@ exports.getLogin = (req, res, next) => {
         logged: req.user ? "yes" : "no",
         pageTitle: 'ASOPF | Login',
         path: '/login',
-        userCounty: req.user ? req.user.county_code : null
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
     });
 };
 
@@ -18,7 +19,8 @@ exports.getSignup = (req, res, next) => {
             logged: req.user ? "yes" : "no",
             pageTitle: 'ASOPF | Register',
             path: '/login',
-            userCounty: req.user ? req.user.county_code : null
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
 };
 
@@ -57,7 +59,8 @@ exports.postSignup = (req, res, next) => {
             password2,
             path: '/login',
             pageTitle: 'ASOPF | Register',
-            userCounty: req.user ? req.user.county_code : null
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
     } else {
         //Check if email exists
@@ -74,7 +77,8 @@ exports.postSignup = (req, res, next) => {
                     password,
                     password2,
                     path: '/login',
-                    userCounty: req.user ? req.user.county_code : null
+                    userCounty: req.user ? req.user.county_code : null,
+                    userAvatar: req.user ? req.user.avatar : null
                 });
             }
         })
@@ -85,7 +89,8 @@ exports.postSignup = (req, res, next) => {
                 logged: req.user ? "yes" : "no",
                 pageTitle: 'ASOPF | Login',
                 path: '/login',
-                userCounty: req.user ? req.user.county_code : null
+                userCounty: req.user ? req.user.county_code : null,
+                userAvatar: req.user ? req.user.avatar : null
             });
         })
         .catch(err => console.log(err));
@@ -104,6 +109,7 @@ exports.postUpdate = (req, res, next) => {
     if (!phone) { phone = req.user.phone; } 
     if (!county) { county = req.user.county; }
 
+    // We have two separate handlers based on whether the user is updating their image or not
     if (req.files) {
         let avatar = req.files.avatar;
         let filename = avatar.name;
