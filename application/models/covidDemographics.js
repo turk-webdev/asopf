@@ -3,17 +3,31 @@ const db = require('../utils/database');
 
 module.exports = class CovidDemographics {
     static getDataByTable(table) {
-        var sql = "SELECT * FROM ?? ORDER BY date DESC"
+        let sql = "SELECT * FROM ?? ORDER BY date DESC";
         return db.query(sql, [table]);
     }
 
     static getLatestDataByTable(table) {
-        var sql = "SELECT * FROM ?? ORDER BY date DESC LIMIT 5";
-        return db.query(sql, [table]);
+        // Depending on the demographic, 
+        // we only want a certain number of rows
+        let limit = 1;
+        switch (table) {
+            case 'covid_age_data':
+                limit = 4;
+                break;
+            case 'covid_sex_data':
+                limit = 2;
+                break;
+            default:
+                limit = 8;
+        }
+
+        let sql = "SELECT * FROM ?? ORDER BY date DESC, id ASC LIMIT ?";
+        return db.query(sql, [table, limit]);
     }
 
     static getDataInRange(table, start, end) {
-        var sql = "SELECT * FROM ?? WHERE (date >= ? AND date <= ?)";
+        let sql = "SELECT * FROM ?? WHERE (date >= ? AND date <= ?)";
         return db.query(sql, [table,start,end]);
     }
 };
