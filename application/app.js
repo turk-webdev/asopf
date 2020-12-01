@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const upload = require('express-fileupload');
 const passport = require('passport');
 const flash = require('express-flash');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
@@ -19,6 +20,9 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// File upload middleware
+app.use(upload());
 
 app.use(cookieParser())
 app.use(flash());

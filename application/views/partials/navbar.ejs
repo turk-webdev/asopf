@@ -24,12 +24,16 @@
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about-us/">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <%= logged == 'no' ? 'disabled' : '' %>" href="/dash/">Profile</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>"
                         href="<%= logged == 'no' ? '/login/' : '/logout/' %>"><%- logged == "no" ? 'Login or Register' : 'Logout'%></a>
                 </li>
+                <% if (logged != 'no') { %>
+                    <li class="nav-item">
+                        <a href="/profile">
+                        <img id="user-navatar" class="rounded-circle" src="/img/upload/<%= userAvatar != null ? userAvatar : 'avatar-square.png' %>"/>
+                        </a>
+                    </li>
+                <% } %>
                 <li class="nav-item dropdown d-none">
                     <a class="nav-link dropdown-toggl" href="#" id="navbarDropdownMenu" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

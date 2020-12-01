@@ -23,7 +23,8 @@ exports.getTableData = (req, res, next) => {
             path: '/covid/demographic',
             type: type,
             data: rows,
-            userCounty: req.user ? req.user.county_code : null
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
     });
 
@@ -46,7 +47,8 @@ exports.advancedFilter = (req, res, next) => {
                 path: '/covid/demographic',
                 type: demo,
                 data: rows,
-                userCounty: req.user ? req.user.county_code : null
+                userCounty: req.user ? req.user.county_code : null,
+                userAvatar: req.user ? req.user.avatar : null
             });
         })
         .catch((err) => {
@@ -62,7 +64,8 @@ exports.advancedFilter = (req, res, next) => {
                 path: '/covid/demographic',
                 type: demo,
                 data: rows,
-                userCounty: req.user ? req.user.county_code : null
+                userCounty: req.user ? req.user.county_code : null,
+                userAvatar: req.user ? req.user.avatar : null
             });
         })
         .catch((err) => {
@@ -78,7 +81,8 @@ exports.advancedFilter = (req, res, next) => {
                 path: '/covid/demographic',
                 type: demo,
                 data: rows,
-                userCounty: req.user ? req.user.county_code : null
+                userCounty: req.user ? req.user.county_code : null,
+                userAvatar: req.user ? req.user.avatar : null
             });
         })
         .catch((err) => {

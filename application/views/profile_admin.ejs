@@ -94,7 +94,6 @@
         display: block;
     }
 </style>
-
 <% if(messages.info) { %>
 <div class="alert alert-warning alert-dismissible fade show col-md-3 m-auto" role="alert">
     <%= messages.info %>
@@ -127,28 +126,32 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Email</h6>
                             </div>
-                            <div id="email" class="col-sm-9 text-secondary"></div>
+                            <div id="display_email" class="col-sm-9 text-secondary"></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Phone</h6>
                             </div>
-                            <div id="phone" class="col-sm-9 text-secondary"></div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div id="adress" class="col-sm-9 text-secondary"></div>
+                            <div id="display_phone" class="col-sm-9 text-secondary"></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">County</h6>
                             </div>
-                            <div id="county" class="col-sm-9 text-secondary"></div>
+                            <div id="display_county" class="col-sm-9 text-secondary"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Avatar</h6>
+                            </div>
+                            <div id="display_avatar" class="col-sm-9 text-secondary">
+                                <% if (user.avatar) { %>
+                                <img class="img-thumbnail" src="/img/upload/<%= user.avatar %>">
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-info" data-toggle="modal"
@@ -189,14 +192,13 @@
                                                 placeholder="Enter Phone Number" />
                                         </div>
                                         <div class="form-group">
-                                            <label for="adress">Adress</label>
-                                            <input type="text" id="adress" name="adress" class="form-control"
-                                                placeholder="Enter Adress" />
-                                        </div>
-                                        <div class="form-group">
                                             <label for="county">County</label>
                                             <input type="text" id="county" name="county" class="form-control"
                                                 placeholder="Enter county" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="county">Avatar</label>
+                                            <input type="file" id="avatar" name="avatar" class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -275,13 +277,24 @@
 <script>
     var data = '<%- JSON.stringify(user) %>';
     var data_json = JSON.parse(data);
-    console.log(data_json);
-    document.getElementById("first_name").innerText = data_json.fname ? data_json.fname : 'Not Set';
-    document.getElementById("last_name").innerHTML = data_json.lname ? data_json.lname : 'Not Set';
-    document.getElementById("email").innerHTML = data_json.email ? data_json.email : 'Not Set';
-    document.getElementById("phone").innerHTML = data_json.phone ? data_json.phone : 'Not Set';
-    document.getElementById("adress").innerHTML = data_json.adress ? data_json.adress : 'Not Set';
-    document.getElementById("county").innerHTML = data_json.county_code ? data_json.county_code : 'Not Set';
+    // console.log(data_json);
+
+    // Display page fields
+    document.getElementById('first_name').innerText = data_json.fname ? data_json.fname : 'Not Set';
+    document.getElementById('last_name').innerHTML = data_json.lname ? data_json.lname : 'Not Set';
+    document.getElementById('display_email').innerHTML = data_json.email ? data_json.email : 'Not Set';
+    document.getElementById('display_phone').innerHTML = data_json.phone ? data_json.phone : 'Not Set';
+    document.getElementById('display_county').innerHTML = data_json.county_code ? data_json.county_code : 'Not Set';
+    // TODO - display avatar
+    // document.getElementById('display_avatar')
+
+    // Update profile fields
+    document.getElementById('fname').value = data_json.fname ? data_json.fname : null;
+    document.getElementById('lname').value = data_json.lname ? data_json.lname : null;
+    document.getElementById('email').value = data_json.email ? data_json.email : null;
+    document.getElementById('phone').value = data_json.phone ? data_json.phone : null;
+    document.getElementById('county').value = data_json.county_code ? data_json.county_code : null;
+    document.getElementById('avatar').value = data_json.avatar ? data_json.avatar.name : null;
 </script>
 
 

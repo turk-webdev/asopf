@@ -24,7 +24,8 @@ exports.covid = (req, res, next) => {
             path: '/covid',
             counties: data,
             countyInit: false,
-            userCounty: req.user ? req.user.county_code : null
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
     }).catch(err => console.log(err));
 };
@@ -39,7 +40,8 @@ exports.wildfireCountyInit = (req, res, next) => {
             path: '/wildfire',
             county: countyString,
             data: rows,
-            userCounty: req.user ? req.user.county_code : null
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
     });
 };
@@ -72,7 +74,8 @@ exports.covidCountyInit = (req, res, next) => {
                 counties: data,
                 dataTable: rows,
                 county: countyString,
-                userCounty: req.user ? req.user.county_code : null
+                userCounty: req.user ? req.user.county_code : null,
+                userAvatar: req.user ? req.user.avatar : null
             });
         });
     }).catch(err => console.log(err));
