@@ -1,8 +1,10 @@
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
+const upload = require('express-fileupload');
 const passport = require('passport');
 const flash = require('express-flash');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
@@ -18,6 +20,9 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// File upload middleware
+app.use(upload());
 
 app.use(cookieParser())
 app.use(flash());
@@ -37,7 +42,12 @@ app.set('view engine', 'ejs')
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const indexRoutes = require('./routes');
+// Bootstrap
+//app.use("/css", express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+app.use("/js", express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
+app.use('/js', express.static(path.join(__dirname + '/node_modules/jquery/dist')));
+
+const indexRoutes = require('./routes/index');
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');

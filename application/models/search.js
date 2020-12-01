@@ -32,14 +32,6 @@ module.exports = class Search {
         return db.query(sql, [table, col, query, order]);
     }
 
-    static existsUser(table, col, query) {
-        var sql = "SELECT EXISTS(SELECT 1 FROM ?? WHERE ?? = ?) as 'exists'";
-        return db.query(sql, [table, col, query]);
-    }
-    static insertUser(table, email, password, role) {
-        var sql = "INSERT INTO ?? (email, password, role) values(?, ?, ?)";
-        return db.query(sql, [table, email, password, role]);
-    }
     static selectUser(table, col, query) {
         var sql = "SELECT * FROM ?? WHERE ?? = ?";
         return db.query(sql, [table, col, query]);
@@ -58,12 +50,6 @@ module.exports = class Search {
     static getNewCovidData(table) {
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
-    }
-
-    
-    static updateUser(table, fname, lname, email, phone, adress, county, user_email) {
-        var sql = "UPDATE ?? SET fname = ?, lname = ?, email = ?, phone = ?, adress = ?, county_code = ? WHERE email = ?"
-        return db.query(sql, [table, fname, lname, email, phone, adress, county, user_email]);
     }
 
     
