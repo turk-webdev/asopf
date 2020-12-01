@@ -9,7 +9,9 @@ exports.getDevelopers = (req, res, next) => {
             logged: req.user ? "yes" : "no",
             devs: rows,
             pageTitle: 'About',
-            path: '/about'
+            path: '/about',
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
     }).catch(err => console.log(err));
 };
@@ -22,7 +24,9 @@ exports.getDeveloperByName = (req, res, next) => {
             logged: req.user ? "yes" : "no",
             devs: rows[0],
             pageTitle: 'About Us',
-            path: '/about-us/:name'
+            path: '/about-us/:name',
+            userCounty: req.user ? req.user.county_code : null,
+            userAvatar: req.user ? req.user.avatar : null
         });
     }).catch(err => console.log(err));
 };

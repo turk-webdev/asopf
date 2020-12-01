@@ -1,0 +1,128 @@
+// Custom.scss
+// Font Variables
+$poppins-sans: "Poppins", sans-serif;
+$open-sans: "Open Sans", sans-serif;
+
+// Replace Default Fonts
+$font-family-sans-serif: $open-sans;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: $poppins-sans;
+
+// Dark Mode Theming Gradient
+$space-cadet-100: rgb(242, 244, 248);
+$space-cadet-300: rgb(202, 210, 227);
+$space-cadet-500: rgb(161, 175, 206);
+$space-cadet-700: rgb(70, 89, 134);
+$space-cadet-800: rgb(42, 53, 80);
+$space-cadet-900: rgb(21, 26, 40);
+
+// Logo Related Colors
+$radical-red: rgb(255, 64, 110);
+$magnolia: rgb(237, 242, 255);
+$coral: rgb(255, 135, 84);
+$cyber-yellow: rgb(255, 211, 56);
+$sky-blue: rgb(92, 216, 255);
+$slate: rgb(161, 175, 206);
+$slate-dark: rgb(35, 44, 67);
+
+/*! Import Bootstrap 4 variables */
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+$theme-colors: (
+  // Theme Gradient
+  "sc-100": $space-cadet-100,
+  "sc-300": $space-cadet-300,
+  "sc-500": $space-cadet-500,
+  "sc-700": $space-cadet-700,
+  "sc-800": $space-cadet-800,
+  "sc-900": $space-cadet-900,
+  // Theme Colors
+  "radical-red": $radical-red,
+  "magnolia": $magnolia,
+  "coral": $coral,
+  "cyber-yellow": $cyber-yellow,
+  "sky-blue": $sky-blue,
+  "slate": $slate,
+  "slate-dark": $slate-dark,
+  // Bootstrap Replacements
+  "primary": $coral,
+  "secondary": $space-cadet-700,
+  "success": $space-cadet-500,
+  "danger": $radical-red,
+  "info": $sky-blue,
+  "warning": $space-cadet-700,
+  "light": $space-cadet-100,
+  "medium": $space-cadet-700,
+  "dark": $space-cadet-900,
+);
+
+$border-radius: .75rem;
+$border-radius-lg: .8rem;
+$border-radius-sm: .7rem;
+
+$enable-shadows: true;
+$gray-300: #000;
+$gray-800: #555;
+$body-bg: $space-cadet-900;
+$body-color: $space-cadet-100;
+$link-color: theme-color("primary");
+$link-hover-color: darken($link-color, 20%);
+$font-size-base: 1.1rem;
+$table-accent-bg: rgba($space-cadet-100, .05);
+$table-hover-bg: rgba($space-cadet-100, .075);
+$table-border-color: rgba($space-cadet-100, .3);
+$table-dark-border-color: $table-border-color;
+$table-dark-color: $space-cadet-100;
+$input-bg: $space-cadet-300;
+$input-disabled-bg: #ccc;
+$dropdown-bg: $space-cadet-800;
+$dropdown-divider-bg: rgba($space-cadet-900, .15);
+$dropdown-link-color: $body-color;
+$dropdown-link-hover-color: $space-cadet-100;
+$dropdown-link-hover-bg: $body-bg;
+$nav-tabs-border-color: rgba($space-cadet-100, .3);
+$nav-tabs-link-hover-border-color: $nav-tabs-border-color;
+$nav-tabs-link-active-bg: transparent;
+$nav-tabs-link-active-border-color: $nav-tabs-border-color;
+$navbar-dark-hover-color: $space-cadet-100;
+$navbar-light-hover-color: $space-cadet-800;
+$navbar-light-active-color: $space-cadet-800;
+$pagination-color: $space-cadet-100;
+$pagination-bg: transparent;
+$pagination-border-color: rgba($space-cadet-900, .6);
+$pagination-hover-color: $space-cadet-100;
+$pagination-hover-bg: transparent;
+$pagination-hover-border-color: rgba($space-cadet-900, .6);
+$pagination-active-bg: transparent;
+$pagination-active-border-color: rgba($space-cadet-900, .6);
+$pagination-disabled-bg: transparent;
+$pagination-disabled-border-color: rgba($space-cadet-900, .6);
+$jumbotron-bg: lighten($space-cadet-900, 5%);
+$card-border-color: rgba($space-cadet-900, .6);
+$card-cap-bg: lighten($space-cadet-800, 10%);
+$card-bg: lighten($body-bg, 5%);
+$modal-content-bg: lighten($body-bg, 5%);
+$modal-header-border-color: rgba(0, 0, 0, .2);
+$progress-bg: darken($space-cadet-900, 5%);
+$progress-bar-color: $space-cadet-700;
+$list-group-bg: lighten($body-bg, 5%);
+$list-group-border-color: rgba($space-cadet-900, .6);
+$list-group-hover-bg: lighten($body-bg, 10%);
+$list-group-active-color: $space-cadet-100;
+$list-group-active-bg: $list-group-hover-bg;
+$list-group-active-border-color: $list-group-border-color;
+$list-group-disabled-color: $space-cadet-800;
+$list-group-disabled-bg: $space-cadet-900;
+$list-group-action-color: $space-cadet-100;
+$breadcrumb-active-color: $space-cadet-500;
+$nav-pills-link-active-bg: theme-color("primary");
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Add SASS theme customizations here..
+.navbar-dark { background-color: lighten($space-cadet-900, 5%); }
+.navbar-light { background-color: darken($space-cadet-100, 5%); }
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before { background-color: theme-color("primary"); }

@@ -4,12 +4,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #5B7F95;">
     <div class="container-fluid">
-        <div class="col-md-2 col-xs-2">
-            <a class="navbar-brand pb-2" href="/"><img id="logo" src="/img/asopf_name_logo.png"></a>
+        <div class="col-2">
+            <a class="navbar-brand pb-2" href="/"><img id="logo" style="width: 50%;" src="/img/asopf_name_logo.png"></a>
         </div>
         <div class="col-md-6 col-xs-4">
             <div class="autocomplete">
-                <input id="search-bar" placeholder="County name" value="San Francisco">
+                <input id="search-bar" placeholder="County name" value="<%= userCounty !== null ? userCounty : 'San Francisco' %>">
                 <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
                 <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
             </div>
@@ -24,12 +24,16 @@
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about-us/">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <%= logged == 'no' ? 'disabled' : '' %>" href="/Profile/">Profile</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>"
                         href="<%= logged == 'no' ? '/login/' : '/logout/' %>"><%- logged == "no" ? 'Login or Register' : 'Logout'%></a>
                 </li>
+                <% if (logged != 'no') { %>
+                    <li class="nav-item">
+                        <a href="/profile">
+                        <img id="user-navatar" class="rounded-circle" style="width: 10%;" src="/img/upload/<%= userAvatar != null ? userAvatar : 'avatar-square.png' %>"/>
+                        </a>
+                    </li>
+                <% } %>
                 <li class="nav-item dropdown d-none">
                     <a class="nav-link dropdown-toggl" href="#" id="navbarDropdownMenu" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

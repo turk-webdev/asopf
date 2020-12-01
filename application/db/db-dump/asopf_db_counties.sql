@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
--- Host: 127.0.0.1    Database: asopf_test
+-- Host: 127.0.0.1    Database: asopf_db
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `wildfire_data`
+-- Table structure for table `counties`
 --
 
-DROP TABLE IF EXISTS `wildfire_data`;
+DROP TABLE IF EXISTS `counties`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wildfire_data` (
+CREATE TABLE `counties` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `evac_level` varchar(45) DEFAULT NULL,
-  `warning_level` varchar(45) DEFAULT NULL,
-  `num_fires` int DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `county_code` varchar(45) DEFAULT NULL,
+  `county_code` varchar(45) NOT NULL,
+  `state_code` varchar(45) NOT NULL,
+  `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `wildfire_data`
+-- Dumping data for table `counties`
 --
 
-LOCK TABLES `wildfire_data` WRITE;
-/*!40000 ALTER TABLE `wildfire_data` DISABLE KEYS */;
-/*!40000 ALTER TABLE `wildfire_data` ENABLE KEYS */;
+LOCK TABLES `counties` WRITE;
+/*!40000 ALTER TABLE `counties` DISABLE KEYS */;
+/*!40000 ALTER TABLE `counties` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-10 21:27:01
+-- Dump completed on 2020-11-30 18:05:11
