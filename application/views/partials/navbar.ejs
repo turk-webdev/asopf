@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-6 col-xs-4">
             <div class="autocomplete">
-                <input id="search-bar" placeholder="County name" value="San Francisco">
+                <input id="search-bar" placeholder="County name" value="<%= userCounty !== null ? userCounty : 'San Francisco' %>">
                 <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
                 <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
             </div>
@@ -24,7 +24,7 @@
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about-us/">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <%= logged == 'no' ? 'disabled' : '' %>" href="/Profile/">Profile</a>
+                    <a class="nav-link <%= logged == 'no' ? 'disabled' : '' %>" href="/dash/">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>"

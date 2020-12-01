@@ -43,13 +43,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/js", express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname + '/node_modules/jquery/dist')));
 
+const indexRoutes = require('./routes');
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 
 //Routes
-app.use('/', require('./routes/index'));
+app.use('/', indexRoutes);
 app.use(apiRoutes);
 app.use(authRoutes);
+app.use(profileRoutes);
 
 const PORT = process.env.PORT || 8080;
 

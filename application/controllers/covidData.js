@@ -4,7 +4,8 @@ exports.getPage = (req, res, next) => {
     res.render('add-data', {
         logged: req.user ? "yes" : "no",
         pageTitle: 'Covid Data',
-        path: '/covid-data'
+        path: '/covid-data',
+        userCounty: req.user ? req.user.county_code : null
     });
 };
 
@@ -16,7 +17,8 @@ exports.getAllData = (req, res, next) => {
         res.render('add-data', {
             logged: req.user ? "yes" : "no",
             pageTitle: 'Covid Data',
-            path: '/covid-data'
+            path: '/covid-data',
+            userCounty: req.user ? req.user.county_code : null
         });
     }).catch(err => console.log(err));
 };
