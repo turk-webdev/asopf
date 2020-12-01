@@ -1,0 +1,30 @@
+<script>
+    function closeDisclaimer(){
+        document.getElementById("disclaim").style.display="none"; 
+    }
+</script>
+
+<footer class="page-footer font-small pt-2 bg-dark" style="margin: -8px;" >
+    <div class="container-fluid text-center text-md-center bg-secondary" id="disclaim">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-6 mt-md-0 mt-3 ">
+                <h5 class="text-uppercase font-weight-bold text-danger">Disclaimer</h5>
+                <p class="text-white">This is a website made for a student project and the information found on this site will not be accurate</p>
+            </div>
+            <div class="col-md-0 col-xs-6 align-content-right ">
+                <button type="button" class="close" aria-label="Close" onclick=closeDisclaimer()>
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center py-3  bg-dark text-muted">
+        <div class="col justify-content-center">
+        <img id="logo" src="/img/ASOPF_Logo.png" style="height: 30px;">
+        A Song of Wind and Fire
+    </div>
+  </footer>
+
+  
