@@ -83,3 +83,7 @@ exports.covidCountyInit = (req, res, next) => {
     
 };
 
+exports.covidAdvFilter = () => {
+
+};
+
