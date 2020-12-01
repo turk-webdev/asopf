@@ -147,7 +147,11 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Avatar</h6>
                             </div>
-                            <div id="display_avatar" class="col-sm-9 text-secondary"></div>
+                            <div id="display_avatar" class="col-sm-9 text-secondary">
+                                <% if (user.avatar) { %>
+                                <img class="img-thumbnail" src="/img/upload/<%= user.avatar %>">
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-info" data-toggle="modal"
@@ -290,7 +294,7 @@
     document.getElementById('email').value = data_json.email ? data_json.email : null;
     document.getElementById('phone').value = data_json.phone ? data_json.phone : null;
     document.getElementById('county').value = data_json.county_code ? data_json.county_code : null;
-    document.getElementById('avatar').value = data_json.avatar ? data_json.avatar : null;
+    document.getElementById('avatar').value = data_json.avatar ? data_json.avatar.name : null;
 </script>
 
 

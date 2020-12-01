@@ -63,6 +63,7 @@
         </button>
     </div>
     <% } %>
+<!-- Display user profile -->
 <div class="container">
     <div class="main-body">
         <div class="row gutters-sm">
@@ -73,42 +74,46 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">First Name</h6>
                             </div>
-                            <div id="first_name" class="col-sm-9 text-secondary">?</div>
+                            <div id="first-name" class="col-sm-9 text-secondary">?</div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Last Name</h6>
                             </div>
-                            <div id="last_name" class="col-sm-9 text-secondary"></div>
+                            <div id="last-name" class="col-sm-9 text-secondary"></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Email</h6>
                             </div>
-                            <div id="display_email" class="col-sm-9 text-secondary"></div>
+                            <div id="display-name" class="col-sm-9 text-secondary"></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Phone</h6>
                             </div>
-                            <div id="display_phone" class="col-sm-9 text-secondary"></div>
+                            <div id="display-phone" class="col-sm-9 text-secondary"></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">County</h6>
                             </div>
-                            <div id="display_county" class="col-sm-9 text-secondary"></div>
+                            <div id="display-county" class="col-sm-9 text-secondary"></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Avatar</h6>
                             </div>
-                            <div id="display_avatar" class="col-sm-9 text-secondary"></div>
+                            <div id="display-avatar" class="col-sm-9 text-secondary">
+                                <% if (user.avatar) { %>
+                                <img class="img-thumbnail" src="/img/upload/<%= user.avatar %>">
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,6 +122,8 @@
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Update my
             profile</button>
         <!-- Modal -->
+
+        <!-- Update user profile -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -175,16 +182,14 @@
 <script>
     var data = '<%- JSON.stringify(user) %>';
     var data_json = JSON.parse(data);
-    // console.log(data_json);
+    console.log(data_json);
 
     // Display page fields
-    document.getElementById('first_name').innerText = data_json.fname ? data_json.fname : 'Not Set';
-    document.getElementById('last_name').innerHTML = data_json.lname ? data_json.lname : 'Not Set';
-    document.getElementById('display_email').innerHTML = data_json.email ? data_json.email : 'Not Set';
-    document.getElementById('display_phone').innerHTML = data_json.phone ? data_json.phone : 'Not Set';
-    document.getElementById('display_county').innerHTML = data_json.county_code ? data_json.county_code : 'Not Set';
-    // TODO - display avatar
-    // document.getElementById('display_avatar')
+    document.getElementById('first-name').innerText = data_json.fname ? data_json.fname : 'Not Set';
+    document.getElementById('last-name').innerHTML = data_json.lname ? data_json.lname : 'Not Set';
+    document.getElementById('display-name').innerHTML = data_json.email ? data_json.email : 'Not Set';
+    document.getElementById('display-phone').innerHTML = data_json.phone ? data_json.phone : 'Not Set';
+    document.getElementById('display-county').innerHTML = data_json.county_code ? data_json.county_code : 'Not Set';
 
     // Update profile fields
     document.getElementById('fname').value = data_json.fname ? data_json.fname : null;
@@ -192,7 +197,7 @@
     document.getElementById('email').value = data_json.email ? data_json.email : null;
     document.getElementById('phone').value = data_json.phone ? data_json.phone : null;
     document.getElementById('county').value = data_json.county_code ? data_json.county_code : null;
-    document.getElementById('avatar').value = data_json.avatar ? data_json.avatar : null;
+    document.getElementById('avatar').value = data_json.avatar ? data_json.avatar.name : null;
 
 
 </script>
