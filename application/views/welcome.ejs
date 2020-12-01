@@ -30,33 +30,6 @@
         white-space: nowrap;
     }
 
-    .button {
-        display: block;
-        position: absolute;
-        left: 50%;
-        top: 40%;
-        height: 2.5rem;
-        /* padding-top: 1.3rem; */
-        width: 15rem;
-        text-align: center;
-        color: #fff;
-        border: #fff solid 0.2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-decoration: none;
-        transform: translateX(-50%);
-    }
-    .split.left .button:hover {
-        background-color: var(--left-button-hover-color);
-        border-color: var(--left-button-hover-color);
-    }
-
-    .split.right .button:hover {
-        background-color: var(--right-button-hover-color);
-        border-color: var(--right-button-hover-color);
-    }
-
     .main {
         position: relative;
         width: 100%;
@@ -89,46 +62,6 @@
         right: 0;
         background: url('https://img.freepik.com/vecteurs-libre/coronavirus-background-bacteries-germes-cellule-virus-micro-organisme_139523-215.jpg?size=664&ext=jpg') center center no-repeat;
         background-size: cover;
-    }
-
-    .split.right:before {
-        position: absolute;
-        content: "";
-        width: 100%;
-        height: 100%;
-        background: var(--right-bg-color);
-    }
-
-    /* .split.left,
-    .split.right,
-    .split.right:before,
-    .split.left:before {
-        transition: var(--speed) all ease-in-out;
-    } */
-
-    .hover-left .left {
-        width: var(--hover-width);
-    }
-
-    .hover-left .right {
-        width: var(--other-width);
-    }
-
-    .hover-left .right:before {
-        z-index: 2;
-    }
-
-
-    .hover-right .right {
-        width: var(--hover-width);
-    }
-
-    .hover-right .left {
-        width: var(--other-width);
-    }
-
-    .hover-right .left:before {
-        z-index: 2;
     }
 
     @media(max-width: 1000px) {
@@ -169,18 +102,41 @@
     }
 </style>
 
-
-<div class="main">
-    <div class="split left">
-        <h1>Wildfire</h1>
-        <a href="/wildfire/San%20Francisco" class="button">Search Data</a>
+<!-- Modal -->
+<div class="modal fade" id="disclaimer" tabindex="-1" role="dialog" aria-labelledby="disclaimer-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="disclaimer-label">Disclaimer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p>This website is a student project, and <strong style="color:red">not</strong> an official page endorsed by the state of California or any other government authority.</p>
+                <p>By continuing through the site, you acknowledge that this is only a student project and not an official verified source of data.</p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">I Accept</button>
+            </div>
+        </div>
     </div>
-    <div class="split right">
-        <h1>COVID</h1>
-        <a href="/covid/" class="button">Search Data</a>
+</div>
+
+<div class="split left">
+    <div class="container">
+        Testing
+    </div>
+</div>
+<div class="split right">
+    <div class="container">
+        Testing
     </div>
 </div>
 <script>
+    $(document).ready(function(){
+        $('#disclaimer').modal('show');
+    });
     // function test() {
     //     console.log("test")
     // }
