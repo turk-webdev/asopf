@@ -29,6 +29,9 @@
                 <li class="nav-item">
                     <a class="nav-link <%= path === '/about' ? 'active' : '' %>"
                         href="<%= logged == 'no' ? '/login/' : '/logout/' %>"><%- logged == "no" ? 'Login or Register' : 'Logout'%></a>
+                    <% if (logged != 'no') { %>
+                        <img id="user-navatar" class="rounded-circle" src="/public/img/upload/<%= userAvatar != null ? userAvatar : 'avatar-square.png' %>"/>
+                    <% } %>
                 </li>
                 <li class="nav-item dropdown d-none">
                     <a class="nav-link dropdown-toggl" href="#" id="navbarDropdownMenu" role="button"

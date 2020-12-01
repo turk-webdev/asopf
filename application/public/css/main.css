@@ -29,3 +29,8 @@ html,body {
     max-height: 100px;
     width: auto;
 }
+
+#user-navatar {
+    max-height: 75px;
+    width: auto;
+}
