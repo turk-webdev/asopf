@@ -8,7 +8,7 @@ exports.profile = (req, res, next) => {
     res.render('profile_' + req.user.role, {
         logged: req.user ? "yes" : "no",
         user: req.user,
-        pageTitle: req.user.role,
+        pageTitle: 'ASOPF | Settings | ' + req.user.fname + ' ' + req.user.lname,
         path: 'profile_' + req.user.role,
         userCounty: req.user ? req.user.county_code : null
     });
