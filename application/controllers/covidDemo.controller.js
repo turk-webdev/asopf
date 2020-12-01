@@ -19,7 +19,7 @@ exports.getTableData = (req, res, next) => {
     .then(([rows, fields]) => {
         res.render('covid-demo', {
             logged: req.user ? "yes" : "no",
-            pageTitle: 'Demographic Data',
+            pageTitle: 'ASOPF | Demographic Data',
             path: '/covid/demographic',
             type: type,
             data: rows,
@@ -43,7 +43,7 @@ exports.advancedFilter = (req, res, next) => {
         .then(([rows, fields]) => {
             res.render('covid-demo', {
                 logged: req.user ? "yes" : "no",
-                pageTitle: 'Demographic Data',
+                pageTitle: 'ASOPF | Demographic Data',
                 path: '/covid/demographic',
                 type: demo,
                 data: rows,
@@ -60,7 +60,7 @@ exports.advancedFilter = (req, res, next) => {
             
             res.render('covid-demo', {
                 logged: req.user ? "yes" : "no",
-                pageTitle: 'Demographic Data',
+                pageTitle: 'ASOPF | Demographic Data',
                 path: '/covid/demographic',
                 type: demo,
                 data: rows,
@@ -77,7 +77,7 @@ exports.advancedFilter = (req, res, next) => {
             
             res.render('covid-demo', {
                 logged: req.user ? "yes" : "no",
-                pageTitle: 'Demographic Data',
+                pageTitle: 'ASOPF | Demographic Data',
                 path: '/covid/demographic',
                 type: demo,
                 data: rows,
@@ -94,8 +94,10 @@ exports.advancedFilter = (req, res, next) => {
 exports.getBasicPage = (req, res, next) => {
     res.render('covid-demo', {
         logged: req.user ? "yes" : "no",
-        pageTitle: 'Demographic Data',
+        pageTitle: 'ASOPF | Demographic Data',
         path: '/covid/demographic',
         type: '',
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
     });
 }
