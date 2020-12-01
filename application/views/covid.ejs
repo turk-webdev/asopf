@@ -365,7 +365,7 @@
             <div id="advanced-filter" class="card collapse">
                 <div class="card-body">
                     <form method="POST" action="?">
-                        <div class="row p-3" id="search-types">
+                        <div class="row" id="search-types">
                             <div class="col-md-12 col-sm-12">
                                 <h3>Choose a report type</h3>
                                 <div class="form-group">
@@ -390,16 +390,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="custom-report" style="display:none;">
-                            <div class="form-group col-md-12">
-                                <div class="col-md-6 col-sm-6">
+                        <div class="row pl-3 pr-3" id="custom-report" style="display:none;">
+                            <div class="row">
+                                <div class="col">
                                     <label for="start-date">Start Date</label>
-                                    <input class="form-control" id="start-date" name="start_date" type="date">
+                                    <input type="date" id="start-date" name="start_date" class="form-control">
                                 </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <label for="start-date">End Date</label>
-                                    <input class="form-control" id="end-date" name="end_date" type="date">
+                                <div class="col">
+                                    <label for="end-date">End Date</label>
+                                    <input type="date" id="end-date" name="end_date" class="form-control">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <button id="submit-btn" type="submit" class="mt-4 btn btn-primary" style="width:100%">
+                                    <i class="fa fa-search"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -428,7 +435,7 @@
         </div>
         <div id="table-container" class="col-md-6">
             <% if (countyInit) { %>
-            <h1>14-day Data for <%= county %> County</h1>
+            <h1>Data for <%= county %> County</h1>
             <table class="table">
                 <thead>
                     <tr>
@@ -440,7 +447,7 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-                    <% if (dataTable.length > 0 && dataTable != undefined) { %>
+                    <% if (dataTable != undefined && dataTable.length > 0) { %>
                         <% for (let i=0; i<dataTable.length; i++) { %>
                             <tr>
                                 <td><%= dataTable[i].cases %></td>
@@ -451,7 +458,7 @@
                             </tr>   
                         <% } %>
                     <% } else { %>
-                        <td colspan="5"><b>No county selected.</b></td>
+                        <td colspan="5"><b>No data found.</b></td>
                     <% } %>
                 </tbody>
             </table>
