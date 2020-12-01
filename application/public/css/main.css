@@ -1537,6 +1537,32 @@ pre code {
   border-bottom-width: 2px;
 }
 
+#view-buttons button {
+  width: 100%;
+}
+
+#covid-demo-data table, 
+#table-container table, 
+#wildfire-table table {
+  color: #fff;
+}
+
+#profile-display h6 {
+  color: #13161d;
+  font-size: 13pt;
+  font-weight: bold;
+}
+
+#user-navatar {
+  max-height: 45px;
+  width: auto;
+}
+
+#display-avatar img {
+  max-height: 75px;
+  width: auto;
+}
+
 .table-borderless th,
 .table-borderless td,
 .table-borderless thead th,
