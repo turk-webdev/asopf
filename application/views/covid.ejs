@@ -13,7 +13,7 @@
         border-radius: 5px;
         padding: 1px;
         border: 2px solid blue;
-        
+
     }
 
     #infoDiv {
@@ -123,6 +123,13 @@
         100% {
             transform: rotate(360deg);
         }
+    }
+
+    table.dataTable thead tr {
+        background-color: orange;
+    }
+    .dataTables_wrapper, .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+        color: white;
     }
 </style>
 
@@ -259,7 +266,7 @@
                 width: 600,
                 height: 1000
             },
-            position : "bottom-left"
+            position: "bottom-left"
         };
 
 
@@ -361,7 +368,8 @@
     <div class="row mb-1">
         <div class="col-md-3 col-sm-3"></div>
         <div class="col-md-6 col-sm-6">
-            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#advanced-filter" style="width:100%"><b>Advanced Filter</b></button>
+            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#advanced-filter"
+                style="width:100%"><b>Advanced Filter</b></button>
             <div id="advanced-filter" class="card collapse">
                 <div class="card-body">
                     <form method="POST">
@@ -370,19 +378,22 @@
                                 <h3>Choose a report type</h3>
                                 <div class="form-group">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="search_type" id="searchType1" value="0" onclick="toggleReportType(this.value)" checked>
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType1"
+                                            value="0" onclick="toggleReportType(this.value)" checked>
                                         <label class="form-check-label" for="searchType1">
                                             14-day Report
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="search_type" id="searchType2" value="1" onclick="toggleReportType(this.value)">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType2"
+                                            value="1" onclick="toggleReportType(this.value)">
                                         <label class="form-check-label" for="searchType2">
                                             30-day Report
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="search_type" id="searchType3" value="2" onclick="toggleReportType(this.value)">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType3"
+                                            value="2" onclick="toggleReportType(this.value)">
                                         <label class="form-check-label" for="searchType3">
                                             Custom Report
                                         </label>
@@ -419,9 +430,12 @@
         <div class="col-md-3"></div>
         <div class="col-md-6" id="view-buttons">
             <div class="row">
-                <div class="col-md-4 col-sm-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i class="fa fa-columns"></i></button></div>
-                <div class="col-md-4 col-sm-4"><button id="table" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
-                <div class="col-md-4 col-sm-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-map"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i
+                            class="fa fa-columns"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="table" class="btn btn-secondary"
+                        onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i
+                            class="fa fa-map"></i></button></div>
             </div>
         </div>
         <div class="col-md-3"></div>
@@ -436,7 +450,7 @@
         <div id="table-container" class="col-md-6">
             <% if (countyInit) { %>
             <h1>Data for <%= county %> County</h1>
-            <table class="table">
+            <table id="covidTable" class="table table-light">
                 <thead>
                     <tr>
                         <th scope="col">New Cases</th>
@@ -448,17 +462,17 @@
                 </thead>
                 <tbody id="data-table">
                     <% if (dataTable != undefined && dataTable.length > 0) { %>
-                        <% for (let i=0; i<dataTable.length; i++) { %>
-                            <tr>
-                                <td><%= dataTable[i].cases %></td>
-                                <td><%= dataTable[i].death %></td>
-                                <td><%= dataTable[i].total_cases %></td>
-                                <td><%= dataTable[i].total_deaths %></td>
-                                <td><%= dataTable[i].date.toString().substring(0,15) %></td>
-                            </tr>   
-                        <% } %>
+                    <% for (let i=0; i<dataTable.length; i++) { %>
+                    <tr>
+                        <td><%= dataTable[i].cases %></td>
+                        <td><%= dataTable[i].death %></td>
+                        <td><%= dataTable[i].total_cases %></td>
+                        <td><%= dataTable[i].total_deaths %></td>
+                        <td><%= dataTable[i].date.toString().substring(0,15) %></td>
+                    </tr>
+                    <% } %>
                     <% } else { %>
-                        <td colspan="5"><b>No data found.</b></td>
+                    <td colspan="5"><b>No data found.</b></td>
                     <% } %>
                 </tbody>
             </table>
@@ -468,4 +482,11 @@
 </div>
 <% } %>
 
+<script>
+    $(document).ready(function () {
+        $('#covidTable').DataTable({
+            "autoWidth": false
+        });
+    });
+</script>
 <script type="text/javascript" src="/js/covidSearch.js"></script>

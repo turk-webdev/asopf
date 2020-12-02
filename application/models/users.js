@@ -16,9 +16,14 @@ const existsUser = (table, col, query) => {
     return db.query(sql, [table, col, query]);
 };
 
-const insertUser = (table, email, password, role) => {
-    var sql = "INSERT INTO ?? (email, password, role) values(?, ?, ?)";
-    return db.query(sql, [table, email, password, role]);
+const insertUser = (table, fname, lname, email, password, notify, role, phone, county_code) => {
+    var sql = "INSERT INTO ?? (fname, lname, email, password, notify, role, phone, county_code) values(?, ?, ?, ?, NULLIF(?, ''), ?, NULLIF(?, ''), NULLIF(?, ''))";
+    return db.query(sql, [table, fname, lname, email, password, notify, role, phone, county_code]);
+};
+
+const selectEmail = (table, n1, n2) => {
+    var sql = "SELECT email FROM ?? where notify = ? or notify = ? ";
+    return db.query(sql, [table, n1, n2]);
 };
 
 module.exports = {
@@ -26,4 +31,5 @@ module.exports = {
     updateUserWithImage,
     existsUser,
     insertUser,
+    selectEmail
 };

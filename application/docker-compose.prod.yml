@@ -21,7 +21,7 @@ services:
             - frontend
             - backend
         # can also use command: npm run dev
-        command: /application/wait-for-it.sh mysql-db:3306 -- npm run dev
+        command: /application/wait-for-it.sh mysql-db:3306 -- npm start
     
     mysql-db:
         image: mysql:8

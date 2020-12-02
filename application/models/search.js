@@ -58,7 +58,11 @@ module.exports = class Search {
         return db.query(sql, [table, table]);
     }
     
-    static whatever(sql) {
-        return db.query(sql);
+    static uploadCovid(table, sql) {
+        return db.query(sql, [table]);
+    }
+
+    static uploadWildfire(table, sql) {
+        return db.query(sql, [table]);
     }
 };
