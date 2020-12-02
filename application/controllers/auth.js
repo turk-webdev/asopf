@@ -5,6 +5,7 @@ const Users = require('../models/users');
 // A single row of the table is passed to the devs object
 exports.getLogin = (req, res, next) => {
     res.render('login', {
+        layout: 'layout',
         logged: req.user ? "yes" : "no",
         pageTitle: 'ASOPF | Login',
         path: '/login',
@@ -14,14 +15,14 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
-    res.render('register',
-        {
-            logged: req.user ? "yes" : "no",
-            pageTitle: 'ASOPF | Register',
-            path: '/login',
-            userCounty: req.user ? req.user.county_code : null,
-            userAvatar: req.user ? req.user.avatar : null
-        });
+    res.render('register', {
+        layout: 'layout',
+        logged: req.user ? "yes" : "no",
+        pageTitle: 'ASOPF | Register',
+        path: '/login',
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
+    });
 };
 
 exports.postLogin = (req, res, next) => {
@@ -51,6 +52,7 @@ exports.postSignup = (req, res, next) => {
 
     if (errors.length > 0) {
         res.render('register', {
+            layout: 'layout',
             logged: req.user ? "yes" : "no",
             errors,
             name,
@@ -69,6 +71,7 @@ exports.postSignup = (req, res, next) => {
             if (rows[0].exists == 1) {
                 errors.push({ msg: "Email already exists" })
                 res.render('register', {
+                    layout: 'layout',
                     logged: req.user ? "yes" : "no",
                     errors,
                     pageTitle: 'ASOPF | Login',
@@ -86,6 +89,7 @@ exports.postSignup = (req, res, next) => {
         Users.insertUser('users', email, password, 'basic')
         .then(([rows, fields]) => {
             res.render('login', {
+                layout: 'layout',
                 logged: req.user ? "yes" : "no",
                 pageTitle: 'ASOPF | Login',
                 path: '/login',

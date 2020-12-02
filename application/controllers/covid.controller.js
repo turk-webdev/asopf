@@ -18,6 +18,7 @@ exports.covid = (req, res, next) => {
             }
         });
         res.render('covid', {
+            layout: 'layout',
             logged: req.user ? "yes" : "no",
             pageTitle: 'ASOPF | COVID Data',
             pageTitle: 'covid data',
@@ -35,6 +36,7 @@ exports.wildfireCountyInit = (req, res, next) => {
     Search.getCountyWildfire(countyString)
     .then(([rows,fields]) => {
         res.render('wildfire', {
+            layout: 'layout',
             logged: req.user ? "yes" : "no",
             pageTitle: `ASOPF | ${countyString} | Wildfire Data`,
             path: '/wildfire',
@@ -66,6 +68,7 @@ exports.covidCountyInit = (req, res, next) => {
         Search.getCountyCovidLimit(countyString, 14)
         .then(([rows, fields]) => { 
             res.render('covid', {
+                layout: 'layout',
                 logged: req.user ? "yes" : "no",
                 pageTitle: `ASOPF | ${countyString} | COVID Data`,
                 path: '/covid',
@@ -112,6 +115,7 @@ exports.covidAdvFilter = (req, res, next) => {
         })
         .then(([rows, fields]) => {
             res.render('covid', {
+                layout: 'layout',
                 logged: req.user ? "yes" : "no",
                 pageTitle: `ASOPF | ${county} | COVID Data`,
                 path: '/covid',
@@ -147,6 +151,7 @@ exports.covidAdvFilter = (req, res, next) => {
         })
         .then(([rows, fields]) => {
             res.render('covid', {
+                layout: 'layout',
                 logged: req.user ? "yes" : "no",
                 pageTitle: `ASOPF | ${county} | COVID Data`,
                 path: '/covid',

@@ -10,6 +10,7 @@ const covidDemoController = require('../controllers/covidDemo.controller');
 
 router.get('/', (req, res) => {
     res.render('welcome', {
+        layout: 'layout',
         logged: req.user ? "yes" : "no",
         pageTitle: 'A Song Of Plague & Fire',
         path: '/',
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
 
 router.get('/dash', (req, res) => {
     res.render('dash', { 
+        layout: 'layout',
         logged: req.user ? "yes" : "no", 
         pageTitle: req.user ? 'ASOPF | Dashboard | ' + req.user.fname + ' ' + req.user.lname : 'ASOPF | Dashboard', 
         path: '/dash',
