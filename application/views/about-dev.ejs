@@ -1,21 +1,12 @@
 <style>
-    body {
-        background-color: #e5e5e5;
-    }
-
-    .col-md-6 {
-        background-color: #fff;
-        border-radius: 5px;
-        height: 100% !important;
-    }
-
-    img {
-        margin-top: 1rem!important;
-    }
+#dev {
+    background-color: #2a3451;
+    border-radius: 15px;
+}
 </style>
-<div class="row">
+<div class="row mt-5">
     <div class="col-md-3"></div>
-    <div class="col-md-6 text-center">
+    <div class="col-md-6 text-center" id="dev">
         <h1><%= devs.firstName %> <%= devs.lastName %></h1>
         <h2><%= devs.jobTitle %></h2>
         <img src="<%= devs.imageUrl %>" alt="" width="200" class="img-fluid  mb-3 img-thumbnail shadow-sm">

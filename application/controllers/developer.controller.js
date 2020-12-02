@@ -6,6 +6,7 @@ exports.getDevelopers = (req, res, next) => {
     Search.fetchAll('developers', 'lastName').then(([rows, fields]) => {
         // Rows - Returns all of the rows of the table selected
         res.render('about', {
+            layout: 'layout',
             logged: req.user ? "yes" : "no",
             devs: rows,
             pageTitle: 'About',
@@ -19,8 +20,11 @@ exports.getDevelopers = (req, res, next) => {
 // A single row of the table is passed to the devs object
 exports.getDeveloperByName = (req, res, next) => {
     var name = req.params.name;
-    Search.exact('developers', 'firstName', name).then(([rows, fields]) => {
+    console.log(`name=${name}`);
+    Search.exact('developers', 'firstName', name, 'firstName')
+    .then(([rows, fields]) => {
         res.render('about-dev', {
+            layout: 'layout',
             logged: req.user ? "yes" : "no",
             devs: rows[0],
             pageTitle: 'About Us',
