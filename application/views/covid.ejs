@@ -8,7 +8,8 @@
     #viewDiv {
         min-width: 600px;
         min-height: 400px;
-        margin: 150px;
+        height: 95%;
+        margin: 20px;
         border-radius: 5px;
         padding: 1px;
         border: 2px solid blue;
@@ -344,14 +345,83 @@
 </script>
 <script type="text/javascript" src="/js/viewToggle.js"></script>
 
+<% if (!countyInit) { %>
 <div class="container-fluid">
+    <div class="row">
+        <div id="map-container" class="col-md-12">
+            <div id="viewDiv"></div>
+            <div id="basemapDivToggle" class="esri-widget">
+                <div id="basemapDiv"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } else { %>
+<div class="container-fluid">
+    <div class="row mb-1">
+        <div class="col-md-3 col-sm-3"></div>
+        <div class="col-md-6 col-sm-6">
+            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#advanced-filter" style="width:100%"><b>Advanced Filter</b></button>
+            <div id="advanced-filter" class="card collapse">
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="row" id="search-types">
+                            <div class="col-md-12 col-sm-12">
+                                <h3>Choose a report type</h3>
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType1" value="0" onclick="toggleReportType(this.value)" checked>
+                                        <label class="form-check-label" for="searchType1">
+                                            14-day Report
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType2" value="1" onclick="toggleReportType(this.value)">
+                                        <label class="form-check-label" for="searchType2">
+                                            30-day Report
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType3" value="2" onclick="toggleReportType(this.value)">
+                                        <label class="form-check-label" for="searchType3">
+                                            Custom Report
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pl-3 pr-3" id="custom-report" style="display:none;">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="start-date">Start Date</label>
+                                    <input type="date" id="start-date" name="start_date" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <label for="end-date">End Date</label>
+                                    <input type="date" id="end-date" name="end_date" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <button id="submit-btn" type="submit" class="mt-4 btn btn-primary" style="width:100%">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3"></div>
+    </div>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6" id="view-buttons">
             <div class="row">
-                <div class="col-md-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i class="fa fa-columns"></i></button></div>
-                <div class="col-md-4"><button id="table" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
-                <div class="col-md-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-map"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i class="fa fa-columns"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="table" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i class="fa fa-map"></i></button></div>
             </div>
         </div>
         <div class="col-md-3"></div>
@@ -365,7 +435,7 @@
         </div>
         <div id="table-container" class="col-md-6">
             <% if (countyInit) { %>
-            <h1>14-day Data for <%= county %> County</h1>
+            <h1>Data for <%= county %> County</h1>
             <table class="table">
                 <thead>
                     <tr>
@@ -377,7 +447,7 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-                    <% if (dataTable.length > 0 && dataTable != undefined) { %>
+                    <% if (dataTable != undefined && dataTable.length > 0) { %>
                         <% for (let i=0; i<dataTable.length; i++) { %>
                             <tr>
                                 <td><%= dataTable[i].cases %></td>
@@ -388,7 +458,7 @@
                             </tr>   
                         <% } %>
                     <% } else { %>
-                        <td colspan="5"><b>No county selected.</b></td>
+                        <td colspan="5"><b>No data found.</b></td>
                     <% } %>
                 </tbody>
             </table>
@@ -396,3 +466,6 @@
         </div>
     </div>
 </div>
+<% } %>
+
+<script type="text/javascript" src="/js/covidSearch.js"></script>

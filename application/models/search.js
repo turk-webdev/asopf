@@ -37,9 +37,15 @@ module.exports = class Search {
         return db.query(sql, [table, col, query]);
     }
 
-    static getCountyCovid(county) {
-        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) ORDER BY id LIMIT 14;";
-        return db.query(sql, [county]);
+    static getCountyCovidLimit(county, limit) {
+        console.log(`getCountyCovidLimit(${county}, ${limit})`);
+        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) ORDER BY id LIMIT ?;";
+        return db.query(sql, [county, limit]);
+    }
+
+    static getCountyCovidRange(county, start, end) {
+        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) AND date BETWEEN ? AND ?;";
+        return db.query(sql, [county, start, end]);
     }
 
     static getCountyWildfire(county) {
@@ -48,6 +54,7 @@ module.exports = class Search {
     }
 
     static getNewCovidData(table) {
+        console.log('getNewCovidData');
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
     }

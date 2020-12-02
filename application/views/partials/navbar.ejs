@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="/css/autocomplete.css">
 <script src="/js/navSearch.js" type="text/javascript"></script>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #5B7F95;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #5B7F95; z-index:1;">
     <div class="container-fluid">
         <div class="col-2">
             <a class="navbar-brand pb-2" href="/"><img id="logo" style="width: 50%;" src="/img/asopf_name_logo.png"></a>
@@ -29,7 +29,7 @@
                 </li>
                 <% if (logged != 'no') { %>
                     <li class="nav-item">
-                        <a href="/profile">
+                        <a href="/dash">
                         <img id="user-navatar" class="rounded-circle" src="/img/upload/<%= userAvatar != null ? userAvatar : 'avatar-square.png' %>"/>
                         </a>
                     </li>

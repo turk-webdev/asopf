@@ -1,10 +1,13 @@
 <div class="container-fluid">
+    <div class="row pl-5">
+        <h2>COVID Demographic Data for California</h2>
+    </div>
     <div class="row">
         <!-- Advanced filter goes here -->
         <div class="col-md-4"></div>
         <div class="card bg-light col-md-4">
             <h3 class="card-header">Advanced Filters</h3>
-            <div class="card-body">
+            <div class="card-body" style="color:#000;">
                 <form id="covid-demo-filter" method="POST" action="/covid-demo">
                     <div class="form-group">
                         <label for="demo">Demographic Type</label>
@@ -68,9 +71,9 @@
                         <% for (let i=0; i<data.length; i++) { %>
                         <tr>
                             <td><%= data[i].age_group %></td>
-                            <td><%= data[i].case_percent %></td>
-                            <td><%= data[i].death_percent %></td>
-                            <td><%= data[i].ca_percent %></td>
+                            <td><%= data[i].case_percent %>%</td>
+                            <td><%= data[i].death_percent %>%</td>
+                            <td><%= data[i].ca_percent %>%</td>
                             <td><%= data[i].deaths %></td>
                             <td><%= data[i].totalpositive %></td>
                             <td><%= data[i].date.toString().substring(0,15) %></td>
@@ -99,9 +102,9 @@
                         <% for (let i=0; i<data.length; i++) { %>
                         <tr>
                             <td><%= data[i].sex %></td>
-                            <td><%= data[i].case_percent %></td>
-                            <td><%= data[i].death_percent %></td>
-                            <td><%= data[i].ca_percent %></td>
+                            <td><%= data[i].case_percent %>%</td>
+                            <td><%= data[i].deaths_percent %>%</td>
+                            <td><%= data[i].ca_percent %>%</td>
                             <td><%= data[i].deaths %></td>
                             <td><%= data[i].totalpositive %></td>
                             <td><%= data[i].date.toString().substring(0,15) %></td>
@@ -110,7 +113,7 @@
                     <% } %>
                 </tbody>
             </table>
-        <% } else if (type === 'ethnic') { %>
+        <% } else if (type === 'ethnicity') { %>
         <table class="table" id="ethnic-data">
             <thead>
                 <th>Ethnicity</th>
@@ -129,9 +132,9 @@
                     <% for (let i=0; i<data.length; i++) { %>
                     <tr>
                         <td><%= data[i].ethnicity %></td>
-                        <td><%= data[i].case_percent %></td>
-                        <td><%= data[i].death_percent %></td>
-                        <td><%= data[i].ca_percent %></td>
+                        <td><%= data[i].case_percent %>%</td>
+                        <td><%= data[i].death_percent %>%</td>
+                        <td><%= data[i].ca_percent %>%</td>
                         <td><%= data[i].deaths %></td>
                         <td><%= data[i].date.toString().substring(0,15) %></td>
                     </tr>
