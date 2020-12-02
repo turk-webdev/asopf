@@ -1,14 +1,17 @@
 <style>
 
+#avatar {
+  max-height:30px;
+}
     /* Styles recieved from https://codepen.io/tutsplus/details/gOObdjQ */
     
     :root {
       --page-header-bgColor: #212529;
       --page-header-bgColor-hover: #1d2636;
-      --page-header-txtColor: #dde9f8;
+      --page-header-txtColor: #545e76;
       --page-header-headingColor: #7889a4;
       --page-header-width: 220px;
-      --page-content-bgColor: #f0f1f6;
+      --page-content-bgColor: #545e76;
       --page-content-txtColor: #171616;
       --page-content-blockColor: #fff;
       --white: #fff;
@@ -251,6 +254,11 @@
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 30px;
     }
+
+    .table {
+      color: #fff;
+      font-size: 10pt;
+    }
     
     .page-content .grid > article {
       display: flex;
@@ -409,8 +417,6 @@
     }
     </style>
     
-    
-    
     <svg style="display:none;">
       <symbol id="down" viewBox="0 0 16 16">
         <polygon points="3.81 4.38 8 8.57 12.19 4.38 13.71 5.91 8 11.62 2.29 5.91 3.81 4.38" />
@@ -478,74 +484,15 @@
               <svg>
                 <use xlink:href="#pages"></use>
               </svg>
-              <span>Pages</span>
+              <span>Dashboard</span>
             </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#users"></use>
-              </svg>
-              <span>Users</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-                <svg>
-                  <use xlink:href="#trends"></use>
-                </svg>
-                <span>Trends</span>
-              </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#collection"></use>
-              </svg>
-              <span>Collection</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#comments"></use>
-              </svg>
-              <span>Comments</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#appearance"></use>
-              </svg>
-              <span>Appearance</span>
-            </a>
-          </li>
-          <li class="menu-heading">
-            <h3>Settings</h3>
           </li>
           <li>
             <a href="/profile/">
               <svg>
-                <use xlink:href="#settings"></use>
-              </svg>
-              <span>Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
                 <use xlink:href="#options"></use>
               </svg>
-              <span>Options</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#charts"></use>
-              </svg>
-              <span>Charts</span>
+              <span>Edit Profile</span>
             </a>
           </li>
           <li>
@@ -561,34 +508,172 @@
     </header>
     <section class="page-content">
       <section class="search-and-user">
-    
-    
-                    <div class="col-md-6 col-xs-4">
-                <input id="search-bar" placeholder="Search" value="San Francisco">
-                <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
-                <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
-    
-        </div>
-    
         <div class="admin-profile">
           <span class="greeting">Welcome to Your Dashboard</span>
           <div class="notifications">
-            <span class="badge">1</span>
-            <svg>
+            <!-- <span class="badge">1</span> -->
+            <img id="avatar" class="rounded-circle" src="/img/upload/<%= userAvatar ? userAvatar : 'avatar-square.png' %>">
+            <!-- <svg>
               <use xlink:href="#users"></use>
-            </svg>
+            </svg> -->
           </div>
         </div>
       </section>
-      <section class="grid">
-        <article></article>
-        <article></article>
-        <article></article>
-        <article></article>
-        <article></article>
-        <article></article>
-        <article></article>
-        <article></article>
+
+      <section>
+        <div class="row">
+
+
+          <div class="col-md-6 mb-2">
+            <div class="card">
+              <div class="card-header">
+                Latest <%= userCounty %> County COVID Data
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">New Cases</th>
+                            <th scope="col">New Deaths</th>
+                            <th scope="col">Total Cases</th>
+                            <th scope="col">Total Deaths</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="county-covid">
+                      <% for (let i=0; i<covidCountyData.length; i++) { %>
+                        <tr>
+                          <td><%= covidCountyData[i].cases %></td>
+                          <td><%= covidCountyData[i].death %></td>
+                          <td><%= covidCountyData[i].total_cases %></td>
+                          <td><%= covidCountyData[i].total_deaths %></td>
+                          <td><%= covidCountyData[i].date.toString().substring(0,15) %></td>
+                      </tr>  
+                      <% } %>
+                    </tbody>
+                  </table>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 mb-2">
+            <div class="card">
+              <div class="card-header">
+                Latest COVID 19 Demographic Data by Age
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <table class="table" id="age-data">
+                    <thead>
+                      <th>Age Group</th>
+                      <th>Case Percent</th>
+                      <th>Death Percent</th>
+                      <th>CA Percent</th>
+                      <th>Deaths</th>
+                      <th>Total Positive</th>
+                      <th>Date</th>
+                    </thead>
+                    <tbody>
+                    <% for (let i=0; i<covidAgeData.length; i++) { %>
+                      <tr>
+                          <td><%= covidAgeData[i].age_group %></td>
+                          <td><%= covidAgeData[i].case_percent %>%</td>
+                          <td><%= covidAgeData[i].death_percent %>%</td>
+                          <td><%= covidAgeData[i].ca_percent %>%</td>
+                          <td><%= covidAgeData[i].deaths %></td>
+                          <td><%= covidAgeData[i].totalpositive %></td>
+                          <td><%= covidAgeData[i].date.toString().substring(0,15) %></td>
+                      </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="card">
+              <div class="card-header">
+                Latest COVID 19 Demographic Data by Sex
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <table class="table" id="sex-data">
+                    <thead>
+                      <th>Sex</th>
+                      <th>Case Percent</th>
+                      <th>Death Percent</th>
+                      <th>CA Percent</th>
+                      <th>Deaths</th>
+                      <th>Total Positive</th>
+                      <th>Date</th>
+                    </thead>
+                    <tbody>
+                    <% for (let i=0; i<covidSexData.length; i++) { %>
+                      <tr>
+                          <td><%= covidSexData[i].sex %></td>
+                          <td><%= covidSexData[i].case_percent %>%</td>
+                          <td><%= covidSexData[i].deaths_percent %>%</td>
+                          <td><%= covidSexData[i].ca_percent %>%</td>
+                          <td><%= covidSexData[i].deaths %></td>
+                          <td><%= covidSexData[i].totalpositive %></td>
+                          <td><%= covidSexData[i].date.toString().substring(0,15) %></td>
+                      </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="card">
+              <div class="card-header">
+                Latest COVID 19 Demographic Data by Ethnicity
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <table class="table" id="ethnic-data">
+                    <thead>
+                      <th>Ethnicity</th>
+                      <th>Case Percent</th>
+                      <th>Death Percent</th>
+                      <th>CA Percent</th>
+                      <th>Deaths</th>
+                      <th>Date</th>
+                    </thead>
+                    <tbody>
+                    <% for (let i=0; i<covidSexData.length; i++) { %>
+                      <tr>
+                          <td><%= covidSexData[i].ethnicity %></td>
+                          <td><%= covidSexData[i].case_percent %>%</td>
+                          <td><%= covidSexData[i].death_percent %>%</td>
+                          <td><%= covidSexData[i].ca_percent %>%</td>
+                          <td><%= covidSexData[i].deaths %></td>
+                          <td><%= covidSexData[i].date.toString().substring(0,15) %></td>
+                      </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="height: 720px;">
+            <iframe width="100%"
+                    height="100%"
+                    title="California Wildfire Map"
+                    src="https://usgs.maps.arcgis.com/apps/View/index.html?appid=0f4dcef98b1c47f2962f192a0ca0f3d3"></iframe>
+          </div>
+        </div>
       </section>
     </section>
     

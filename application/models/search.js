@@ -38,8 +38,7 @@ module.exports = class Search {
     }
 
     static getCountyCovidLimit(county, limit) {
-        console.log(`getCountyCovidLimit(${county}, ${limit})`);
-        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) ORDER BY id LIMIT ?;";
+        var sql = "SELECT * FROM covid_data WHERE UPPER(county_code) = UPPER(?) ORDER BY date DESC LIMIT ?;";
         return db.query(sql, [county, limit]);
     }
 
