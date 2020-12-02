@@ -5,7 +5,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -1533,6 +1533,32 @@ pre code {
 .table-bordered thead th,
 .table-bordered thead td {
   border-bottom-width: 2px;
+}
+
+#view-buttons button {
+  width: 100%;
+}
+
+#covid-demo-data table, 
+#table-container table, 
+#wildfire-table table {
+  color: #fff;
+}
+
+#profile-display h6 {
+  color: #13161d;
+  font-size: 13pt;
+  font-weight: bold;
+}
+
+#user-navatar {
+  max-height: 45px;
+  width: auto;
+}
+
+#display-avatar img {
+  max-height: 75px;
+  width: auto;
 }
 
 .table-borderless th,
