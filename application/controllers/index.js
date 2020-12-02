@@ -6,6 +6,7 @@ const Search = require('../models/search');
 exports.profile = (req, res, next) => {
     console.log(req.user);
     res.render('profile_' + req.user.role, {
+        layout: 'layout',
         logged: req.user ? "yes" : "no",
         user: req.user,
         pageTitle: 'ASOPF | Settings | ' + req.user.fname + ' ' + req.user.lname,
