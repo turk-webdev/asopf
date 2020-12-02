@@ -35,6 +35,11 @@ exports.postLogin = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
     var { fname, lname, email, password, password2, phone, county, notifications } = req.body;
     let errors = [];
+    var role = "basic";
+    var last = email.substr(email.length - 4);
+    if (last === ".gov"){
+        role = "admin";
+    }
     if (!fname || !lname || !email || !password || !password2) {
         errors.push({ msg: 'Please fill in all required fields' })
     }
@@ -86,7 +91,7 @@ exports.postSignup = (req, res, next) => {
                 }
             })
             .catch(err => console.log(err));
-        Users.insertUser('users', fname, lname, email, password, notifications, "basic", phone, county)
+        Users.insertUser('users', fname, lname, email, password, notifications, role, phone, county)
             .then(([rows, fields]) => {
                 res.render('login', {
                     logged: req.user ? "yes" : "no",
