@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 
 router.get('/dash', (req, res) => {
     res.render('dash', { 
-        layout: 'layout',
+        layout: 'layout2',
         logged: req.user ? "yes" : "no", 
         pageTitle: req.user ? 'ASOPF | Dashboard | ' + req.user.fname + ' ' + req.user.lname : 'ASOPF | Dashboard', 
         path: '/dash',
