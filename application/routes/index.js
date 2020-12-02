@@ -41,5 +41,6 @@ router.get('/covid/', covidController.covid);
 router.get('/covid/:county', covidController.covidCountyInit);
 router.post('/covid/:county', covidController.covidAdvFilter);
 router.get('/wildfire/:county', covidController.wildfireCountyInit);
+router.get('/wildfire/', covidController.wildfireCountyInit);
 
 module.exports = router;
