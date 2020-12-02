@@ -35,8 +35,7 @@ CREATE TABLE `users` (
   `county_code` varchar(45) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT 'avatar-square.png',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  UNIQUE KEY `avatar_UNIQUE` (`avatar`)
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,7 +45,8 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ufkun','Erdin','uerdin@mail.sfsu.edu','testing',NULL,'basic','1234567890',NULL,'Alameda','69828948_10219766350604594_9145372432872243200_n.jpg');
+INSERT INTO `users` VALUES (1,'Ufkun','Erdin','uerdin@mail.sfsu.edu','testing','email','basic','1234567890',NULL,'Alameda','69828948_10219766350604594_9145372432872243200_n.jpg');
+INSERT INTO `users` VALUES (2,'Alex','dCh','adecharry@gmail.com','testing','both','admin','1234567890',NULL,'Yolo','69828948_10219766350604594_9145372432872243200_n.jpg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

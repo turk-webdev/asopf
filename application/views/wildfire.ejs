@@ -1,43 +1,44 @@
 <style>
+    html,
+    body {
+        margin: 0;
+        height: 95%;
+    }
+
     #map {
-        height:100%;
         width: 100%;
-        background-color: red;
+        height: 100%;
+
     }
 </style>
 
-<div class="row" style="height:100%; padding:0 10px;">
-    <div class="col-md-6">
-        <i>PLACEHOLDER! MAP WILL GO HERE</i>
-        <div id="map">
+
+
+<script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+</script>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Our Data</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>All the data we use here is from official sources.</p>
+                <p>We use a map directly from the USGS</p>
+                <p>Our tables and graphs use data provided by counties Directors of the Fire Department</p>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <h1>14-day Data for <%= county %> County</h1>
-        <table class="table" id="wildfire-table">
-        <thead>
-            <tr>
-                <th scope="col">Incident Name</th>
-                <th scope="col">Acres Burned</th>
-                <th scope="col">Incident Location</th>
-                <th scope="col">Active Incident</th>
-                <th scope="col">Date of Last Update</th>
-            </tr>
-        </thead>
-        <tbody id="data-table">
-            <% if (data.length > 0) { %>
-                <% for (let i=0; i<data.length; i++) { %>
-                        <tr>
-                            <td><%= data[i].incident_name %></td>
-                            <td><%= data[i].incident_acres_burned %></td>
-                            <td><%= data[i].incident_location %></td>
-                            <td><%= data[i].is_active %></td>
-                            <td><%= data[i].incident_date_last_update.toString().substring(0,15) %></td>
-                        </tr>
-                <% } %>
-            <%  } else { %>
-                    <td colspan="5"><b>No current data for this county</b></td>
-            <%  } %>
-        </table>
-    </div>
+</div>
+
+<div id="map">
+    <iframe width="100%"
+    height="100%"
+        title="California Wildfire Map"
+        src="https://usgs.maps.arcgis.com/apps/View/index.html?appid=0f4dcef98b1c47f2962f192a0ca0f3d3"></iframe>
+
 </div>

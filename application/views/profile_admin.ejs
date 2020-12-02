@@ -70,7 +70,8 @@
         font-family: 'Roboto', sans-serif;
     }
 
-    #drop_zone,#drop_zone2 {
+    #drop_zone,
+    #drop_zone2 {
         color: black;
         border: 4px dashed black;
         padding: 20px;
@@ -83,7 +84,8 @@
         transition: all 400ms ease;
     }
 
-    #drop_zone.active,#drop_zone2.active {
+    #drop_zone.active,
+    #drop_zone2.active {
         box-shadow: 0px 8px 44px rgba(0, 0, 0, 0.5);
         border-color: green;
     }
@@ -107,6 +109,50 @@
         <div class="row gutters-sm">
             <div class="col-md-12">
                 <div class="card mb-3">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#alertModal">Send an
+                        alert</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+                        aria-labelledby="alertModalCenter" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Send an alert</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form action="/alert" method="POST">
+                                    <div class="modal-body">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="covid" value="covid">
+                                            <label class="form-check-label" for="covid">covid</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="wildfire" value="wildfire">
+                                            <label class="form-check-label" for="wildfire">wildfire</label>
+                                          </div>
+                                          
+                                        <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input type="text" id="title" name="title" class="form-control"
+                                                placeholder="Enter Alert Title" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alertBody">Enter Alert Detail</label>
+                                            <textarea name="body" class="form-control" id="alertBody" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send Alert</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
@@ -198,7 +244,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="county">Avatar</label>
-                                            <input type="file" id="avatar" name="avatar" class="form-control"/>
+                                            <input type="file" id="avatar" name="avatar" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="modal-footer">

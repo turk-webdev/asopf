@@ -1,4 +1,17 @@
 const Search = require('../models/search');
+const Users = require('../models/users');
+const nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'alexandre.area.epitech@gmail.com',
+        pass: 'Wioletta01**'
+    }
+});
+
 
 // TODO - We shouldn't be using the Search.whatever() method -- this is a big security risk
 //        We can create a separate model - that is fine, but this is ripe to be SQL injected
@@ -60,4 +73,26 @@ exports.addWildfireData = (req, res, next) => {
     Search.whatever(sql).then(([rows, fields]) => {
         res.send('done');
     }).catch(err => console.log(err));
+};
+
+
+exports.alert = (req, res, next) => {
+    let from = `ASOPF <i***@gmail.com>`
+    var {inlineRadioOptions, title, body} = req.body;
+    Users.selectEmail("users", "both", "email").then(([rows, fields]) => {
+        rows.forEach((item, index) => {
+            var mailOptions = {
+                from: from,
+                to: item.email,
+                subject: title,
+                text: body
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                }
+            });
+          })
+    }).catch(err => console.log(err));
+    res.redirect('/profile')
 };
