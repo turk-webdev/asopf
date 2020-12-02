@@ -51,7 +51,6 @@ module.exports = class Search {
         var sql = "SELECT * FROM ?? where date=(SELECT MAX(date) AS 'date' FROM ??) ORDER BY county_code;";
         return db.query(sql, [table, table]);
     }
-
     
     static whatever(sql) {
         return db.query(sql);
