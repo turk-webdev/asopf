@@ -10,6 +10,10 @@
         --speed: 1000ms;
     }
 
+    .container {
+        margin-top: 25%;
+    }
+
     html,
     body {
         padding: 0;
@@ -42,6 +46,10 @@
         width: 50%;
         height: 100%;
         overflow: hidden;
+    }
+
+    .text-center button {
+        width: 50%;
     }
 
     .split.left {
@@ -125,13 +133,44 @@
 
 <div class="split left">
     <div class="container">
-        Testing
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Wildfire</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="/wildfire">
+                    <button class="btn btn-primary">View Map</button>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="split right">
     <div class="container">
-        Testing
-    </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>COVID-19</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2 text-center">
+                <a href="/covid">
+                    <button class="btn btn-secondary">View Map</button>
+                </a>
+            </div>
+            <div class="col-md-12 mb-2 text-center">
+                <a href="/covid/<%= userCounty == null ? 'San Francisco' : userCounty %>">
+                    <button class="btn btn-secondary">View Data by County</button>
+                </a>
+            </div>
+            <div class="col-md-12 mb-2 text-center">
+                <a href="/covid-demo">
+                    <button class="btn btn-secondary">View Data by Demographics</button>
+                </a>
+            </div>
+        </div>
 </div>
 <script>
     $(document).ready(function(){
