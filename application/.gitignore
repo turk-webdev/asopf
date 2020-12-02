@@ -106,3 +106,6 @@ dist
 
 # MacOS FS Junk
 .DS_Store
+
+# Ignore package-lock.json
+package-lock.json

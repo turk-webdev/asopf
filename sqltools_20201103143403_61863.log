@@ -1,0 +1,24 @@
+20-11-10 12:24:07.3648790 pid:61863 tid:10 sqltools Critical: 0 : Exception in IntelliCode extension for Microsoft SQL Language Server: System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsFromTokens(Stopwatch watch, IEnumerable`1 tokens, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.CompletionExtension.HandleCompletionAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken token)
+20-11-10 12:24:08.5869860 pid:61863 tid:10 sqltools Critical: 0 : Exception in IntelliCode extension for Microsoft SQL Language Server: System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsFromTokens(Stopwatch watch, IEnumerable`1 tokens, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.CompletionExtension.HandleCompletionAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken token)
+20-11-10 12:24:09.3675790 pid:61863 tid:10 sqltools Critical: 0 : Exception in IntelliCode extension for Microsoft SQL Language Server: System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsFromTokens(Stopwatch watch, IEnumerable`1 tokens, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.CompletionExtension.HandleCompletionAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken token)
+20-11-10 12:25:22.7537190 pid:61863 tid:10 sqltools Critical: 0 : Exception in IntelliCode extension for Microsoft SQL Language Server: System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsFromTokens(Stopwatch watch, IEnumerable`1 tokens, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.CompletionExtension.HandleCompletionAsync(ConnectionInfo connInfo, ScriptDocumentInfo scriptDocumentInfo, CompletionItem[] completions, CancellationToken token)
+20-11-10 12:25:24.3421760 pid:61863 tid:10 sqltools Critical: 0 : Exception in IntelliCode extension for Microsoft SQL Language Server: System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendationsFromTokens(Stopwatch watch, IEnumerable`1 tokens, CompletionItem[] completions, CancellationToken cancellationToken)
+   at Microsoft.VisualStudio.IntelliCode.SQL.PythiaService.GetRecommendation

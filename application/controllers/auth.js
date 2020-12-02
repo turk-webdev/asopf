@@ -5,6 +5,7 @@ const Users = require('../models/users');
 // A single row of the table is passed to the devs object
 exports.getLogin = (req, res, next) => {
     res.render('login', {
+        layout: 'layout',
         logged: req.user ? "yes" : "no",
         pageTitle: 'ASOPF | Login',
         path: '/login',
@@ -14,14 +15,14 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
-    res.render('register',
-        {
-            logged: req.user ? "yes" : "no",
-            pageTitle: 'ASOPF | Register',
-            path: '/login',
-            userCounty: req.user ? req.user.county_code : null,
-            userAvatar: req.user ? req.user.avatar : null
-        });
+    res.render('register', {
+        layout: 'layout',
+        logged: req.user ? "yes" : "no",
+        pageTitle: 'ASOPF | Register',
+        path: '/login',
+        userCounty: req.user ? req.user.county_code : null,
+        userAvatar: req.user ? req.user.avatar : null
+    });
 };
 
 exports.postLogin = (req, res, next) => {
@@ -33,10 +34,10 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
-    var { fname, lname, email, password, password2, phone, county, notifications } = req.body;
+    const { name, email, password, password2 } = req.body;
     let errors = [];
-    if (!fname || !lname || !email || !password || !password2) {
-        errors.push({ msg: 'Please fill in all required fields' })
+    if (!name || !email || !password || !password2) {
+        errors.push({ msg: 'Please fill in all fields' })
     }
 
     //Check Password match
@@ -51,10 +52,10 @@ exports.postSignup = (req, res, next) => {
 
     if (errors.length > 0) {
         res.render('register', {
+            layout: 'layout',
             logged: req.user ? "yes" : "no",
             errors,
-            fname,
-            lname,
+            name,
             email,
             password,
             password2,
@@ -63,40 +64,40 @@ exports.postSignup = (req, res, next) => {
             userCounty: req.user ? req.user.county_code : null,
             userAvatar: req.user ? req.user.avatar : null
         });
-    }
-    else {
+    } else {
         //Check if email exists
         Users.existsUser('users', 'email', email)
-            .then(([rows, fields]) => {
-                if (rows[0].exists == 1) {
-                    errors.push({ msg: "Email already exists" })
-                    res.render('register', {
-                        logged: req.user ? "yes" : "no",
-                        errors,
-                        pageTitle: 'ASOPF | Login',
-                        fname,
-                        lname,
-                        email,
-                        password,
-                        password2,
-                        path: '/login',
-                        userCounty: req.user ? req.user.county_code : null,
-                        userAvatar: req.user ? req.user.avatar : null
-                    });
-                }
-            })
-            .catch(err => console.log(err));
-        Users.insertUser('users', fname, lname, email, password, notifications, "basic", phone, county)
-            .then(([rows, fields]) => {
-                res.render('login', {
+        .then(([rows, fields]) => {
+            if (rows[0].exists == 1) {
+                errors.push({ msg: "Email already exists" })
+                res.render('register', {
+                    layout: 'layout',
                     logged: req.user ? "yes" : "no",
+                    errors,
                     pageTitle: 'ASOPF | Login',
+                    name,
+                    email,
+                    password,
+                    password2,
                     path: '/login',
                     userCounty: req.user ? req.user.county_code : null,
                     userAvatar: req.user ? req.user.avatar : null
                 });
-            })
-            .catch(err => console.log(err));
+            }
+        })
+        .catch(err => console.log(err));
+        Users.insertUser('users', email, password, 'basic')
+        .then(([rows, fields]) => {
+            res.render('login', {
+                layout: 'layout',
+                logged: req.user ? "yes" : "no",
+                pageTitle: 'ASOPF | Login',
+                path: '/login',
+                userCounty: req.user ? req.user.county_code : null,
+                userAvatar: req.user ? req.user.avatar : null
+            });
+        })
+        .catch(err => console.log(err));
     }
 };
 
@@ -106,10 +107,10 @@ exports.postUpdate = (req, res, next) => {
     let userEmail = req.user.email;
 
     // Safety - if any of these fields are missing from the body, we use the user's existing record 
-    if (!fname) { fname = req.user.fname; }
+    if (!fname) { fname = req.user.fname; } 
     if (!lname) { lname = req.user.lname; }
     if (!email) { email = req.user.email; }
-    if (!phone) { phone = req.user.phone; }
+    if (!phone) { phone = req.user.phone; } 
     if (!county) { county = req.user.county; }
 
     // We have two separate handlers based on whether the user is updating their image or not
@@ -118,32 +119,32 @@ exports.postUpdate = (req, res, next) => {
         let filename = avatar.name;
 
         if (avatar.mimetype == "image/jpeg" ||
-            avatar.mimetype == "image/png" ||
+            avatar.mimetype == "image/png"||
             avatar.mimetype == "image/gif") {
-            avatar.mv('./public/img/upload/' + filename, (err) => {
-                if (err) {
-                    req.flash('ERROR', err);
-                }
-            });
+                avatar.mv('./public/img/upload/'+filename, (err) => {
+                    if (err) {
+                        req.flash('ERROR', err);
+                    }
+                });
         } else {
             req.flash('ERROR', 'You must upload an image file (jpg, gif, png) for your avatar.');
         }
 
         Users.updateUserWithImage('users', fname, lname, email, phone, county, filename, userEmail)
-            .then(([rows, fields]) => {
-                req.flash('info', 'Your profile has been updated');
-                res.redirect('/profile');
-            })
-            .catch(err => console.log(err));
+        .then(([rows, fields]) => {
+            req.flash('info', 'Your profile has been updated');
+            res.redirect('/profile');
+        })
+        .catch(err => console.log(err));
     } else {
         Users.updateUser('users', fname, lname, email, phone, county, userEmail)
-            .then(([rows, fields]) => {
-                req.flash('info', 'Your profile has been updated');
-                res.redirect('/profile');
-            })
-            .catch(err => console.log(err));
+        .then(([rows, fields]) => {
+            req.flash('info', 'Your profile has been updated');
+            res.redirect('/profile');
+        })
+        .catch(err => console.log(err));
     }
 
-
+    
 };
 
