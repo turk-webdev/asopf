@@ -5,19 +5,50 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "node test.js"
+    "css:lint": "stylelint --config build/config/.stylelintrc --syntax scss \"scss/**/*.scss\" --cache --cache-location \"build/config/.stylelintcache/\"",
+    "css:compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/main.scss public/css/main.css",
+    "css:prefix": "postcss --config build/config/postcss.config.js --replace \"public/css/*.css\" \"public/css/!*.min.css\"",
+    "css:minify": "cleancss --level 1 --source-map --source-map-inline-sources --output public/css/main.min.css public/css/main.css",
+    "css:watch": "watch 'npm run css:build' scss",
+    "css:build": "npm run css:lint && npm run css:compile && npm run css:prefix && npm run css:minify",
+    "app:watch": "nodemon --legacy-watch app.js",
+    "dev": "npm run css:watch & npm run app:watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
+    "cookie-parser": "^1.4.5",
+    "document-ready": "^2.0.2",
     "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
+    "express-fileupload": "^1.2.0",
+    "express-flash": "0.0.2",
     "express-session": "^1.17.0",
-    "mysql2": "^2.2.5"
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
+    "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.16",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "autoprefixer": "^10.0.2",
+    "clean-css-cli": "^4.3.0",
+    "node-sass": "^5.0.0",
+    "nodemon": "^2.0.6",
+    "postcss-cli": "^8.3.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-twbs-bootstrap": "^2.1.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
+    "watch": "^1.0.2"
   }
 }

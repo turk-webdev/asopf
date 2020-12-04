@@ -1,0 +1,492 @@
+<style>
+    ul {
+        padding-left: 2px;
+        margin-bottom: 0px;
+        list-style-type: none;
+    }
+
+    #viewDiv {
+        min-width: 600px;
+        min-height: 400px;
+        height: 95%;
+        margin: 20px;
+        border-radius: 5px;
+        padding: 1px;
+        border: 2px solid blue;
+
+    }
+
+    #infoDiv {
+        padding: 10px;
+        width: 275px;
+    }
+
+    #infoDivToggle {
+        padding: 10px;
+        width: 280px;
+    }
+
+    #legendDiv {
+        width: 260px;
+    }
+
+    @-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* loading icon arcgis map */
+    .visible {
+        display: block !important;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    table.dataTable thead tr {
+        background-color: orange;
+    }
+    .dataTables_wrapper, .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+        color: white;
+    }
+</style>
+
+
+<script>
+    // ARCGIS
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/Legend",
+        "esri/widgets/Slider",
+        "esri/widgets/Expand",
+        "esri/widgets/BasemapToggle",
+        "esri/widgets/BasemapGallery"
+    ], function (Map, MapView, FeatureLayer, Legend, Slider, Expand, BasemapToggle, BasemapGallery) {
+        // Variables qui vont contenir les données des parcelles et des antennes
+        var data = '<%- JSON.stringify(counties) %>';
+        var data_json = JSON.parse(data);
+
+        // Création de la map avec comme fond une imagerie satellite
+        var map = new Map({
+            basemap: "satellite"
+        });
+
+        var view = new MapView({
+            container: "viewDiv",
+            map: map,
+            center: [-120, 38],
+            zoom: 6,
+            popup: {
+                defaultPopupTemplateEnabled: true
+            }
+        });
+
+        // var parcelles = {
+        //     outFields: ["*"],
+        //     title: "{id}",
+        //     content: function (feature) {
+        //         var div = document.createElement("div");
+        //         div.className = "myClass";
+        //         div.innerHTML =
+        //             `<b>County name:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.name}</span><br>
+        //         <b>Daily cases:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.cases}</span><br>
+        //         <b>Daily deaths:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.death}</span><br><br>
+        //         <b>Total cases:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.total_cases}</span><br>
+        //         <b>Total deaths:</b> <span style="margin-left: 2em;">${feature.graphic.attributes.total_deaths}</span><br><br>
+        //         <button type="button" class="btn btn-info" onclick="location.href = '/covid/${feature.graphic.attributes.name}';">See More</button><br><br>
+        //         `
+        //         return div;
+        //     }
+        // }
+
+        const labelClass = {  // autocasts as new LabelClass()
+            symbol: {
+                type: "text",  // autocasts as new TextSymbol()
+                color: "white",
+                haloColor: "blue",
+                haloSize: 1,
+                font: {  // autocast as new Font()
+                    family: "Ubuntu Mono",
+                    size: 9,
+                    weight: "bold"
+                }
+            },
+            labelPlacement: "center-center",
+            labelExpressionInfo: {
+                expression: "$feature.name"
+            }
+        };
+
+        var parcels = new FeatureLayer({
+            source: data_json.features,
+            popupEnabled: false,
+            // popupTemplate: parcelles,
+            objectIdField: "countyfp",
+            fields: [{
+                name: "countyfp",
+                alias: "county_code",
+                type: "integer"
+            }, {
+                name: "name",
+                alias: "name",
+                type: "string"
+            }, {
+                name: "geo_point_2d",
+                alias: "geo_point_2d",
+                type: "geometry"
+            }, {
+                name: "total_cases",
+                alias: "total_cases",
+                type: "integer"
+            }, {
+                name: "total_deaths",
+                alias: "total_deaths",
+                type: "integer"
+            }, {
+                name: "cases",
+                alias: "cases",
+                type: "integer"
+            }, {
+                name: "death",
+                alias: "death",
+                type: "integer"
+            }
+            ],
+            outFields: ["*"],
+            spatialReference: 4326,
+            geometryType: "polygon",
+            renderer: {
+                type: "simple",
+                symbol: {
+                    type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                    color: "#FFD700",
+                    style: "none",
+                    outline: {
+                        width: 0.5,
+                        color: "#FFD700"
+                    }
+                }
+            },
+            labelingInfo: [labelClass]
+        });
+        map.add(parcels);
+        console.log(parcels);
+        const legend = new Legend({
+            view: view,
+            container: "legendDiv"
+        });
+
+        view.popup.dockOptions = {
+            buttonEnabled: false,
+            breakpoint: {
+                width: 600,
+                height: 1000
+            },
+            position: "bottom-left"
+        };
+
+
+        function changeCursor(response) {
+            if (response.results.length > 0) {
+                document.getElementById("viewDiv").style.cursor = "pointer";
+            } else {
+                document.getElementById("viewDiv").style.cursor = "default";
+            }
+        }
+
+        function getGraphics(response) {
+            view.graphics.removeAll();
+            if (response.results.length > 0) {
+                var graphic = response.results[0].graphic;
+                graphic.symbol = {
+                    type: "simple-fill",
+                    style: "none",
+                    outline: { // autocasts as new SimpleLineSymbol()
+                        color: "blue",
+                        width: 1
+                    }
+                }
+                view.graphics.add(graphic);
+            }
+        }
+
+        function showPopup(response) {
+            view.popup.close();
+            if (response.results.length > 0) {
+                view.popup.open({
+                    title: 'State: ' + response.results[0].graphic.attributes.name,
+                    content: 'Total Cases: ' + response.results[0].graphic.attributes.total_cases + '<br>' +
+                        'Total Deaths: ' + response.results[0].graphic.attributes.total_deaths + '<br>' +
+                        'Daily Cases: ' + response.results[0].graphic.attributes.cases + '<br>' +
+                        'Daily Deaths: ' + response.results[0].graphic.attributes.total_deaths + '<br>',
+                    // location: response.results[0].graphic.geometry.centroid
+                });
+            }
+        }
+
+        view.when(function () {
+            view.whenLayerView(parcels).then(function (lview) {
+                view.on("pointer-move", function (evt) {
+                    var screenPoint = {
+                        x: evt.x,
+                        y: evt.y
+                    };
+                    view.hitTest(screenPoint)
+                        .then(function (response) {
+                            changeCursor(response);
+                            getGraphics(response);
+                            showPopup(response);
+                        });
+                });
+            });
+        });
+
+
+        const basemapDivToggle = document.getElementById("basemapDivToggle");
+        view.ui.add(
+            new Expand({
+                view: view,
+                content: basemapDivToggle,
+                expandIconClass: "esri-icon-basemap",
+                expanded: false
+            }),
+            "top-right"
+        );
+
+        // Outil de fonds de carte 
+        var basemapGallery = new BasemapGallery({
+            view: view,
+            container: document.getElementById("basemapDiv"),
+            source: {
+                portal: {
+                    url: "https://www.arcgis.com",
+                    useVectorBasemaps: true // Load vector tile basemaps
+                }
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="/js/viewToggle.js"></script>
+
+<% if (!countyInit) { %>
+<div class="container-fluid">
+    <div class="row">
+        <div id="map-container" class="col-md-12">
+            <div id="viewDiv"></div>
+            <div id="basemapDivToggle" class="esri-widget">
+                <div id="basemapDiv"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } else { %>
+<div class="container-fluid">
+    <div class="row mb-1">
+        <div class="col-md-3 col-sm-3"></div>
+        <div class="col-md-6 col-sm-6">
+            <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#advanced-filter"
+                style="width:100%"><b>Advanced Filter</b></button>
+            <div id="advanced-filter" class="card collapse">
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="row" id="search-types">
+                            <div class="col-md-12 col-sm-12">
+                                <h3>Choose a report type</h3>
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType1"
+                                            value="0" onclick="toggleReportType(this.value)" checked>
+                                        <label class="form-check-label" for="searchType1">
+                                            14-day Report
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType2"
+                                            value="1" onclick="toggleReportType(this.value)">
+                                        <label class="form-check-label" for="searchType2">
+                                            30-day Report
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="search_type" id="searchType3"
+                                            value="2" onclick="toggleReportType(this.value)">
+                                        <label class="form-check-label" for="searchType3">
+                                            Custom Report
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pl-3 pr-3" id="custom-report" style="display:none;">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="start-date">Start Date</label>
+                                    <input type="date" id="start-date" name="start_date" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <label for="end-date">End Date</label>
+                                    <input type="date" id="end-date" name="end_date" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <button id="submit-btn" type="submit" class="mt-4 btn btn-primary" style="width:100%">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="view-buttons">
+            <div class="row">
+                <div class="col-md-4 col-sm-4"><button id="both" class="btn btn-primary" onclick="viewToggle(this)"><i
+                            class="fa fa-columns"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="table" class="btn btn-secondary"
+                        onclick="viewToggle(this)"><i class="fa fa-table"></i></button></div>
+                <div class="col-md-4 col-sm-4"><button id="map" class="btn btn-secondary" onclick="viewToggle(this)"><i
+                            class="fa fa-map"></i></button></div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div id="map-container" class="col-md-6">
+            <div id="viewDiv"></div>
+            <div id="basemapDivToggle" class="esri-widget">
+                <div id="basemapDiv"></div>
+            </div>
+        </div>
+        <div id="table-container" class="col-md-6">
+            <% if (countyInit) { %>
+            <h1>Data for <%= county %> County</h1>
+            <table id="covidTable" class="table table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">New Cases</th>
+                        <th scope="col">New Deaths</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">Total Deaths</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    <% if (dataTable != undefined && dataTable.length > 0) { %>
+                    <% for (let i=0; i<dataTable.length; i++) { %>
+                    <tr>
+                        <td><%= dataTable[i].cases %></td>
+                        <td><%= dataTable[i].death %></td>
+                        <td><%= dataTable[i].total_cases %></td>
+                        <td><%= dataTable[i].total_deaths %></td>
+                        <td><%= dataTable[i].date.toString().substring(0,15) %></td>
+                    </tr>
+                    <% } %>
+                    <% } else { %>
+                    <td colspan="5"><b>No data found.</b></td>
+                    <% } %>
+                </tbody>
+            </table>
+            <% } %>
+        </div>
+    </div>
+</div>
+<% } %>
+
+<script>
+    $(document).ready(function () {
+        $('#covidTable').DataTable({
+            "autoWidth": false
+        });
+    });
+</script>
+<script type="text/javascript" src="/js/covidSearch.js"></script>

@@ -1,0 +1,93 @@
+<div class="container">
+    <h1><%= pageTitle %></h1>
+
+    <!-- First level card -->
+    <div id="adv-search" class="text-center pt-5">
+        <div class="card mx-auto" style="width: 48rem;">
+            <div class="card-header">
+                Advanced Search
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="inputCounty" class="col-sm-2 col-form-label">County</label>
+                        <div class="col-sm-10 autocomplete">
+                            <input type="text" class="form-control" id="inputCounty" placeholder="County">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="inputDate" placeholder="Date">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputNewCases" class="col-sm-2 col-form-label">New Cases</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputCases">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputNewDeaths" class="col-sm-2 col-form-label">New Deaths</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputDeaths">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 offset-sm-1">
+                            <button type="submit" class="btn btn-info" id="searchDb">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="text-center pt-2">
+        <button class="btn btn-primary" id="adv-search-toggle" onclick="toggleAdvSearch();">Hide Advanced Search</button>
+    </div>
+
+    <!-- Second card -->
+    <div class="text-center pt-5" id="second-card" hidden>
+        <div class="card mx-auto" style="width: 48rem;">
+            <div class="card-header">
+                Data Results
+            </div>
+            <div class="card-body">
+                <form>
+                
+                    <table class="table table-bordered table-striped" id="covid-data-table">
+                        <thead>
+                        <tr>
+                            <th>County</th>
+                            <th>New Cases</th>
+                            <th>New Deaths</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable">
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>moreData</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable">
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript" src="/js/data.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/autocomplete.css">
+    <!-- <script>
+        (function() {
+            var table = document.getElementById('covid-data-table');
+            table.DataTable();
+        })();
+    </script> -->
+</div>

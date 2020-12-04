@@ -1,21 +1,107 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #5B7F95;">
-    <a class="navbar-brand" href="/">ASOPF</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-                <a class="nav-link <%= path === '/add-data' ? 'active' : '' %>" href="/add-data">Data</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about-us/">About Us</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item ">
-                <a class="nav-link" href="/">Some Stuff</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="/">Login or Register</a>
-            </li>
-        </ul>
+<link rel="stylesheet" type="text/css" href="/css/navsearch.css">
+<link rel="stylesheet" type="text/css" href="/css/autocomplete.css">
+<script src="/js/navSearch.js" type="text/javascript"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #5B7F95; z-index:1;">
+    <div class="container-fluid">
+        <div class="col-2">
+            <a class="navbar-brand pb-2" href="/"><img id="logo" style="width: 50%;" src="/img/asopf_name_logo.png"></a>
+        </div>
+        <div class="col-md-6 col-xs-4">
+            <div class="autocomplete">
+                <input id="search-bar" placeholder="County name" value="<%= userCounty !== null ? userCounty : 'San Francisco' %>">
+                <button type="submit" id="search-button1" onclick="submit('covid')"><i class="fas fa-disease"></i></button>
+                <button type="submit" id="search-button2" onclick="submit('wildfire')"><i class="fas fa-fire"></i></button>
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav align-self-end" id="nav">
+                <li class="nav-item">
+                    <a class="nav-link <%= path === '/about' ? 'active' : '' %>" href="/about-us/">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= path === '/about' ? 'active' : '' %>"
+                        href="<%= logged == 'no' ? '/login/' : '/logout/' %>"><%- logged == "no" ? 'Login or Register' : 'Logout'%></a>
+                </li>
+                <% if (logged != 'no') { %>
+                    <li class="nav-item">
+                        <a href="/dash">
+                        <img id="user-navatar" class="rounded-circle" src="/img/upload/<%= userAvatar != null ? userAvatar : 'avatar-square.png' %>"/>
+                        </a>
+                    </li>
+                <% } %>
+                <li class="nav-item dropdown d-none">
+                    <a class="nav-link dropdown-toggl" href="#" id="navbarDropdownMenu" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right bg-info" aria-labelledby="navbarDropdownMenu">
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
+<script>
+    autocomplete(document.getElementById("search-bar"));
+    var data = '<%- JSON.stringify(logged) %>';
+    console.log(data);
+    var autocollapse = function (menu, maxHeight) {
+
+        var nav = $(menu);
+        var navHeight = nav.innerHeight();
+        if (navHeight >= maxHeight) {
+
+            $(menu + ' .dropdown').removeClass('d-none');
+            $(".navbar-nav").removeClass('w-auto').addClass("w-100");
+
+            while (navHeight > maxHeight) {
+                //  add child to dropdown
+                var children = nav.children(menu + ' li:not(:last-child)');
+                var count = children.length;
+                $(children[count - 1]).prependTo(menu + ' .dropdown-menu');
+                navHeight = nav.innerHeight();
+            }
+            $(".navbar-nav").addClass("w-auto").removeClass('w-100');
+
+        }
+        else {
+
+            var collapsed = $(menu + ' .dropdown-menu').children(menu + ' li');
+
+            if (collapsed.length === 0) {
+                $(menu + ' .dropdown').addClass('d-none');
+            }
+
+            while (navHeight < maxHeight && (nav.children(menu + ' li').length > 0) && collapsed.length > 0) {
+                //  remove child from dropdown
+                collapsed = $(menu + ' .dropdown-menu').children('li');
+                $(collapsed[0]).insertBefore(nav.children(menu + ' li:last-child'));
+                navHeight = nav.innerHeight();
+            }
+
+            if (navHeight > maxHeight) {
+                autocollapse(menu, maxHeight);
+            }
+
+        }
+    };
+
+
+    $(document).ready(function () {
+
+        // when the page loads
+        autocollapse('#nav', 50);
+
+        // when the window is resized
+        $(window).on('resize', function () {
+            autocollapse('#nav', 50);
+        });
+
+    });
+
+</script>

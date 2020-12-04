@@ -1,0 +1,542 @@
+<style>
+    #display-avatar {
+        max-height: 75px;
+    }
+    
+    .main-body {
+        padding: 15px;
+        padding-top: 5%;
+    }
+
+    .card {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+    .gutters-sm>.col,
+    .gutters-sm>[class*=col-] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .mb-3,
+    .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow-none {
+        box-shadow: none !important;
+    }
+
+    .my-custom-scrollbar {
+        position: relative;
+        height: 200px;
+        overflow: auto;
+    }
+
+    .table-wrapper-scroll-y {
+        display: block;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    #drop_zone,
+    #drop_zone2 {
+        color: black;
+        border: 4px dashed black;
+        padding: 20px;
+        width: 90%;
+        height: 90%;
+        text-align: center;
+        margin: 0 auto;
+        background: rgb(233, 233, 233);
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.25);
+        transition: all 400ms ease;
+    }
+
+    #drop_zone.active,
+    #drop_zone2.active {
+        box-shadow: 0px 8px 44px rgba(0, 0, 0, 0.5);
+        border-color: green;
+    }
+
+    .center {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+<% if(messages.info) { %>
+<div class="alert alert-warning alert-dismissible fade show col-md-3 m-auto" role="alert">
+    <%= messages.info %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<% } %>
+<div class="container" id="profile-display">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#alertModal">Send an
+                        alert</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog"
+                        aria-labelledby="alertModalCenter" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Send an alert</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form action="/alert" method="POST">
+                                    <div class="modal-body">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="covidS" value="covidS">
+                                            <label class="form-check-label" for="covidS">covid</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="wildfireS" value="wildfireS">
+                                            <label class="form-check-label" for="wildfireS">wildfire</label>
+                                          </div>
+                                          
+                                        <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input type="text" id="title" name="title" class="form-control"
+                                                placeholder="Enter Alert Title" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alertBody">Enter Alert Detail</label>
+                                            <textarea name="body" class="form-control" id="alertBody" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send Alert</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">First Name</h6>
+                            </div>
+                            <div id="first_name" class="col-sm-9 text-secondary">?</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Last Name</h6>
+                            </div>
+                            <div id="last_name" class="col-sm-9 text-secondary"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div id="display_email" class="col-sm-9 text-secondary"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div id="display_phone" class="col-sm-9 text-secondary"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">County</h6>
+                            </div>
+                            <div id="display_county" class="col-sm-9 text-secondary"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Avatar</h6>
+                            </div>
+                            <div id="display_avatar" class="col-sm-9 text-secondary">
+                                <% if (user.avatar) { %>
+                                <img class="img-thumbnail" src="/img/upload/<%= user.avatar %>">
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-info" data-toggle="modal"
+                        data-target="#exampleModalCenter">Update my
+                        profile</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Update Profile</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form action="/update" method="POST" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="fname">First Name</label>
+                                            <input type="text" id="fname" name="fname" class="form-control"
+                                                placeholder="Enter First Name" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lname">Last Name</label>
+                                            <input type="text" id="lname" name="lname" class="form-control"
+                                                placeholder="Enter Last Name" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" name="email" class="form-control"
+                                                placeholder="Enter Email" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" id="phone" name="phone" class="form-control"
+                                                placeholder="Enter Phone Number" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="county">County</label>
+                                            <input type="text" id="county" name="county" class="form-control"
+                                                placeholder="Enter county" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="county">Avatar</label>
+                                            <input type="file" id="avatar" name="avatar" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+            
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutters-sm">
+                    <div class="col-sm-6 mb-3">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <div id="father_codiv" class="table-responsive text-nowrap">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#covid">Add New
+                            Data</button>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <div id="father_wildfire" class="table-responsive text-nowrap">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#wildfire">Add New
+                            Data</button>
+                    </div>
+                </div>
+                <div class="modal fade" id="covid" tabindex="-1" role="dialog" aria-labelledby="covid"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Covid Data</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div id="drop_zone">Drag and Drop the JSON file here</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="wildfire" tabindex="-1" role="dialog" aria-labelledby="wildfire"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Wildfire Data</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="drop_zone2">Drag and Drop the JSON file here</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var data = '<%- JSON.stringify(user) %>';
+    var data_json = JSON.parse(data);
+    // console.log(data_json);
+
+    // Display page fields
+    document.getElementById('first_name').innerText = data_json.fname ? data_json.fname : 'Not Set';
+    document.getElementById('last_name').innerHTML = data_json.lname ? data_json.lname : 'Not Set';
+    document.getElementById('display_email').innerHTML = data_json.email ? data_json.email : 'Not Set';
+    document.getElementById('display_phone').innerHTML = data_json.phone ? data_json.phone : 'Not Set';
+    document.getElementById('display_county').innerHTML = data_json.county_code ? data_json.county_code : 'Not Set';
+    // TODO - display avatar
+    // document.getElementById('display_avatar')
+
+    // Update profile fields
+    document.getElementById('fname').value = data_json.fname ? data_json.fname : null;
+    document.getElementById('lname').value = data_json.lname ? data_json.lname : null;
+    document.getElementById('email').value = data_json.email ? data_json.email : null;
+    document.getElementById('phone').value = data_json.phone ? data_json.phone : null;
+    document.getElementById('county').value = data_json.county_code ? data_json.county_code : null;
+    document.getElementById('avatar').value = data_json.avatar ? data_json.avatar.name : null;
+</script>
+
+
+<script>
+    var request = new XMLHttpRequest()
+
+    request.open('GET', '/profile/getCovid/', true)
+    request.onload = function () {
+        var data = JSON.parse(this.response);
+
+        if (request.status >= 200 && request.status < 400) {
+            console.log(data);
+            var col = [];
+            for (var i = 0; i < data.length; i++) {
+                for (var key in data[i]) {
+                    if (col.indexOf(key) === -1) {
+                        col.push(key);
+                    }
+                }
+            }
+
+            // CREATE DYNAMIC TABLE.
+            var table = document.createElement("table");
+            table.classList.add("table");
+            table.classList.add("table-striped");
+            var tr = table.insertRow(-1);
+
+            for (var i = 0; i < col.length; i++) {
+                var th = document.createElement("th");
+                th.innerHTML = col[i];
+                tr.appendChild(th);
+            }
+            for (var i = 0; i < data.length; i++) {
+
+                tr = table.insertRow(-1);
+
+                for (var j = 0; j < col.length; j++) {
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = data[i][col[j]];
+                }
+            }
+            var divContainer = document.getElementById("father_codiv");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+
+        } else {
+            console.log('error')
+        }
+    }
+
+    request.send()
+</script>
+
+<script>
+    var request2 = new XMLHttpRequest()
+
+    request2.open('GET', '/profile/getWildfire/', true)
+    request2.onload = function () {
+        var data = JSON.parse(this.response);
+        if (request2.status >= 200 && request2.status < 400) {
+            console.log(data);
+            var col = [];
+            for (var i = 0; i < data.length; i++) {
+                for (var key in data[i]) {
+                    if (col.indexOf(key) === -1) {
+                        col.push(key);
+                    }
+                }
+            }
+            var table = document.createElement("table");
+            table.classList.add("table");
+            table.classList.add("table-striped");
+            var tr = table.insertRow(-1);
+            for (var i = 0; i < col.length; i++) {
+                var th = document.createElement("th");
+                th.innerHTML = col[i];
+                tr.appendChild(th);
+            }
+            for (var i = 0; i < data.length; i++) {
+                tr = table.insertRow(-1);
+                for (var j = 0; j < col.length; j++) {
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = data[i][col[j]];
+                }
+            }
+            var divContainer = document.getElementById("father_wildfire");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+        } else {
+            console.log('error')
+        }
+    }
+    request2.send()
+</script>
+
+
+
+<script>
+
+    function handleFileSelect(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        var files = e.dataTransfer.files;
+
+        //======------====== FILE READING ======------======//
+        var reader = new FileReader();
+        reader.onerror = function (e) { };
+        reader.onprogress = function (e) { }
+        reader.onabort = function (e) { };
+        reader.onloadstart = function (e) { };
+        reader.onload = function (e) {
+            document.querySelector("#drop_zone").classList.remove("active");
+            var json = e.target.result; // INPUT IS JSON TEXT FILE
+            var edited_rows = [];
+            json = JSON.parse(json);
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", '/profile/addCovidData/');
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.onload = function () {
+                console.log(this.response);
+                document.location.reload();
+            }
+            xmlhttp.send(JSON.stringify(json));
+
+        }
+        reader.readAsText(files[0]);
+
+    };
+
+    function handleFileSelect2(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        var files = e.dataTransfer.files;
+
+        //======------====== FILE READING ======------======//
+        var reader = new FileReader();
+        reader.onerror = function (e) { };
+        reader.onprogress = function (e) { }
+        reader.onabort = function (e) { };
+        reader.onloadstart = function (e) { };
+        reader.onload = function (e) {
+            document.querySelector("#drop_zone2").classList.remove("active");
+            var json = e.target.result; // INPUT IS JSON TEXT FILE
+            var edited_rows = [];
+            json = JSON.parse(json);
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", '/profile/addWildfireData/');
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.onload = function () {
+                console.log(this.response);
+                document.location.reload();
+            }
+            xmlhttp.send(JSON.stringify(json));
+
+        }
+        reader.readAsText(files[0]);
+
+    };
+
+    function handleDragOver(e) {
+        document.querySelector("#drop_zone").classList.add("active");
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+    }
+
+    function handleDragOver2(e) {
+        document.querySelector("#drop_zone2").classList.add("active");
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+    }
+
+    var dropZone = document.getElementById('drop_zone');
+    dropZone.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileSelect, false);
+    dropZone.addEventListener('dragleave', function () {
+        document.querySelector("#drop_zone").classList.remove("active");
+    }, false);
+
+    var dropZone2 = document.getElementById('drop_zone2');
+    dropZone2.addEventListener('dragover', handleDragOver2, false);
+    dropZone2.addEventListener('drop', handleFileSelect2, false);
+    dropZone2.addEventListener('dragleave', function () {
+        document.querySelector("#drop_zone2").classList.remove("active");
+    }, false);
+
+
+</script>

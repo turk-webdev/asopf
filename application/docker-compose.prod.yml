@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+    asopf-app:
+        build:
+            context: .
+        image: asopf    # the image created from the dockerfile 
+        container_name: asopf-app
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MYSQL_USERNAME=${MYSQL_USERNAME}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
+            - MYSQL_PORT=${MYSQL_PORT}
+            - MYSQL_DATABASE=${MYSQL_DATABASE} 
+        volumes:
+            - .:/application
+            - node_modules:/application/node_modules
+        networks:
+            - frontend
+            - backend
+        # can also use command: npm run dev
+        command: /application/wait-for-it.sh mysql-db:3306 -- npm start
+    
+    mysql-db:
+        image: mysql:8
+        build:
+            context: ./db
+            dockerfile: Dockerfile
+        container_name: mysql-db
+        restart: on-failure
+        env_file: 
+            - ./.env
+        environment:    # environment variables are defined in .env, look at .env.example for reference
+            MYSQL_DATABASE: "${MYSQL_DATABASE}"
+            MYSQL_HOSTNAME: "${MYSQL_HOSTNAME}"
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+            MYSQL_USER: "${MYSQL_USERNAME}"
+        expose:
+            - 3306  # port that other containers will use to talk to mysql
+        ports:
+            - "${HOST_PORT}:3306"     # expose mysql port to host machine so mysql workbench can connect
+        volumes:
+            - mysql:/var/lib/mysql  # shared volume using a directory on the local machine
+            - ./db/db-dump:/docker-entrypoint-initdb.d    # folder for sql imports
+        networks:
+            - backend
+
+    nginx:
+        image: nginx:mainline
+        container_name: nginx
+        build:
+            dockerfile: Dockerfile
+            context: ./nginx
+        restart: always
+        ports:
+            - "${APP_PORT}:80"     # map localhost port to nginx port 80 of the internal network
+        volumes:
+            - ./nginx/configs:/etc/nginx/conf.d
+        depends_on:
+            - asopf-app
+        links:
+            - asopf-app
+        networks:
+            - frontend
+volumes:    # define that there are configurations with custom namings
+    mysql:
+    node_modules: 
+networks:
+    frontend:
+        driver: bridge
+    backend:
+        driver: bridge

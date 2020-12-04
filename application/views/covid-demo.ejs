@@ -1,0 +1,175 @@
+<style>
+    table.dataTable thead tr {
+        background-color: orange;
+    }
+
+    .dataTables_wrapper, .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+        color: white;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row pl-5">
+        <h2>COVID Demographic Data for California</h2>
+    </div>
+    <div class="row">
+        <!-- Advanced filter goes here -->
+        <div class="col-md-4"></div>
+        <div class="card bg-light col-md-4">
+            <h3 class="card-header">Advanced Filters</h3>
+            <div class="card-body" style="color:#000;">
+                <form id="covid-demo-filter" method="POST" action="/covid-demo">
+                    <div class="form-group">
+                        <label for="demo">Demographic Type</label>
+                        <% include partials/covid-demo-dropdown.ejs %>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="date_range" id="date-range1" value="0"
+                                checked onclick="document.getElementById('choose-date-range').hidden = true;">
+                            <label class="form-check-label" for="all">
+                                All Data
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="date_range" id="date-range2" value="1"
+                                onclick="document.getElementById('choose-date-range').hidden = true;">
+                            <label class="form-check-label" for="date-range2">
+                                Latest Data
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="date_range" id="date-range3" value="2"
+                                onclick="document.getElementById('choose-date-range').hidden = false;">
+                            <label class="form-check-label" for="date-range3">
+                                Specific Range
+                            </label>
+                        </div>
+                        <div class="row" id="choose-date-range" hidden>
+                            <div class="col-md-6">
+                                <label for="start-date">Start Date</label>
+                                <input class="form-control" type="date" id="start-date" name="start_date">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="end-date">End Date</label>
+                                <input class="form-control" type="date" id="end-date" name="end_date">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <% if (type === 'age') { %>
+    <table class="table table-dark" id="age-data">
+        <thead>
+            <th>Age Group</th>
+            <th>Case Percent</th>
+            <th>Death Percent</th>
+            <th>CA Percent</th>
+            <th>Deaths</th>
+            <th>Total Positive</th>
+            <th>Date</th>
+        </thead>
+        <tbody>
+            <% if (data.length < 1) { %>
+            <tr>
+                <td colspan="7">Our records do not have any data for the specified parameter(s).</td>
+            </tr>
+            <% } else { %>
+            <% for (let i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%= data[i].age_group %></td>
+                <td><%= data[i].case_percent %>%</td>
+                <td><%= data[i].death_percent %>%</td>
+                <td><%= data[i].ca_percent %>%</td>
+                <td><%= data[i].deaths %></td>
+                <td><%= data[i].totalpositive %></td>
+                <td><%= data[i].date.toString().substring(0,15) %></td>
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+    <% } else if (type === 'sex') { %>
+    <table class="table table-light" width="100%" id="sex-data">
+        <thead>
+            <th>Sex</th>
+            <th>Case Percent</th>
+            <th>Death Percent</th>
+            <th>CA Percent</th>
+            <th>Deaths</th>
+            <th>Total Positive</th>
+            <th>Date</th>
+        </thead>
+        <tbody>
+            <% if (data.length < 1) { %>
+            <tr>
+                <td colspan="7">Our records do not have any data for the specified parameter(s).</td>
+            </tr>
+            <% } else { %>
+            <% for (let i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%= data[i].sex %></td>
+                <td><%= data[i].case_percent %>%</td>
+                <td><%= data[i].deaths_percent %>%</td>
+                <td><%= data[i].ca_percent %>%</td>
+                <td><%= data[i].deaths %></td>
+                <td><%= data[i].totalpositive %></td>
+                <td><%= data[i].date.toString().substring(0,15) %></td>
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+    <% } else if (type === 'ethnicity') { %>
+    <table class="table" id="ethnic-data">
+        <thead>
+            <th>Ethnicity</th>
+            <th>Case Percent</th>
+            <th>Death Percent</th>
+            <th>CA Percent</th>
+            <th>Deaths</th>
+            <th>Date</th>
+        </thead>
+        <tbody>
+            <% if (data.length < 1) { %>
+            <tr>
+                <td colspan="7">Our records do not have any data for the specified parameter(s).</td>
+            </tr>
+            <% } else { %>
+            <% for (let i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%= data[i].ethnicity %></td>
+                <td><%= data[i].case_percent %>%</td>
+                <td><%= data[i].death_percent %>%</td>
+                <td><%= data[i].ca_percent %>%</td>
+                <td><%= data[i].deaths %></td>
+                <td><%= data[i].date.toString().substring(0,15) %></td>
+            </tr>
+            <% } %>
+            <% } %>
+        </tbody>
+    </table>
+    <% }%>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#sex-data').DataTable({
+            "autoWidth": false
+        });
+    });
+    $(document).ready(function () {
+        $('#ethnic-data').DataTable({
+            "autoWidth": false
+        });
+    });
+    $(document).ready(function () {
+        $('#age-data').DataTable({
+            "autoWidth": false
+        });
+    });
+</script>
