@@ -16,7 +16,8 @@ Make sure to also use the following command to kill any lingering processes
 
 ## My Contributions
 
--Layout & functionality for all of the COVID data view & search tables
--Layout & functionality of the user's dashboard
--Working search bar in nav menu
--Managing team in the role of team lead to ensure all groups (front & back end teams) coordinated & working well
+* Layout & functionality for all of the COVID data view & search tables
+* Layout & functionality of the user's dashboard
+* Working search bar in nav menu
+* Creating dynamic view adjustment for COVID data + map view
+* Managing team in the role of team lead to ensure all groups (front & back end teams) coordinated & working well
